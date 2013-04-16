@@ -2,3 +2,4 @@
 
 mkdir -p /etc/circus
 cp utils/circus.ini /etc/circus/circus.ini
+cp utils/circus.conf /etc/init
