@@ -1,0 +1,8 @@
+#!/bin/sh -el
+
+APP_DIR=/home/application
+CURRENT_DIR=${APP_DIR}/current
+
+if [ -f ${CURRENT_DIR}/requirements.apt ]; then
+    sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y
+fi
