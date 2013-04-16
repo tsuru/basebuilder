@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh -el
 
 if [[ -z $1 ]]; then
     echo "Public key argument is missing."
