@@ -1,3 +1,8 @@
 #!/bin/sh -el
 
+# do not remove, circus is needed to manage application processes
+# and its environment variables
+pip install git+http://github.com/mozilla-services/circus.git
+pip install tsuru-circus
+
 # write your platform specific installation stuff here
