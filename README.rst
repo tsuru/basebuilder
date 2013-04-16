@@ -20,7 +20,7 @@ Hooks explained
 This image has two implemented scripts:
 
  - add_key
- - base_requirements
+ - so_dependencies
 
 And another two placeholders for your use:
 
@@ -30,7 +30,7 @@ And another two placeholders for your use:
 
 The `add_key` hook receives the ssh public key of the machine and user that is
 running tsuru. This is for allowing tsuru to run commands in the containers (via `tsuru run`).
-The `base_requirements` script is for installing OS requirements, this is not
+The `so_dependencies` script is for installing OS requirements, this is not
 platform dependent, then it serves for any kind of application.
 
 The placeholders are just empty files that you'll have to implement in order
