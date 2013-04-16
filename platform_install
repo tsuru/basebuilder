@@ -2,7 +2,8 @@
 
 # do not remove, circus is needed to manage application processes
 # and its environment variables
-apt-get install python-pip
+apt-get update
+apt-get install git python-pip libzmq-dev g++ python-dev wget -y
 pip install git+http://github.com/mozilla-services/circus.git
 pip install tsuru-circus
 
