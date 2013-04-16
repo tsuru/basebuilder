@@ -1,9 +1,4 @@
 #!/bin/sh -el
 
-# circus configuration, do not remove.
-image_path=/var/lib/tsuru
-circus_ini=${image_path}/utils/circus.ini # is there another way to access this file?
 mkdir -p /etc/circus
-cp ${circus_ini} /etc/circus/circus.ini
-
-# write your platform specific setup stuff here
+cp utils/circus.ini /etc/circus/circus.ini
