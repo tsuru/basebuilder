@@ -8,7 +8,7 @@ Why this image?
 
 Tsuru will need to perform some actions in the containers created by docker.
 This image have a built-in delpoyment script, which will also run the
-requirements.apt file (so_requirements file). So if you want to build your own
+requirements.apt file (`so_requirements` file). So if you want to build your own
 platform base image you would have to provide this by yourself. This is one of
 the matters this repository aims to solve.
 
@@ -26,9 +26,9 @@ This image has two implemented scripts:
  - so_dependencies
 
 The `deploy` hook receives the application git read-only url. It will clone
-the repository into the $CURRENT_DIR environment defined in the config file.
+the repository into the `$CURRENT_DIR` environment defined in the config file.
 If this directory already exists, the script will simply run a `git pull`
-inside $CURRENT_DIR. This script will also call the `so_dependencies` function,
+inside `$CURRENT_DIR`. This script will also call the `so_dependencies` function,
 defined in the `so_dependencies` file.
 The `so_dependencies` script is for installing OS requirements, this is not
 platform dependent, then it serves for any kind of application.
