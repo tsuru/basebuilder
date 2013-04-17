@@ -16,8 +16,10 @@ function deploy() {
     fi
 }
 
-source config
-source so_dependencies
+SOURCE_DIR=/var/lib/tsuru
+
+source ${SOURCE_DIR}/config
+source ${SOURCE_DIR}/so_dependencies
 deploy $1
 so_dependencies
 # if there are any other dependences hooks, call them here
