@@ -1,0 +1,23 @@
+#!/bin/bash -el
+
+if [[ -z $1 ]]; then
+    echo "Missing application repository url."
+    echo "Exitting..."
+    exit 1
+fi
+
+function deploy() {
+    if [ -d $CURRENT_DIR ]; then
+        cd $CURRENT_DIR
+        git pull
+        cd -
+    else
+        git clone $1 $CURRENT_DIR
+    fi
+}
+
+source config
+source so_dependencies
+deploy $1
+so_dependencies
+# if there are any other dependences hooks, call them here
