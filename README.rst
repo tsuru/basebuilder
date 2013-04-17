@@ -1,46 +1,46 @@
-This repository serve as a starter to build platform specific images for tsuru docker provision.
+This repository has the scripts used to build tsuru's base docker image.
+Keep reading for better understanding what that image does and how to create
+your own image for tsuru to use.
+
 
 Why this image?
 ---------------
 
-Tsuru will need to perform some actions in the containers created using docker.
-For that, it will need ssh access in the created containers. So if you want to build
-your own platform base image you would have to provide this by yourself. This is one
-of the matters this repository aims to solve.
+Tsuru will need to perform some actions in the containers created by docker.
+This image have a built-in delpoyment script, which will also run the
+requirements.apt file (so_requirements file). So if you want to build your own
+platform base image you would have to provide this by yourself. This is one of
+the matters this repository aims to solve.
 
-In order to create a base image for a platform (let's say you wanna add support for php, for instance)
-you just clone this repository and implement the platform specific installations and
-configurations on the placeholders. You won't have to reimplement tsuru specific stuff.
+In order to create a base image for a platform (let's say you wanna add
+support for php, for instance) you'll use tsuru's base image as your base
+image, this will give you the hooks tsuru will need to work properly.
 
 
 Hooks explained
 ---------------
 
-
 This image has two implemented scripts:
 
- - add_key
+ - deploy
  - so_dependencies
 
-And another two placeholders for your use:
-
- - platform_install
- - platform_setup
-
-
-The `add_key` hook receives the ssh public key of the machine and user that is
-running tsuru. This is for allowing tsuru to run commands in the containers (via `tsuru run`).
+The `deploy` hook receives the application git read-only url. It will clone
+the repository into the $CURRENT_DIR environment defined in the config file.
+If this directory already exists, the script will simply run a `git pull`
+inside $CURRENT_DIR. This script will also call the `so_dependencies` function,
+defined in the `so_dependencies` file.
 The `so_dependencies` script is for installing OS requirements, this is not
 platform dependent, then it serves for any kind of application.
 
-The placeholders are just empty files that you'll have to implement in order
-to create a platform specific image.
+Making your own docker image
+----------------------------
 
-
-Extra hooks
------------
-
-You might be wondering what happens if you add extra hooks on your platform image.
-Tsuru won't call any hooks other than those listed here, if you want to better split
-your scripts, you'll have to execute them yourself inside the hooks described above.
-(At least for now...)
+To add support for platforms tsuru does not have built-in support, one must
+create images. Simple create a container using tsuru base image and install
+everything your platform needs to run. When you're done, commit and push the
+image to docker registry. You might have to change some of the default scripts,
+for example, if you need to search platform specific dependencies (and you
+probably will), you'll have to call your custom dependencies seeker in the
+deploy script, which is the only one called directly by tsuru in deployment
+time.
