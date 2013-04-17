@@ -1,8 +1,12 @@
 #!/bin/sh -el
 
-APP_DIR=/home/application
-CURRENT_DIR=${APP_DIR}/current
+source config
 
-if [ -f ${CURRENT_DIR}/requirements.apt ]; then
-    sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y
-fi
+function so_dependencies() {
+    if [ -f ${CURRENT_DIR}/requirements.apt ]; then
+        sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y
+    else
+        echo "requirements.apt not found."
+        echo "Skipping..."
+    fi
+}
