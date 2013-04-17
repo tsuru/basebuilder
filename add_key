@@ -1,9 +1,0 @@
-#!/bin/sh -el
-
-if [[ -z $1 ]]; then
-    echo "Public key argument is missing."
-    echo "Exiting..."
-    exit 1
-fi
-
-echo $1 >> ${HOME}/.ssh/authorized_keys
