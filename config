@@ -1,0 +1,4 @@
+#!/bin/bash
+
+APP_DIR=/home/application
+CURRENT_DIR=teste
