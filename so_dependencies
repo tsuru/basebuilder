@@ -1,8 +1,5 @@
 #!/bin/sh -el
 
-SOURCE_DIR=/var/lib/tsuru
-source ${SOURCE_DIR}/config
-
 function so_dependencies() {
     if [ -f ${CURRENT_DIR}/requirements.apt ]; then
         sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y
