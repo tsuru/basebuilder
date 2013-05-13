@@ -4,7 +4,7 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/config
 
 mkdir -p /etc/circus
-cp utils/circus.ini /etc/circus/circus.ini
-cp utils/circus.conf /etc/init
+cp ${SOURCE_DIR}/utils/circus.ini /etc/circus/circus.ini
+cp ${SOURCE_DIR}/utils/circus.conf /etc/init
 mkdir /home/application
 useradd -m ${USER}
