@@ -1,5 +1,10 @@
 #!/bin/sh -el
 
+SOURCE_DIR=/var/lib/tsuru
+source ${SOURCE_DIR}/config
+
 mkdir -p /etc/circus
 cp utils/circus.ini /etc/circus/circus.ini
 cp utils/circus.conf /etc/init
+mkdir /home/application
+useradd -m ${USER}
