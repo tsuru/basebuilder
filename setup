@@ -1,4 +1,4 @@
-#!/bin/sh -el
+#!/bin/bash -el
 
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/config
