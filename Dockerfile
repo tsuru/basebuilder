@@ -5,7 +5,7 @@
 
 from	base:ubuntu-quantal
 run		apt-get install wget -y --force-yes
-run		wget https://github.com/flaviamissi/basebuilder/tarball/master -O basebuilder.tar.gz
+run		wget http://github.com/flaviamissi/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
 run		tar -xvf basebuilder.tar.gz
 run		mkdir /var/lib/tsuru
 run		mv basebuilder/* /var/lib/tsuru
