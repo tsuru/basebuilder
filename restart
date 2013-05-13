@@ -1,4 +1,4 @@
-#!/bin/bash -el
+#!/bin/bash -l
 
 circusctl stop
 circusctl start
