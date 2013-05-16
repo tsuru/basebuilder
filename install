@@ -6,5 +6,6 @@ apt-get update
 apt-get install git openssh-server python-pip libzmq-dev g++ python-dev wget -y
 pip install git+http://github.com/mozilla-services/circus.git
 pip install tsuru-circus
+mkdir /var/run/sshd
 
 # write your platform specific installation stuff here
