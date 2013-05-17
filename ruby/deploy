@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-SOURCE_DIR=$PWD
+SOURCE_DIR=/var/lib/tsuru
 ${SOURCE_DIR}/base/deploy $@
 
 source ${SOURCE_DIR}/config
