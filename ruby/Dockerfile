@@ -9,5 +9,6 @@ run		wget http://github.com/flaviamissi/basebuilder/tarball/master -O basebuilde
 run		mkdir /var/lib/tsuru
 run		tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run		cp /var/lib/tsuru/ruby/deploy /var/lib/tsuru
+run		cp /var/lib/tsuru/base/restart /var/lib/tsuru
 run		/var/lib/tsuru/ruby/install
 run		/var/lib/tsuru/base/setup
