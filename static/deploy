@@ -1,0 +1,21 @@
+#!/bin/bash -el
+
+if [[ -z $1 ]]; then
+    echo "Missing application repository url."
+    echo "Exitting..."
+    exit 1
+fi
+
+function deploy() {
+    if [ -d $CURRENT_DIR ]; then
+        cd $CURRENT_DIR
+        git pull
+        cd -
+    else
+        git clone $1 $CURRENT_DIR
+    fi
+}
+
+SOURCE_DIR=/var/lib/tsuru
+source ${SOURCE_DIR}/config
+deploy $1
