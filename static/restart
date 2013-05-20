@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/opt/sbin/nginx -s stop
+/opt/sbin/nginx
