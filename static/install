@@ -2,7 +2,7 @@
 
 apt-get update
 apt-get install git openssh-server gcc make curl libpcre3-dev zlib1g-dev -y
-mkdir -p /tmp/nginx
+mkdir -p /tmp/nginx /var/run/sshd
 curl http://nginx.org/download/nginx-1.4.1.tar.gz | tar -xzC /tmp/nginx
 pushd /tmp/nginx/nginx-1.4.1
 ./configure --prefix=/opt --user=nginx --group=nginx --with-pcre
