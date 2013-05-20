@@ -1,4 +1,4 @@
 #!/bin/bash
 
-/opt/sbin/nginx -s stop > /dev/null 2>&1
-/opt/sbin/nginx
+sudo /opt/sbin/nginx -s stop > /dev/null 2>&1
+sudo /opt/sbin/nginx
