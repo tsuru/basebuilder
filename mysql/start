@@ -1,0 +1,2 @@
+mysqld_safe &
+mysql -u root -p ${ROOT_PASSWORD} -e "CREATE USER '${MYSQL_USER_NAME}'@'${MYSQL_USER_HOST}' IDENTIFIED BY '${MYSQL_USER_PASS}';"
