@@ -8,4 +8,4 @@ useradd -m ${USER}
 chown ${USER}:${USER} /home/application
 echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 rm /etc/apache2/sites-enabled/*
-ln -s ${SOURCE_DIR}/apache2/etc/apache-vhost /etc/apache2/sites-enabled/
+ln -s ${SOURCE_DIR}/php/etc/apache-vhost /etc/apache2/sites-enabled/
