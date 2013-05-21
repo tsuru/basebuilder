@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+SOURCE_DIR=/var/lib/tsuru
+${SOURCE_DIR}/base/install
+apt-get install python gcc make -y
+pushd /tmp
+wget http://nodejs.org/dist/v0.10.7/node-v0.10.7.tar.gz 2>/dev/null
+tar -xzf node-v0.10.7.tar.gz
+cd node-v0.10.7
+./configure
+make -j4
+make install
+popd

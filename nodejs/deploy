@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+SOURCE_DIR=/var/lib/tsuru
+${SOURCE_DIR}/base/deploy $@
+
+source ${SOURCE_DIR}/config
+
+if [ -f ${CURRENT_DIR}/package.json ]; then
+	pushd $CURRENT_DIR && npm install
+	popd
+fi
