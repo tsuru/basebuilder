@@ -1,3 +1,7 @@
+# this file describes how to build tsuru ruby1.9.3 image
+# to run it:
+# 1- install docker
+# 2- run wget https://raw.github.com/dotcloud/docker/v0.1.6/contrib/docker-build/docker-build && python docker-build <user>/mysql < Dockerfile
 # you should run your container using this image with the following command:
 # docker run -t -p 3306 mysqlimage mysqld_safe
 from	base:ubuntu-quantal
