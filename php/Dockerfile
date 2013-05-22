@@ -10,5 +10,6 @@ run		mkdir /var/lib/tsuru
 run		tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run		cp /var/lib/tsuru/base/deploy /var/lib/tsuru
 run		cp /var/lib/tsuru/php/restart /var/lib/tsuru
+run		cp /var/lib/tsuru/base/start /var/lib/tsuru
 run		/var/lib/tsuru/php/install
 run		/var/lib/tsuru/php/setup
