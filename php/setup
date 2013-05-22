@@ -3,8 +3,10 @@
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/config
 
+mkdir -p /etc/circus
+cp ${SOURCE_DIR}/php/etc/circus.ini /etc/circus/circus.ini
 mkdir /home/application
-useradd -s /bin/bash -m ${USER}
+useradd -m ${USER} -s /bin/bash
 chown ${USER}:${USER} /home/application
 echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 rm /etc/apache2/sites-enabled/*
