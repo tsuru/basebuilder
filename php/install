@@ -1,5 +1,5 @@
 #!/bin/bash -e
 
-apt-get update
-apt-get install git openssh-server apache2 php5 -y
-mkdir -p /var/run/sshd
+SOURCE_DIR=/var/lib/tsuru
+$SOURCE_DIR/base/install
+apt-get install apache2 php5 -y
