@@ -7,10 +7,10 @@
 # docker run -t -p 3306 mysqlimage mysqld_safe
 # you should also change the default environments variables values set here, e.g.: ROOT_PASSWORD and MYSQL_USER_*
 from	base:ubuntu-quantal
-run		apt-get install wget -y --force-yes
-run		wget http://github.com/flaviamissi/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
-run		mkdir /var/lib/tsuru
-run		tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
-env		ROOT_PASSWORD root
-run		/var/lib/tsuru/mysql/install
-run		/var/lib/tsuru/mysql/setup
+run	apt-get install wget -y --force-yes
+run	wget http://github.com/flaviamissi/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
+run	mkdir /var/lib/tsuru
+run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
+env	ROOT_PASSWORD root
+run	/var/lib/tsuru/mysql/install
+run	/var/lib/tsuru/mysql/setup
