@@ -1,0 +1,3 @@
+#!/bin/bash -l
+
+sudo /usr/local/bin/circusd /etc/circus/circus.ini --daemon --log-output /var/log/circus.log
