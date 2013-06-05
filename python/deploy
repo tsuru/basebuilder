@@ -1,33 +1,10 @@
 #!/bin/bash -el
 
-if [[ -z $1 ]]; then
-    echo "Missing application repository url."
-    echo "Exitting..."
-    exit 1
-fi
-
-function deploy() {
-    if [ -d $CURRENT_DIR ]; then
-        cd $CURRENT_DIR
-        git pull
-        cd -
-    else
-        git clone $@ $CURRENT_DIR
-    fi
-}
-function platform_dependencies() {
-    if [ -f ${CURRENT_DIR}/requirements.txt ]; then
-        sudo pip install -r ${CURRENT_DIR}/requirements.txt
-    else
-        echo "requirements.txt not found."
-        echo "Skipping..."
-    fi
-}
-
 SOURCE_DIR=/var/lib/tsuru
+${SOURCE_DIR}/base/deploy $@
 
 source ${SOURCE_DIR}/config
-source ${SOURCE_DIR}/so_dependencies
-deploy $@
-so_dependencies
-platform_dependencies
+
+if [ -f ${CURRENT_DIR}/requirements.txt ]; then
+	sudo pip install -r ${CURRENT_DIR}/requirements.txt
+fi
