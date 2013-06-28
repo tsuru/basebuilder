@@ -17,7 +17,7 @@ function deploy() {
         git clone $1 $CURRENT_DIR
     fi
     cd $CURRENT_DIR
-    git checkout $2
+    git checkout $2 >/dev/null 2>&1
     cd -
 }
 
