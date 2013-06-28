@@ -23,4 +23,4 @@ function deploy() {
 
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/config
-deploy $1
+deploy $@
