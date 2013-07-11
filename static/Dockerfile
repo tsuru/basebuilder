@@ -1,7 +1,7 @@
 # this file describes how to build tsuru static image
 # to run it:
 # 1- install docker
-# 2- run wget https://raw.github.com/dotcloud/docker/v0.1.6/contrib/docker-build/docker-build && python docker-build <user>/base < Dockerfile
+# 2- run: $ docker build -t tsuru/static https://raw.github.com/flaviamissi/basebuilder/master/static/Dockerfile
 
 from	base:ubuntu-quantal
 run	apt-get install wget -y --force-yes
