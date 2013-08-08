@@ -1,0 +1,19 @@
+#!/bin/bash -el
+
+SOURCE_DIR=/var/lib/tsuru
+$SOURCE_DIR/base/install
+
+apt-get install bzr mercurial git bzr -qqy --force-yes
+
+source $SOURCE_DIR/config
+mkdir -p $APP_DIR
+
+ver=1.1.1
+file=go$ver.linux-amd64.tar.gz
+url=http://go.googlecode.com/files/$file
+
+pushd $APP_DIR
+	curl -sO $url
+	tar zxf $file
+	rm -f $file
+popd
