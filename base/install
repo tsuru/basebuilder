@@ -1,4 +1,4 @@
-#!/bin/sh -el
+#!/bin/bash -el
 
 # do not remove, circus is needed to manage application processes
 # and its environment variables
@@ -7,5 +7,4 @@ apt-get install git openssh-server python-pip libzmq-dev g++ python-dev wget -y
 pip install git+https://github.com/andrewsmedina/circus.git@validate_option_hooks
 pip install tsuru-circus
 mkdir /var/run/sshd
-
-# write your platform specific installation stuff here
+echo "DEBIAN_FRONTEND=noninteractive" >> /etc/profile
