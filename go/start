@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+echo "127.0.0.1	`hostname`" | sudo tee -a /etc/hosts
+echo "::1	`hostname`" | sudo tee -a /etc/hosts
+
 SOURCE_DIR=/var/lib/tsuru
 source $SOURCE_DIR/config
 

@@ -1,3 +1,5 @@
 #!/bin/bash -l
 
+echo "127.0.0.1	`hostname`" | sudo tee -a /etc/hosts
+echo "::1	`hostname`" | sudo tee -a /etc/hosts
 sudo -E /usr/local/bin/circusd /etc/circus/circus.ini --daemon --log-output /var/log/circus.log
