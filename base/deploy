@@ -9,6 +9,8 @@ then
 fi
 
 function deploy() {
+    echo "127.0.0.1	`hostname`" | sudo tee -a /etc/hosts
+    echo "::1	`hostname`" | sudo tee -a /etc/hosts
     if [ -d $CURRENT_DIR ]; then
         cd $CURRENT_DIR
         git fetch origin
