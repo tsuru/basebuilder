@@ -2,8 +2,8 @@
 
 SOURCE_DIR=/var/lib/tsuru
 ${SOURCE_DIR}/base/deploy $@
-echo "127.0.0.1	`hostname`" | sudo tee -a /etc/hosts
-echo "::1	`hostname`" | sudo tee -a /etc/hosts
+echo "127.0.0.1	`hostname`" | sudo tee -a /etc/hosts > /dev/null 2>&1
+echo "::1	`hostname`" | sudo tee -a /etc/hosts > /dev/null 2>&1
 
 source ${SOURCE_DIR}/config
 
