@@ -7,4 +7,4 @@ apt-get install git openssh-server python-pip libzmq-dev g++ python-dev wget -y
 pip install git+http://github.com/mozilla-services/circus.git
 pip install tsuru-circus
 mkdir /var/run/sshd
-echo "DEBIAN_FRONTEND=noninteractive" >> /etc/profile
+echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile

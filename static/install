@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-echo "DEBIAN_FRONTEND=noninteractive" >> /etc/profile
+echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
 apt-get update
 apt-get install git openssh-server gcc make curl libpcre3-dev zlib1g-dev -y
 mkdir -p /tmp/nginx /var/run/sshd
