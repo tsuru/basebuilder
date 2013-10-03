@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+SOURCE_DIR=/var/lib/tsuru
+${SOURCE_DIR}/base/deploy $@
+
+source ${SOURCE_DIR}/config
+
+if [ -f ${CURRENT_DIR}/Gemfile ]; then
+	pushd $CURRENT_DIR && bundle install --deployment --without=test development
+	popd
+fi
