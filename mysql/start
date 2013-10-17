@@ -1,4 +1,2 @@
-echo "127.0.0.1	`hostname`" | sudo tee -a /etc/hosts > /dev/null 2>&1
-echo "::1	`hostname`" | sudo tee -a /etc/hosts > /dev/null 2>&1
 mysqld_safe &
 mysql -u root -p ${ROOT_PASSWORD} -e "CREATE USER '${MYSQL_USER_NAME}'@'${MYSQL_USER_HOST}' IDENTIFIED BY '${MYSQL_USER_PASS}';"
