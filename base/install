@@ -4,7 +4,7 @@
 # and its environment variables
 apt-get update
 apt-get install git openssh-server python-pip libzmq-dev g++ python-dev wget -y
-pip install git+http://github.com/mozilla-services/circus.git
+pip install git+https://github.com/andrewsmedina/circus.git@validate_option_hooks
 pip install tsuru-circus
 mkdir /var/run/sshd
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
