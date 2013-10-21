@@ -24,3 +24,12 @@ def load_file(working_dir="/home/application/current"):
         except IOError:
             pass
     return ""
+
+
+def main():
+    data = load_file()
+    commands = load_commands(data)
+    execute_commands(commands)
+
+
+main()

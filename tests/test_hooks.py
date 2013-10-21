@@ -3,7 +3,7 @@ import os
 
 from mock import patch
 
-from hooks import load_commands, execute_commands, load_file
+from hooks import load_commands, execute_commands, load_file, main
 
 
 class LoadCmdsTest(TestCase):
@@ -65,3 +65,17 @@ class LoadFileTest(TestCase):
     def test_load_without_app_files(self):
         data = load_file(self.working_dir)
         self.assertEqual(data, "")
+
+
+class MainTest(TestCase):
+
+    @patch("hooks.execute_commands")
+    @patch("hooks.load_commands")
+    @patch("hooks.load_file")
+    def test_main(self, load_file, load_commands, execute_commands):
+        load_file.return_value = ""
+        load_commands.return_value = []
+        main()
+        load_file.assert_called_with()
+        load_commands.assert_called_with("")
+        execute_commands.assert_called_with([])
