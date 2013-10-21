@@ -1,9 +1,11 @@
 from unittest import TestCase
 
-from hooks import load_commands
+from mock import patch
+
+from hooks import load_commands, execute_commands
 
 
-class HooksTest(TestCase):
+class LoadCmdsTest(TestCase):
     def test_load_commands(self):
         yaml = '''hooks:
 build:
@@ -29,3 +31,10 @@ other:
         commands = load_commands(yaml)
         expected = []
         self.assertEqual(expected, commands)
+
+
+class ExecuteCommandsTest(TestCase):
+    @patch("os.system")
+    def test_execute_commands(self, system):
+        execute_commands(["ble"])
+        system.assert_called_with("ble")
