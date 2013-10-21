@@ -1,5 +1,5 @@
 clean:
-	@find . -name="*.pyc" -delete
+	@find . -name '*.pyc' -delete
 
 deps:
 	@pip install -r requirements.txt
