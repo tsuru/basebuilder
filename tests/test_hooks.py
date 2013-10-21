@@ -1,8 +1,9 @@
 from unittest import TestCase
+import os
 
 from mock import patch
 
-from hooks import load_commands, execute_commands
+from hooks import load_commands, execute_commands, load_file
 
 
 class LoadCmdsTest(TestCase):
@@ -38,3 +39,29 @@ class ExecuteCommandsTest(TestCase):
     def test_execute_commands(self, system):
         execute_commands(["ble"])
         system.assert_called_with("ble")
+
+
+class LoadFileTest(TestCase):
+    def setUp(self):
+        self.working_dir = os.path.dirname(__file__)
+        self.data = 'ble'
+
+    def test_load_app_yaml(self):
+        file = os.path.join(self.working_dir, "app.yaml")
+        with open(file, "w") as f:
+            f.write(self.data)
+        data = load_file(self.working_dir)
+        self.assertEqual(data, self.data)
+        os.remove(file)
+
+    def test_load_app_yml(self):
+        file = os.path.join(self.working_dir, "app.yaml")
+        with open(file, "w") as f:
+            f.write(self.data)
+        data = load_file(self.working_dir)
+        self.assertEqual(data, self.data)
+        os.remove(file)
+
+    def test_load_without_app_files(self):
+        data = load_file(self.working_dir)
+        self.assertEqual(data, "")
