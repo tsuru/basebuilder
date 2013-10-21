@@ -15,3 +15,8 @@ build:
             'python manage.py migrate',
         ]
         self.assertEqual(expected, commands)
+
+    def test_load_commands_empty_data(self):
+        commands = load_commands('')
+        expected = []
+        self.assertEqual(expected, commands)
