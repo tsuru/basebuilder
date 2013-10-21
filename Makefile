@@ -5,4 +5,4 @@ deps:
 	@pip install -r requirements.txt
 
 test: clean deps
-	@py.test .
+	@PYTHONPATH=base py.test .
