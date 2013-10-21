@@ -1,5 +1,8 @@
+clean:
+	@find . -name="*.pyc" -delete
+
 deps:
 	@pip install -r requirements.txt
 
-test: deps
+test: clean deps
 	@py.test .
