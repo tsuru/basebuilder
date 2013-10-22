@@ -24,3 +24,6 @@ function deploy() {
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/config
 deploy $@
+
+export $3
+python ${SOURCE_DIR}/hooks.py

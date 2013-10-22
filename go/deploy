@@ -11,3 +11,6 @@ PATH=${GOROOT}/bin:${GOPATH}/bin:${PATH}
 export GOPATH GOROOT PATH
 
 cd ${CURRENT_DIR} && go get -d ./...
+
+export $3
+python ${SOURCE_DIR}/hooks.py

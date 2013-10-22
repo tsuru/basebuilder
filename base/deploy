@@ -27,5 +27,3 @@ source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
 deploy $@
 so_dependencies
-export $3
-python ${SOURCE_DIR}/hooks.py

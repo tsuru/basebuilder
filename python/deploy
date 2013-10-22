@@ -8,3 +8,6 @@ source ${SOURCE_DIR}/config
 if [ -f ${CURRENT_DIR}/requirements.txt ]; then
 	sudo pip install -r ${CURRENT_DIR}/requirements.txt
 fi
+
+export $3
+python ${SOURCE_DIR}/hooks.py

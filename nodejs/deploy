@@ -9,3 +9,6 @@ if [ -f ${CURRENT_DIR}/package.json ]; then
 	pushd $CURRENT_DIR && npm install
 	popd
 fi
+
+export $3
+python ${SOURCE_DIR}/hooks.py

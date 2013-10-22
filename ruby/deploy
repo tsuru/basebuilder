@@ -9,3 +9,6 @@ if [ -f ${CURRENT_DIR}/Gemfile ]; then
 	pushd $CURRENT_DIR && bundle install --deployment --without=test development
 	popd
 fi
+
+export $3
+python ${SOURCE_DIR}/hooks.py
