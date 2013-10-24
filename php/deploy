@@ -3,5 +3,6 @@
 SOURCE_DIR=/var/lib/tsuru
 ${SOURCE_DIR}/base/deploy $@
 
-export $3
+shift; shift
+export $@
 python ${SOURCE_DIR}/hooks.py

@@ -10,5 +10,6 @@ if [ -f ${CURRENT_DIR}/Gemfile ]; then
 	popd
 fi
 
-export $3
+shift; shift
+export $@
 python ${SOURCE_DIR}/hooks.py

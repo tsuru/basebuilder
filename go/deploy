@@ -12,5 +12,6 @@ export GOPATH GOROOT PATH
 
 cd ${CURRENT_DIR} && go get -d ./...
 
-export $3
+shift; shift
+export $@
 python ${SOURCE_DIR}/hooks.py
