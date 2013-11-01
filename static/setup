@@ -7,5 +7,4 @@ mkdir /home/application
 useradd -s /bin/bash -m ${USER}
 chown ${USER}:${USER} /home/application
 echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-useradd nginx
-cp ${SOURCE_DIR}/static/etc/nginx.conf /opt/conf/nginx.conf
+cp ${SOURCE_DIR}/static/etc/nginx.conf /etc/nginx/nginx.conf
