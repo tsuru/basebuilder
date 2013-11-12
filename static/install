@@ -2,5 +2,5 @@
 
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
 apt-get update
-apt-get install git openssh-server gcc make curl libpcre3-dev zlib1g-dev nginx -y
+apt-get install git python openssh-server gcc make curl libpcre3-dev zlib1g-dev nginx -y
 mkdir -p /var/run/sshd
