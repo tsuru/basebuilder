@@ -1,0 +1,45 @@
+#!/bin/bash -el
+
+SOURCE_DIR=/var/lib/tsuru
+${SOURCE_DIR}/base/deploy $@
+source ${SOURCE_DIR}/config
+
+HOME=/home/${USER}
+cd ${CURRENT_DIR}
+
+SYSTEM_PATH=`find . -name "*.asd"`
+SYSTEM_FILE=${SYSTEM_PATH##*/}
+SYSTEM_NAME=${SYSTEM_FILE%.asd}
+
+echo "Downloading quicklisp...."
+wget http://beta.quicklisp.org/quicklisp.lisp &> /dev/null
+
+echo "Installing quicklisp...."
+sbcl --non-interactive --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(setf ql-util::*do-not-prompt* t)' --eval '(ql:add-to-init-file)' &> /dev/null
+
+echo "Updating quicklisp...."
+sbcl --non-interactive --eval '(setf ql-util::*do-not-prompt* t)' --eval '(ql:update-client)' --eval '(ql:update-all-dists)' &> /dev/null
+
+echo "Cleaning up quicklisp install...."
+rm quicklisp.lisp
+
+echo "Seting up application inside quicklisp...."
+ln -s ${CURRENT_DIR} ${HOME}/quicklisp/local-projects/${SYSTEM_NAME}
+
+if [ -f ${CURRENT_DIR}/requirements.txt ]; then
+    echo "External quicklisp dependencies found, installing...."
+    cd ${HOME}/quicklisp/local-projects
+    while read line
+    do
+	echo "Installing ${line}...."
+	git clone $line &> /dev/null
+    done <${CURRENT_DIR}/requirements.txt
+    echo "Done installing external dependencies"
+fi
+
+echo "Compiling application...."
+sbcl --non-interactive --eval "(ql:quickload \"${SYSTEM_NAME}\")" &> /dev/null
+
+shift; shift
+export $@
+python ${SOURCE_DIR}/hooks.py
