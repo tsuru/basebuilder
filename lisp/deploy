@@ -4,7 +4,6 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
 
-HOME=/home/${USER}
 cd ${CURRENT_DIR}
 
 SYSTEM_PATH=`find . -name "*.asd"`
