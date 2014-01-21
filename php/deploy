@@ -8,5 +8,5 @@ export $@
 python ${SOURCE_DIR}/hooks.py
 
 echo "Looking for Apache modules to install..."
-python ${SOURCE_DIR}/php/apache_modules.py
+sudo python ${SOURCE_DIR}/php/apache_modules.py
 echo "Done looking for Apache modules."
