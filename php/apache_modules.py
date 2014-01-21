@@ -16,11 +16,11 @@ def install_modules(modules):
     installed = 0
     for module in modules:
         print "   Installing Apache module %s" % module
-        os.system("sudo a2enmod "+module+" >/dev/null")
+        os.system("a2enmod "+module+" >/dev/null")
         installed = installed + 1
 
     if installed > 0: 
-       os.system('sudo /etc/init.d/apache2 restart')
+       os.system('/etc/init.d/apache2 restart')
        print "   Done installing Apache modules."
     else:
        print "   No Apache modules to install."
