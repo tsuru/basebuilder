@@ -5,8 +5,17 @@ ${SOURCE_DIR}/base/deploy $@
 
 shift; shift
 export $@
+
+echo ""
+echo "========================================"
+echo " Parsing Hooks..."
+echo "========================================"
+echo ""
 python ${SOURCE_DIR}/hooks.py
 
-echo "Looking for Apache modules to install..."
+echo ""
+echo "========================================"
+echo " Parsing Apache modules to install..."
+echo "========================================"
+echo ""
 sudo python ${SOURCE_DIR}/php/apache_modules.py
-echo "Done looking for Apache modules."
