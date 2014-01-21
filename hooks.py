@@ -37,6 +37,13 @@ def load_file(working_dir="/home/application/current"):
 
 
 def main():
+    print ""
+    print ""
+    print ""
+    print "========================================"
+    print " Parsing Hooks"
+    print "========================================"
+    print ""
     data = load_file()
     commands = load_commands(data)
     execute_commands(commands)
