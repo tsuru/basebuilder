@@ -20,7 +20,7 @@ def install_modules(modules):
         installed = installed + 1
 
     if installed > 0: 
-       os.system('/etc/init.d/apache2 restart')
+       os.system('/etc/init.d/apache2 restart >/dev/null 2>&1')
        print "   Done enabling Apache modules."
     else:
        print "   No Apache modules to enabled."
