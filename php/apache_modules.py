@@ -16,7 +16,7 @@ def install_modules(modules):
     installed = 0
     for module in modules:
         print "   Installing Apache module %s" % module
-        os.system("a2enmod "+module+" >/dev/null")
+        os.system("a2enmod "+module+" >/dev/null 2>&1")
         installed = installed + 1
 
     if installed > 0: 
