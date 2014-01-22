@@ -1,5 +1,6 @@
 #!/bin/bash -el
 
+APP_DIR=/home/application/current
 SOURCE_DIR=/var/lib/tsuru
 ${SOURCE_DIR}/base/deploy $@
 
@@ -9,3 +10,26 @@ export $@
 python ${SOURCE_DIR}/hooks.py
 
 sudo python ${SOURCE_DIR}/php/apache_modules.py
+
+
+echo ""
+echo ""
+echo ""
+echo "========================================"
+echo " Parsing Composer dependances..."
+echo "========================================"
+echo ""
+# check for Composer dependencies and vendors are not bundled in the pack
+if [ -f ${APP_DIR}/composer.json ] && [ ! -d ${APP_DIR}/vendor ]; then
+    # check if Composer is provided
+    if [ -f ${APP_DIR}/composer.phar ]; then
+        echo "   Using provided composer..."
+    else
+        echo "   Downloading composer..."
+        wget --quiet http://getcomposer.org/composer.phar -O ${APP_DIR}/composer.phar 
+    fi
+
+    php ${APP_DIR}/composer.phar install
+else 
+    echo "   Missing composer.json file or 'vendor' directory exists. Skipping composer..."
+fi
