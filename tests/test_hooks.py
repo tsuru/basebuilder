@@ -35,10 +35,17 @@ other:
 
 
 class ExecuteCommandsTest(TestCase):
-    @patch("os.system")
-    def test_execute_commands(self, system):
+    @patch("subprocess.call")
+    def test_execute_commands(self, subprocess_call):
         execute_commands(["ble"])
-        system.assert_called_with("ble")
+        subprocess_call.assert_called_with("ble", shell=True,
+                                           cwd="/home/application/current")
+
+    @patch("subprocess.call")
+    def test_execute_commands_specific_cwd(self, subprocess_call):
+        execute_commands(["ble"], working_dir="/tmp")
+        subprocess_call.assert_called_with("ble", shell=True,
+                                           cwd="/tmp")
 
 
 class LoadFileTest(TestCase):

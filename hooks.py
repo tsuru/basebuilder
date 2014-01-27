@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 import yaml
 
@@ -12,9 +13,9 @@ def load_commands(data):
     return []
 
 
-def execute_commands(commands):
+def execute_commands(commands, working_dir="/home/application/current"):
     for command in commands:
-        os.system(command)
+        subprocess.call(command, shell=True, cwd=working_dir)
 
 
 def load_file(working_dir="/home/application/current"):
