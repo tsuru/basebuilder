@@ -5,8 +5,6 @@
 
 from	base:ubuntu-quantal
 
-run     apt-get -y install fuse || true
-run     rm -rf /var/lib/dpkg/info/fuse.postinst
 run     apt-get -y install fuse
 
 run     apt-get install wget -y --force-yes
