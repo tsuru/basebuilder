@@ -4,11 +4,6 @@
 # 2- run: $ docker build -no-cache -t tsuru/php https://github.com/guestisp/basebuilder/master/php/Dockerfile
 
 from	base:ubuntu-quantal
-
-run     apt-get -y install fuse || true
-run     rm -rf /var/lib/dpkg/info/fuse.postinst
-run     apt-get -y install fuse
-
 run     apt-get install wget -y --force-yes
 run	    mkdir /var/lib/tsuru
 run     wget --no-check-certificate https://github.com/guestisp/basebuilder/tarball/master -O basebuilder.tar.gz
