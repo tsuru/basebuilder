@@ -11,7 +11,7 @@ chown ${USER}:${USER} /home/application
 echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 rm /etc/apache2/sites-enabled/*
 ln -s ${SOURCE_DIR}/php/etc/apache-vhost /etc/apache2/sites-enabled/
-cat >> /etc/profile<<END
+cat >> /etc/profile <<END
 export APACHE_RUN_USER=ubuntu
 export APACHE_RUN_GROUP=ubuntu
 export APACHE_PID_FILE=/var/run/apache2/apache2.pid
@@ -19,3 +19,10 @@ export APACHE_RUN_DIR=/var/run/apache2
 export APACHE_LOCK_DIR=/var/lock/apache2
 export APACHE_LOG_DIR=/var/log/apache2
 END
+
+# Enabling modules needed by FastCGI
+sh /etc/profile
+/usr/sbin/a2enmod actions
+
+# Disable PHP5-FPM startup job. We use circusd for that
+sudo /usr/sbin/update-rc.d php5-fpm disable

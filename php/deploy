@@ -1,13 +1,15 @@
 #!/bin/bash -el
 
-echo "Deploying on platform PHP 5.4-1"
-
+PHP_FPM_INI=/etc/php5/fpm/conf.d/999-tsuru.ini
 APP_DIR=/home/application/current
 SOURCE_DIR=/var/lib/tsuru
 ${SOURCE_DIR}/base/deploy $@
 
 shift; shift
 export $@
+
+touch ${APP_DIR}/php.ini
+sudo ln -s ${APP_DIR}/php.ini ${PHP_FPM_INI} 
 
 python ${SOURCE_DIR}/hooks.py
 
