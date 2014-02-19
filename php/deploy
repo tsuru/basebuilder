@@ -8,8 +8,10 @@ ${SOURCE_DIR}/base/deploy $@
 shift; shift
 export $@
 
-touch ${APP_DIR}/php.ini
-sudo ln -s ${APP_DIR}/php.ini ${PHP_FPM_INI} 
+# Link php.ini from application directory to /etc/php5/fpm/conf.d/
+if [ -f ${APP_DIR}/php.ini ]; then
+   sudo ln -s ${APP_DIR}/php.ini ${PHP_FPM_INI} 
+fi
 
 python ${SOURCE_DIR}/hooks.py
 

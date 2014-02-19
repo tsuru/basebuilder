@@ -2,9 +2,13 @@ NameVirtualHost *:8888
 Listen 8888
 
 <VirtualHost *:8888>
-	ServerAdmin webmaster@tsuru
+	ServerAdmin  webmaster@tsuru
+    DocumentRoot /home/application/current
 
-	DocumentRoot /home/application/current
+	ErrorLog     ${APACHE_LOG_DIR}/error.log
+	LogLevel     warn
+	CustomLog    ${APACHE_LOG_DIR}/access.log combined
+
 	<Directory />
 		Options FollowSymLinks
 		AllowOverride None
@@ -16,15 +20,24 @@ Listen 8888
 		allow from all
 	</Directory>
 
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	LogLevel warn
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
+    # Deny direct access to php.ini files
+    <Files ~ "^php\.ini$">
+        Order allow,deny
+        Deny from all
+    </Files>
 
+    # Deny direct access to .htaccess files
+    <Files ~ "^\.htaccess">
+      Order allow,deny
+      Deny from all
+    </Files>
+
+    # FastCGI used by PHP-FPM
     <IfModule mod_fastcgi.c>
-        AddHandler php5-fcgi .php
-        Action php5-fcgi /php5-fcgi
-        Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
-        FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -socket /var/run/php5-fpm.sock -pass-header Authorization
+        AddHandler php5-fpm .php .php4 .php5
+        Action php5-fpm /php5-fpm
+        Alias /php5-fpm /usr/lib/cgi-bin/php5-fpm
+        FastCgiExternalServer /usr/lib/cgi-bin/php5-fpm -socket /var/run/php5-fpm.sock -pass-header Authorization
     </IfModule>
 
 </VirtualHost>
