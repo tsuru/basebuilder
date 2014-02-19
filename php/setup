@@ -21,7 +21,7 @@ export APACHE_LOG_DIR=/var/log/apache2
 END
 
 # Enabling modules needed by FastCGI
-sh /etc/profile
+source /etc/profile
 /usr/sbin/a2enmod actions
 
 # Disable PHP5-FPM startup job. We use circusd for that
