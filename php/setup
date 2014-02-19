@@ -20,8 +20,10 @@ export APACHE_LOCK_DIR=/var/lock/apache2
 export APACHE_LOG_DIR=/var/log/apache2
 END
 
+# Change permissions to fastcgi
+chown ${USER}:${USER} -R /var/lib/apache2/fastcgi/
+
 # Enabling modules needed by FastCGI
-source /etc/profile
 /usr/sbin/a2enmod actions
 
 # Disable PHP5-FPM startup job. We use circusd for that
