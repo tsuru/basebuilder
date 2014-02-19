@@ -26,3 +26,5 @@ sh /etc/profile
 
 # Disable PHP5-FPM startup job. We use circusd for that
 sudo /usr/sbin/update-rc.d php5-fpm disable
+rm /etc/php5/fpm/php-fpm.conf
+ln -s ${SOURCE_DIR}/php/etc/php-fpm.conf /etc/php5/fpm/php-fpm.conf

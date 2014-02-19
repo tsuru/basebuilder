@@ -5,7 +5,7 @@
 
 from	base:ubuntu-quantal
 
-run     apt-get -y install fuse
+#run     apt-get -y install fuse
 
 run     apt-get install wget -y --force-yes
 run	    mkdir /var/lib/tsuru
