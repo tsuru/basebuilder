@@ -8,4 +8,4 @@ for var in `env | cut -f1 -d=`; do
 done
 
 # Export envs wrote in apprc
-grep '^export ' /home/application/apprc | sed -e '0,/RE/s/export /ENV[/' | sed -e '0,/RE/s/=/]=/' >> /var/lib/tsuru/php/etc/fpm-envs.conf
+grep '^export ' /home/application/apprc | sed -e '0,/RE/s/export /env[/' | sed -e '0,/RE/s/=/]=/' >> /var/lib/tsuru/php/etc/fpm-envs.conf
