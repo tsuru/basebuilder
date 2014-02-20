@@ -1,0 +1,2 @@
+sudo /var/lib/tsuru/create_fpm_envs
+/usr/sbin/php5-fpm $*

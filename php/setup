@@ -36,6 +36,3 @@ ln -s ${SOURCE_DIR}/php/etc/php-fpm.conf ${FPM_CONF}
 # Change default FPM Pool
 rm ${FPM_POOL_DIR}/www.conf
 ln -s ${SOURCE_DIR}/php/etc/tsuru-fpm-pool.conf ${FPM_POOL_DIR}/tsuru.conf
-
-# Environments file for PHP-FPM
-touch ${SOURCE_DIR}/php/etc/fpm-envs.conf
