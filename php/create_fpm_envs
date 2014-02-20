@@ -1,11 +1,14 @@
 #!/bin/bash -l
 
-echo '' > /var/lib/tsuru/php/etc/fpm-envs.conf
+FILENAME=/home/application/fpm-envs.conf
+
+echo '' > ${FILENAME}
+chown ubuntu:ubuntu ${FILENAME}
 
 # Export all environment variables
 for var in `env | cut -f1 -d=`; do
-	echo "env[$var] = ${!var}" >> /var/lib/tsuru/php/etc/fpm-envs.conf;
+	echo "env[$var] = ${!var}" >> ${FILENAME};
 done
 
 # Export envs wrote in apprc
-grep '^export ' /home/application/apprc | sed -e '0,/RE/s/export /env[/' | sed -e '0,/RE/s/=/]=/' >> /var/lib/tsuru/php/etc/fpm-envs.conf
+grep '^export ' /home/application/apprc | sed -e '0,/RE/s/export /env[/' | sed -e '0,/RE/s/=/]=/' >> ${FILENAME}
