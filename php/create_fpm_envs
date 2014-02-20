@@ -7,7 +7,10 @@ chown ubuntu:ubuntu ${FILENAME}
 
 # Export all environment variables
 for var in `env | cut -f1 -d=`; do
-	echo "env[$var] = ${!var}" >> ${FILENAME};
+    if [ "${var}" == 'SUDO_*' ]; then
+        continue;
+    fi
+	echo "env[$var] = \$${var}" >> ${FILENAME};
 done
 
 # Export envs wrote in apprc
