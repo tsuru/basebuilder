@@ -16,11 +16,11 @@ run     tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run     rm basebuilder.tar.gz
 
 run     cp /var/lib/tsuru/php/deploy /var/lib/tsuru
-#run     cp /var/lib/tsuru/php/php5-fpm /var/lib/tsuru
+run     cp /var/lib/tsuru/php/php5-fpm /var/lib/tsuru
 run     cp /var/lib/tsuru/php/create_fpm_envs /var/lib/tsuru
 
-run     cp /var/lib/tsuru/php/restart /var/lib/tsuru
-run     cp /var/lib/tsuru/php/start /var/lib/tsuru
+#run     cp /var/lib/tsuru/php/restart /var/lib/tsuru
+#run     cp /var/lib/tsuru/php/start /var/lib/tsuru
 
 run     /var/lib/tsuru/php/install
 run     /var/lib/tsuru/php/setup
