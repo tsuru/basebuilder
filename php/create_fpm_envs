@@ -6,10 +6,7 @@ echo '' > ${FILENAME}
 chown ubuntu:ubuntu ${FILENAME}
 
 # Export all environment variables
-for var in `env | cut -f1 -d=`; do
-    if [ "${var}" == 'SUDO_*' ]; then
-        continue;
-    fi
+for var in `env | cut -f1 -d= | egrep -v '^SUDO_|^SSH_'`; do
 	echo "env[$var] = \$${var}" >> ${FILENAME};
 done
 
