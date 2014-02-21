@@ -3,9 +3,9 @@
 # do not remove, circus is needed to manage application processes
 # and its environment variables
 
-echo "deb http://ppa.launchpad.net/roman-imankulov/circus/ubuntu quantal main" > /etc/apt/sources.list.d/circus.list
+apt-get install software-proprieties-common git openssh-server python-pip libzmq-dev wget -y
+add-apt-repository ppa:roman-imankulov/circus -y
 apt-get update
-apt-get install git openssh-server python-pip libzmq-dev wget circus -y
 
 #apt-get install git openssh-server python-pip libzmq-dev g++ python-dev wget -y
 #pip install git+https://github.com/andrewsmedina/circus.git@validate_option_hooks
