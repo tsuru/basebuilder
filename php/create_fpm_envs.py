@@ -22,7 +22,7 @@ def parse_envs_from_yml(data):
             for k, v in dictionary.items():
                 print("env[%s] = %r" % (k, v))
 
-def load_and_parse_yml(working_dir="/tmp"):
+def load_and_parse_yml(working_dir="/home/application/current"):
     files_name = ["app.yaml", "app.yml"]
     for file_name in files_name:
         try:
