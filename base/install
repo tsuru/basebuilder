@@ -5,7 +5,7 @@
 
 echo "deb http://ppa.launchpad.net/roman-imankulov/circus/ubuntu quantal main" > /etc/apt/sources.list.d/circus.list
 apt-get update
-apt-get install git openssh-server python-pip libzmq-dev wget circus -y
+apt-get install git openssh-server python-pip libzmq-dev wget circus -y --force-yes
 
 #apt-get install git openssh-server python-pip libzmq-dev g++ python-dev wget -y
 #pip install git+https://github.com/andrewsmedina/circus.git@validate_option_hooks
