@@ -1,5 +1,0 @@
-#!/bin/bash -l
-
-circusctl stop
-sudo /var/lib/tsuru/create_fpm_envs
-circusctl start

@@ -8,6 +8,14 @@ ${SOURCE_DIR}/base/deploy $@
 shift; shift
 export $@
 
+echo ""
+echo ""
+echo ""
+echo "Deploying on $(sudo /usr/sbin/php5-fpm -v | head -n1 | cut -f1 -d'-')"
+echo ""
+echo ""
+echo ""
+
 # Link php.ini from application directory to /etc/php5/fpm/conf.d/
 if [ -f ${APP_DIR}/php.ini ] && [ ! -e ${PHP_FPM_INI} ]; then
    sudo ln -s ${APP_DIR}/php.ini ${PHP_FPM_INI} 

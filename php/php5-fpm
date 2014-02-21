@@ -1,2 +1,3 @@
-sudo /var/lib/tsuru/create_fpm_envs
+#!/bin/bash
+sudo python /var/lib/tsuru/create_fpm_envs.py > /home/application/fpm-envs.conf
 /usr/sbin/php5-fpm $*
