@@ -6,7 +6,8 @@ def parse_env():
         print("env[%s] = %r" % (k, v))
 
 def parse_apprc():
-    if os.path.exists("/home/application/apprc"):
+    path = "/home/application/apprc"
+    if os.path.exists(path):
         with open(path) as file:
             for line in file.readlines():
                 if "export" in line:

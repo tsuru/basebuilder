@@ -17,7 +17,7 @@ run     rm basebuilder.tar.gz
 
 run     cp /var/lib/tsuru/php/deploy /var/lib/tsuru
 run     cp /var/lib/tsuru/php/php5-fpm /var/lib/tsuru
-run     cp /var/lib/tsuru/php/create_fpm_envs /var/lib/tsuru
+run     cp /var/lib/tsuru/php/create_fpm_envs.py /var/lib/tsuru
 
 run     cp /var/lib/tsuru/base/restart /var/lib/tsuru
 run     cp /var/lib/tsuru/base/start /var/lib/tsuru
