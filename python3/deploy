@@ -11,4 +11,4 @@ fi
 
 shift; shift
 export $@
-python3 ${SOURCE_DIR}/hooks.py
+python ${SOURCE_DIR}/hooks.py
