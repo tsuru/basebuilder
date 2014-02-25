@@ -28,8 +28,6 @@ chown ${USER}:${USER} -R /var/lib/apache2/fastcgi/
 # Enabling modules needed by FastCGI
 /usr/sbin/a2enmod actions
 
-# Disable PHP5-FPM startup job. We use circusd for that
-sudo /usr/sbin/update-rc.d php5-fpm disable
 rm ${FPM_CONF}
 ln -s ${SOURCE_DIR}/php/etc/php-fpm.conf ${FPM_CONF}
 
