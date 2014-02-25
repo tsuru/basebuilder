@@ -6,7 +6,7 @@ ${SOURCE_DIR}/base/deploy $@
 source ${SOURCE_DIR}/config
 
 if [ -f ${CURRENT_DIR}/requirements.txt ]; then
-	sudo pip3 install -r ${CURRENT_DIR}/requirements.txt
+	sudo pip-3.2 install -r ${CURRENT_DIR}/requirements.txt
 fi
 
 shift; shift
