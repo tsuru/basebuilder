@@ -1,5 +1,6 @@
 #!/bin/bash -el
 
+FPM_INIT=/etc/init.d/php5-fpm
 FPM_CONF=/etc/php5/fpm/php-fpm.conf
 FPM_POOL_DIR=/etc/php5/fpm/pool.d
 SOURCE_DIR=/var/lib/tsuru
@@ -28,6 +29,14 @@ chown ${USER}:${USER} -R /var/lib/apache2/fastcgi/
 # Enabling modules needed by FastCGI
 /usr/sbin/a2enmod actions
 
+# Disable PHP5-FPM startup job. We use circusd for that
+sudo /usr/sbin/update-rc.d php5-fpm disable
+
+# Change php-fpm init script to use circusctl
+rm ${FPM_INIT}
+ln -s ${SOURCE_DIR}/php/etc/php5-fpm.init ${FPM_INIT}
+
+# Change php-fpm configuration
 rm ${FPM_CONF}
 ln -s ${SOURCE_DIR}/php/etc/php-fpm.conf ${FPM_CONF}
 
