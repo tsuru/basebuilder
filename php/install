@@ -2,4 +2,4 @@
 
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
-apt-get install apache2 libapache2-mod-fastcgi php5-fpm php5-cli -y
+apt-get install -y apache2 libapache2-mod-fastcgi php5-fpm php5-cli

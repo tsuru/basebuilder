@@ -29,4 +29,4 @@ deploy $@
 so_dependencies
 
 APP_SIZE=$(du -sh ${CURRENT_DIR} | awk '{print $1}');
-ident_a "Application size is ${APP_SIZE}"
+indent_arrow "Application size is ${APP_SIZE}"
