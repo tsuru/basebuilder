@@ -1,9 +1,10 @@
-#!/bin/sh -el
+#!/bin/bash -el
 
 function so_dependencies() {
     if [ -f ${CURRENT_DIR}/requirements.apt ]; then
-        sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y -qq
+        indent_arrow "Installing operating system dependances..."
+        sudo -E apt-get install -y -qq $(cat ${CURRENT_DIR}/requirements.apt)
     else
-        ident_a "requirements.apt not found. Skipping."
+        indent_arrow "requirements.apt not found. Skipping."
     fi
 }
