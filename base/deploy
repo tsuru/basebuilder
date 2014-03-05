@@ -23,6 +23,13 @@ function deploy() {
 
 SOURCE_DIR=/var/lib/tsuru
 
+cat > /etc/profile.d/tsuru.sh <<END
+export DEBIAN_FRONTEND=noninteractive
+alias 'indent=echo "      $*"'
+alias 'indent_arrow=echo " ---> $*"'
+END
+source /etc/profile.d/tsuru.sh
+
 source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
 deploy $@
