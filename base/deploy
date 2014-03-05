@@ -27,3 +27,6 @@ source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
 deploy $@
 so_dependencies
+
+APP_SIZE=$(du -sh ${CURRENT_DIR} | awk '{print $1}');
+echo "Application size is ${APP_SIZE}"
