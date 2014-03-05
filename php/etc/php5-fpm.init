@@ -11,6 +11,8 @@
 
 # Author: GUEST.it s.r.l. <assistenza@guest.it>
 
+echo $* >> /tmp/php.fpm.init
+
 PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin
 CIRCUSCTL=/usr/local/bin/circusctl
 WATCHERNAME=phpfpm
@@ -20,6 +22,7 @@ WATCHERNAME=phpfpm
 #
 do_start()
 {
+    echo "Tsuru: Starting php5-fpm"
 	${CIRCUSCTL} start ${WATCHERNAME}
 }
 
@@ -28,22 +31,23 @@ do_start()
 #
 do_stop()
 {
+    echo "Tsuru: Stopping php5-fpm"
 	${CIRCUSCTL} stop ${WATCHERNAME}
 }
 
 case "$1" in
     start)
-        echo "Tsuru: Starting php5-fpm"
 		do_start
 	;;
 
     stop)
-        echo "Tsuru: Stopping php5-fpm"
     	do_stop
 	;;
 
     restart)
-	    do_stop && do_start
+	    do_stop
+        sleep 2        
+        do_start
 	;;
 
     *)
