@@ -2,9 +2,8 @@
 
 function so_dependencies() {
     if [ -f ${CURRENT_DIR}/requirements.apt ]; then
-        sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y
+        sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y -qq
     else
-        echo "requirements.apt not found."
-        echo "Skipping..."
+        ident_a "requirements.apt not found. Skipping."
     fi
 }

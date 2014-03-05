@@ -4,3 +4,6 @@ APP_DIR=/home/application
 CURRENT_DIR=${APP_DIR}/current
 USER=ubuntu
 HOME=/home/ubuntu
+
+alias ident_a=echo "----> $*"
+alias ident=echo "      $*"
