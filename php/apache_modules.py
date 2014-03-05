@@ -15,15 +15,16 @@ def load_modules(data):
 def install_modules(modules):
     installed = 0
     for module in modules:
-        print "   Installing Apache module %s" % module
+        print '\e[1G\e[K'+"      Installing Apache module %s" % module
         os.system("a2enmod "+module+" >/dev/null 2>&1")
         installed = installed + 1
 
     if installed > 0: 
        os.system('/etc/init.d/apache2 restart >/dev/null 2>&1')
-       print "   Done enabling Apache modules."
+       print '\e[1G\e[K'+"      Done installing Apache modules."
     else:
-       print "   No Apache modules to enabled."
+       print '\e[1G\e[K'+"      No Apache modules installed."
+
 
 def load_file(working_dir="/home/application/current"):
     files_name = ["app.yaml", "app.yml"]
@@ -37,13 +38,7 @@ def load_file(working_dir="/home/application/current"):
 
 
 def main():
-    print ""
-    print ""
-    print ""
-    print "========================================"
-    print " Parsing Apache modules to enable"
-    print "========================================"
-    print ""
+    print '\e[1G\e[K'+"----> Parsing required Apache modules"
     data = load_file()
     modules = load_modules(data)
     install_modules(modules)
