@@ -15,14 +15,14 @@ def load_commands(data):
 def execute_commands(commands):
     run = 0
     for command in commands:
-        print "   Running hook: %s" % command
+        print " Running hook: %s" % command
         os.system(command)
         run = run + 1
 
     if run > 0: 
-       print "   Done executing hooks."
+       print " Done executing hooks."
     else:
-       print "   No hooks defined."
+       print " No hooks defined."
 
 
 def load_file(working_dir="/home/application/current"):
@@ -37,13 +37,7 @@ def load_file(working_dir="/home/application/current"):
 
 
 def main():
-    print ""
-    print ""
-    print ""
-    print "========================================"
-    print " Parsing Hooks"
-    print "========================================"
-    print ""
+    print "Parsing Hooks"
     data = load_file()
     commands = load_commands(data)
     execute_commands(commands)
