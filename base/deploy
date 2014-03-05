@@ -28,13 +28,13 @@ export DEBIAN_FRONTEND=noninteractive
 END
 source /etc/profile.d/tsuru.sh
 
-cat <<"END" | sudo tee -a /usr/local/bin/indent >/dev/null
-echo $'\e[1G\e[K'"      "$*
-END
-cat <<"END" | sudo tee -a /usr/local/bin/indent_arrow >/dev/null
-echo $'\e[1G\e[K'"----> "$*
-END
-sudo chmod +x /usr/local/bin/indent /usr/local/bin/indent_arrow
+#cat <<"END" | sudo tee -a /usr/local/bin/indent >/dev/null
+#echo $'\e[1G\e[K'"      "$*
+#END
+#cat <<"END" | sudo tee -a /usr/local/bin/indent_arrow >/dev/null
+#echo $'\e[1G\e[K'"----> "$*
+#END
+#sudo chmod +x /usr/local/bin/indent /usr/local/bin/indent_arrow
 
 source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
@@ -42,4 +42,4 @@ deploy $@
 so_dependencies
 
 APP_SIZE=$(du -sh ${CURRENT_DIR} | awk '{print $1}');
-indent_arrow "Repository size is ${APP_SIZE}"
+echo "Repository size is ${APP_SIZE}"

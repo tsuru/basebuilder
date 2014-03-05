@@ -8,7 +8,7 @@ ${SOURCE_DIR}/base/deploy $@
 shift; shift
 export $@
 
-indent_arrow "Deploying on $(sudo /usr/sbin/php5-fpm -v | head -n1 | cut -f1 -d'-')"
+echo "Deploying on $(sudo /usr/sbin/php5-fpm -v | head -n1 | cut -f1 -d'-')"
 
 # Link php.ini from application directory to /etc/php5/fpm/conf.d/
 if [ -f ${APP_DIR}/php.ini ] && [ ! -e ${PHP_FPM_INI} ]; then
@@ -21,19 +21,19 @@ sudo python ${SOURCE_DIR}/php/apache_modules.py
 
 
 
-indent_arrow "Parsing Composer dependances..."
+echo "Parsing Composer dependances..."
 
 # check for Composer dependencies and vendors are not bundled in the pack
 if [ -f ${APP_DIR}/composer.json ] && [ ! -d ${APP_DIR}/vendor ]; then
     # check if Composer is provided
     if [ -f ${APP_DIR}/composer.phar ]; then
-        indent "Using provided composer..."
+        echo " Using provided composer..."
     else
-        indent "Downloading composer..."
+        echo " Downloading composer..."
         wget --quiet http://getcomposer.org/composer.phar -O ${APP_DIR}/composer.phar 
     fi
 
     php ${APP_DIR}/composer.phar install
 else 
-    indent "Missing composer.json file or 'vendor' directory exists. Skipping composer..."
+    echo " Missing composer.json file or 'vendor' directory exists. Skipping composer..."
 fi
