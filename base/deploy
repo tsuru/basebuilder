@@ -23,12 +23,18 @@ function deploy() {
 
 SOURCE_DIR=/var/lib/tsuru
 
-cat <<END | sudo tee -a /etc/profile.d/tsuru.sh >/dev/null
+cat <<"END" | sudo tee -a /etc/profile.d/tsuru.sh >/dev/null
 export DEBIAN_FRONTEND=noninteractive
-alias 'indent=echo "      $*"'
-alias 'indent_arrow=echo " ---> $*"'
 END
 source /etc/profile.d/tsuru.sh
+
+cat <<"END" | sudo tee -a /usr/local/bin/indent >/dev/null
+echo $'\e[1G'"      $*"
+END
+cat <<"END" | sudo tee -a /usr/local/bin/indent_arrow >/dev/null
+echo $'\e[1G'"----> $*"
+END
+sudo chmod +x /usr/local/bin/indent /usr/local/bin/indent_arrow
 
 source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
