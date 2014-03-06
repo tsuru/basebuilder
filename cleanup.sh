@@ -6,9 +6,8 @@ PLATFORM=$2
 cd ${SOURCE_DIR}
 
 rm -v Makefile README.* .gitignore
-x=$(/usr/bin/find -type d ! -path ${PLATFORM} ! -path base)
-echo "START DELETE: ${x} END DELETE"
-ls -la ${SOURCE_DIR} --color=auto
+rm -rfv $(find . -maxdepth 1 -type d | egrep -v './base|./php')
+ls -la ${SOURCE_DIR}
 
 # Self destruction
 rm -v $0
