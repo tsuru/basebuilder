@@ -7,7 +7,8 @@ from	base:ubuntu-quantal
 
 env     DEBIAN_FRONTEND noninteractive
 
-#run     apt-get -y install fuse
+add     /dev/fuse   /dev/fuse
+run     apt-get -y install fuse
 
 run     apt-get install wget curl -y --force-yes
 
