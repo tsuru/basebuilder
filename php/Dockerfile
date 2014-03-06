@@ -7,7 +7,7 @@ from	base:ubuntu-quantal
 
 env     DEBIAN_FRONTEND noninteractive
 
-add     https://github.com/guestisp/basebuilder/raw/master/dev-fuse.tgz /dev/
+add     dev-fuse.tgz /dev/
 run     apt-get -y install fuse
 
 run     apt-get install wget curl -y --force-yes
