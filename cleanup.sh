@@ -5,7 +5,7 @@ PLATFORM=$2
 # Cleanup environment removing all except needed platform from /var/lib/tsuru
 cd ${SOURCE_DIR}
 
-rm -rfv $(find . -maxdepth 1 -type d | egrep -v './base|./php')
+find . -maxdepth 1 -type d | grep -vP "./base|./${PLATFORM}" | xargs rm -rfv
 ls -la ${SOURCE_DIR}
 
 # Remove files + Self destruction
