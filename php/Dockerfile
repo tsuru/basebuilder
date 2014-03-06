@@ -14,7 +14,6 @@ run	    mkdir /var/lib/tsuru
 run     wget --no-check-certificate https://github.com/guestisp/basebuilder/tarball/master -O basebuilder.tar.gz
 run     tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run     rm basebuilder.tar.gz
-run     /var/lib/tsuru/cleanup.sh php
 
 run     mv /var/lib/tsuru/base/restart /var/lib/tsuru
 run     mv /var/lib/tsuru/base/start /var/lib/tsuru
@@ -25,3 +24,5 @@ run     mv /var/lib/tsuru/php/create_fpm_envs.py /var/lib/tsuru
 
 run     /var/lib/tsuru/php/install
 run     /var/lib/tsuru/php/setup
+
+run     /var/lib/tsuru/cleanup.sh php

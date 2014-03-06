@@ -48,10 +48,3 @@ ln -s ${SOURCE_DIR}/php/etc/tsuru-fpm-pool.conf ${FPM_POOL_DIR}/tsuru.conf
 touch /home/application/fpm-envs.conf
 chown ubuntu:ubuntu /home/application/fpm-envs.conf
 
-# Cleaning up environment
-sudo apt-get autoremove -y --force-yes
-sudo rm -rf /var/cache/apt/archives/*.deb
-sudo rm -rf /var/lib/apt/lists/*
-sudo rm -rf /root/*
-sudo rm -rf /tmp/*
-sudo apt-get clean -y --force-yes
