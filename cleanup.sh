@@ -5,8 +5,8 @@ PLATFORM=$1
 # Cleanup environment removing all except needed platform from /var/lib/tsuru
 cd ${SOURCE_DIR}
 
+# Remove files + Self destruction
+grep --help
+rm -v Makefile README.* .gitignore
 find . -maxdepth 1 -type d | grep -vP "./base|./${PLATFORM}" | xargs rm -rfv
 ls -la ${SOURCE_DIR}
-
-# Remove files + Self destruction
-rm -v Makefile README.* .gitignore cleanup.sh
