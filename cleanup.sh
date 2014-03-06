@@ -6,7 +6,7 @@ PLATFORM=$2
 cd ${SOURCE_DIR}
 
 rm -v Makefile README.* .gitignore
-find -type d ! -path ${PLATFORM} ! -path base | xargs rm -rfv
+for i in $(find -type d ! -path ${PLATFORM} ! -path base); do rm -rfv ${i}; done
 
 # Self destruction
 rm -v $0
