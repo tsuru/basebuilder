@@ -7,9 +7,6 @@ from	base:ubuntu-quantal
 
 env     DEBIAN_FRONTEND noninteractive
 
-add     dev-fuse.tgz /dev/
-run     apt-get -y install fuse
-
 run     apt-get install wget curl -y --force-yes
 
 run	    mkdir /var/lib/tsuru
