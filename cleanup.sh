@@ -1,5 +1,5 @@
 !#/bin/bash
-SOURCE_DIR=$1
+SOURCE_DIR=/var/lib/tsuru
 PLATFORM=2
 
 # Cleanup environment removing all except needed platform from /var/lib/tsuru
