@@ -6,7 +6,8 @@ PLATFORM=$2
 cd ${SOURCE_DIR}
 
 rm -v Makefile README.* .gitignore
-find -type d ! -path ${PLATFORM} ! -path base -exec rm -rfv {} \;
+x=$(/usr/bin/find -type d ! -path ${PLATFORM} ! -path base)
+echo "START DELETE: ${x} END DELETE"
 ls -la ${SOURCE_DIR} --color=auto
 
 # Self destruction
