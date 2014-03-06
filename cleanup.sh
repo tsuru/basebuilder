@@ -10,6 +10,7 @@ find . -maxdepth 1 -type d | grep -vP "^\.$|\.\/base|\.\/${PLATFORM}" | xargs rm
 rm Makefile README.* .gitignore $0
 
 # Cleaning up environment
+apt-get remove --purge perl gcc g++ make libzmq-dev g++ python-dev build-essential
 apt-get autoremove -y --force-yes
 apt-get clean -y --force-yes
 rm -rf /var/cache/apt/archives/*.deb
