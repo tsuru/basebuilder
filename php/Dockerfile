@@ -5,6 +5,7 @@
 
 from	base:ubuntu-quantal
 
+env     TSURU_PLATFORM php
 env     DEBIAN_FRONTEND noninteractive
 
 #run     apt-get -y install fuse
@@ -14,8 +15,11 @@ run     apt-get install wget curl -y --force-yes
 run	    mkdir /var/lib/tsuru
 
 run     wget --no-check-certificate https://github.com/guestisp/basebuilder/tarball/master -O basebuilder.tar.gz
-run     tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
+run     tar -xvf --strip 1 basebuilder.tar.gz -C /var/lib/tsuru 
 run     rm basebuilder.tar.gz
+
+run     for i in Makefile README.md .gitignore ; do rm -v /var/lib/tsuru/${i}; done
+run     for i in $(find /var/lib/tsuru -type d ! -name ${TSURU_PLATFORM} ! -name base ! -name utils); do rm -vrf ${i}; done
 
 run     cp /var/lib/tsuru/base/restart /var/lib/tsuru
 run     cp /var/lib/tsuru/base/start /var/lib/tsuru
