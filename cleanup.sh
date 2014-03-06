@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash -el
 SOURCE_DIR=/var/lib/tsuru
 PLATFORM=$2
 
