@@ -7,5 +7,5 @@ cd ${SOURCE_DIR}
 
 # Remove files + Self destruction
 rm -f Makefile README.* .gitignore
-find . -maxdepth 1 -type d | grep -vP "./base|./${PLATFORM}" | xargs rm -rf
-#ls -la ${SOURCE_DIR}
+rm -vrf `find . -maxdepth 1 -type d | grep -vP "./base|./${PLATFORM}"` 
+ls -la ${SOURCE_DIR}
