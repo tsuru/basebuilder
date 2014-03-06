@@ -6,6 +6,5 @@ PLATFORM=$1
 cd ${SOURCE_DIR}
 
 # Remove files + Self destruction
-rm Makefile README.* .gitignore
-find . -maxdepth 1 -type d | grep -vP "^\.$|\./base|\./${PLATFORM}" | xargs rm -rfv
-ls -la ${SOURCE_DIR}
+find . -maxdepth 1 -type d | grep -vP "^\.$|\.\/base|\.\/${PLATFORM}" | xargs rm -rf
+rm Makefile README.* .gitignore $0
