@@ -50,4 +50,8 @@ chown ubuntu:ubuntu /home/application/fpm-envs.conf
 
 # Cleaning up environment
 sudo apt-get autoremove -y --force-yes
+sudo rm -rf /var/cache/apt/archives/*.deb
+sudo rm -rf /var/lib/apt/lists/*
+sudo rm -rf /root/*
+sudo rm -rf /tmp/*
 sudo apt-get clean -y --force-yes
