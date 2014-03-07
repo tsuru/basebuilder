@@ -8,5 +8,5 @@ pip install git+https://github.com/andrewsmedina/circus.git@validate_option_hook
 pip install tsuru-circus
 mkdir /var/run/sshd
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
-apt-get remove --purge -y gcc g++ make libzmq-dev g++ python-dev build-essential
+apt-get remove --purge -y gcc g++ make g++ build-essential
 apt-get autoremove -y
