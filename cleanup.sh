@@ -16,5 +16,5 @@ rm -rf /var/cache/apt/archives/*.deb
 rm -rf /var/lib/apt/lists/*
 rm -rf /root/*
 rm -rf /tmp/*
-rm -rf /usr/share/doc
-rm -rf /usr/shar/man
+rm -rf /usr/share/doc/*
+rm -rf /usr/shar/man/*
