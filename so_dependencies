@@ -3,6 +3,6 @@
 function so_dependencies() {
     if [ -f ${CURRENT_DIR}/requirements.apt ]; then
         echo "Installing operating system dependances..."
-        sudo -E apt-get install -y -qq $(cat ${CURRENT_DIR}/requirements.apt) >/dev/null 2>&1
+        sudo -E apt-get install -y $(cat ${CURRENT_DIR}/requirements.apt)
     fi
 }
