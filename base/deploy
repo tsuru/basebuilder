@@ -23,9 +23,11 @@ function deploy() {
 }
 
 SOURCE_DIR=/var/lib/tsuru
+sudo -E env > /tmp/env_e.list
+sudo env > /tmp/env.list
 
 # Link shared folders
-sudo -E python ${SOURCE_DIR}/sharedfs.py
+sudo -E python ${SOURCE_DIR}/sharedfs.py ${TSURU_APP_DIR} ${TSURU_SHAREDFS_MOUNTPOINT}
 
 cat <<"END" | sudo tee -a /etc/profile.d/tsuru.sh >/dev/null
 export DEBIAN_FRONTEND=noninteractive
