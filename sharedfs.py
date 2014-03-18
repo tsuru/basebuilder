@@ -35,11 +35,19 @@ def execute_links(app_dir, mountpoint, paths):
 
         # Remove old link, if exists or create the full dir path. 
         if os.path.exists(linkDest):
-           # TODO: properly manage not empty dirs
-           # ...
 
-           # If it's a link...
-           os.unlink(linkDest)         
+           # Empty dir, remove it
+           if os.path.isdir(linkDest) and not os.listdir(linkDest):
+               os.rmdir(linkDest)
+
+           # If it's a link, remove it (this should never happen)
+           else if os.path.islink(linkDest):
+               os.unlink(linkDest)   
+
+           # Something strange here, dir not empty or not a link, skipping.
+           else:
+               print " %s already exists in repository and is not empty. Ignoring it." % (path) 
+               continue
         else:
            os.makedirs(linkDest)
            os.rmdir(linkDest)
@@ -47,7 +55,7 @@ def execute_links(app_dir, mountpoint, paths):
         # Create symlink
         os.symlink(linkSource, linkDest)
 
-        print " Sharing %s from %s to %s" % (path, linkDest, linkSource)
+        print " Sharing %s" % (path, linkDest, linkSource)
 
 def main():
     print "Parsing directories to share..."
