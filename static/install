@@ -2,5 +2,6 @@
 
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
 apt-get update
-apt-get install git python openssh-server gcc make curl libpcre3-dev zlib1g-dev nginx -y
+apt-get install git python python-pip openssh-server gcc make curl libpcre3-dev zlib1g-dev nginx -y
+pip install PyYAML
 mkdir -p /var/run/sshd
