@@ -25,8 +25,6 @@ def load_paths(data):
 def execute_links(paths):
     app_dir = os.environ.get('TSURU_APP_DIR', '')
     mountpoint = os.environ.get('TSURU_SHAREDFS_MOUNTPOINT', '')
-    if mountpoint == '' or app_dir == '':
-        return False
 
     run = 0
     for path in paths:
@@ -66,6 +64,10 @@ def main():
     mountpoint = os.environ.get('TSURU_SHAREDFS_MOUNTPOINT', '')
 
     print " APP_DIR: %s - MOUNTPOINT: %s" % (app_dir, mountpoint)
+
+    if not mountpoint or not app_dir:
+        print " Skipping shared fs, missing environments."
+        return False
 
     data = load_file()
     paths = load_paths(data)
