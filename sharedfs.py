@@ -26,7 +26,7 @@ def execute_links(app_dir, mountpoint, paths):
         if path[:3] == '../':
             path = path.replace(path[:3], '')
 
-        linkSource = os.path.join(mountpoint, path) # e.g: /mnt/sharedfs/myshare
+        linkSource = os.path.join(mountpoint, path) # e.g: /mnt/sharedfs/wp-content
         linkDest = os.path.join(app_dir, path)      # e.g: /home/application/current/wp-content
 
         # Check existance of source directory in shared mount point
