@@ -3,7 +3,7 @@ import sys
 import yaml
 
 def load_file():
-    app_dir = sys.argv[1]
+    app_dir = os.environ.get('TSURU_APP_DIR', '')
     if app_dir == '':
         return False
 
@@ -23,8 +23,8 @@ def load_paths(data):
     return []
 
 def execute_links(paths):
-    app_dir = sys.argv[1]
-    mountpoint = sys.argv[2]
+    app_dir = os.environ.get('TSURU_APP_DIR', '')
+    mountpoint = os.environ.get('TSURU_SHAREDFS_MOUNTPOINT', '')
     if mountpoint == '' or app_dir == '':
         return False
 
@@ -60,10 +60,13 @@ def execute_links(paths):
         print " Sharing %s" % (path)
 
 def main():
-    if not len(sys.argv):
-        return False
-
     print "Parsing Shared FS"
+
+    app_dir = os.environ.get('TSURU_APP_DIR', '')
+    mountpoint = os.environ.get('TSURU_SHAREDFS_MOUNTPOINT', '')
+
+    print " APP_DIR: %s - MOUNTPOINT: %s" % (app_dir, mountpoint)
+
     data = load_file()
     paths = load_paths(data)
     execute_links(paths)
