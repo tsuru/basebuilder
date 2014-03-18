@@ -20,6 +20,9 @@ Listen 8888
 		allow from all
 	</Directory>
 
+    # Custom httpd.conf for each app
+    Include /home/application/current/httpd.con[f]
+
     # Deny direct access to php.ini files
     <Files ~ "^php\.ini$">
         Order allow,deny
