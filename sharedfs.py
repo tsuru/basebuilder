@@ -41,7 +41,7 @@ def execute_links(app_dir, mountpoint, paths):
                os.rmdir(linkDest)
 
            # If it's a link, remove it (this should never happen)
-           else if os.path.islink(linkDest):
+           elif os.path.islink(linkDest):
                os.unlink(linkDest)   
 
            # Something strange here, dir not empty or not a link, skipping.
