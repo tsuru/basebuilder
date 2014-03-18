@@ -33,12 +33,13 @@ export TSURU_SHAREDFS_MOUNTPOINT=${TSURU_SHAREDFS_MOUNTPOINT}
 END
 source /etc/profile.d/tsuru.sh
 
-# Link shared folders
-sudo -E python ${SOURCE_DIR}/sharedfs.py
-
 source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
 deploy $@
+
+# Link shared folders
+sudo -E python ${SOURCE_DIR}/sharedfs.py
+
 so_dependencies
 
 APP_SIZE=$(du -sh ${CURRENT_DIR} | awk '{print $1}');

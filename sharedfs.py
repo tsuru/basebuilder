@@ -1,5 +1,4 @@
 import os
-import sys
 import yaml
 
 def load_file(app_dir):
@@ -18,10 +17,7 @@ def load_paths(data):
         return result.get('sharedfs', [])
     return []
 
-def execute_links(paths):
-    app_dir = os.environ.get('TSURU_APP_DIR', '')
-    mountpoint = os.environ.get('TSURU_SHAREDFS_MOUNTPOINT', '')
-
+def execute_links(app_dir, mountpoint, paths):
     run = 0
     for path in paths:
         run = run + 1
@@ -51,7 +47,7 @@ def execute_links(paths):
         if not os.path.exists(linkdest):
             os.symlink(linkdest,linksource)
 
-        print " Sharing %s" % (path)
+        print " Sharing %s from %s to %s" % (path, linksource, linkdest)
 
 def main():
     print "Parsing directories to share..."
@@ -67,6 +63,6 @@ def main():
 
     data = load_file(app_dir)
     paths = load_paths(data)
-    execute_links(paths)
+    execute_links(app_dir, mountpoint, paths)
 
 main()
