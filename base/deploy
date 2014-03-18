@@ -26,17 +26,15 @@ SOURCE_DIR=/var/lib/tsuru
 export TSURU_APP_DIR
 export TSURU_SHAREDFS_MOUNTPOINT 
 
-cat <<"END" | sudo tee -a /etc/profile.d/tsuru.sh >/dev/null
-export DEBIAN_FRONTEND=noninteractive
-END
 cat <<END | sudo tee -a /etc/profile.d/tsuru.sh >/dev/null
+export DEBIAN_FRONTEND=noninteractive
 export TSURU_APP_DIR=${TSURU_APP_DIR}
 export TSURU_SHAREDFS_MOUNTPOINT=${TSURU_SHAREDFS_MOUNTPOINT}
 END
 source /etc/profile.d/tsuru.sh
 
 # Link shared folders
-sudo python ${SOURCE_DIR}/sharedfs.py
+sudo -E python ${SOURCE_DIR}/sharedfs.py
 
 source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
