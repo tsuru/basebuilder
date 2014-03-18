@@ -22,6 +22,8 @@ function deploy() {
     cd -
 }
 
+env >> /tmp/test
+
 SOURCE_DIR=/var/lib/tsuru
 
 cat <<"END" | sudo tee -a /etc/profile.d/tsuru.sh >/dev/null
