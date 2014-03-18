@@ -22,22 +22,15 @@ function deploy() {
     cd -
 }
 
-env >> /tmp/test
-
 SOURCE_DIR=/var/lib/tsuru
+
+# Link shared folders
+sudo -E python ${SOURCE_DIR}/sharedfs.py
 
 cat <<"END" | sudo tee -a /etc/profile.d/tsuru.sh >/dev/null
 export DEBIAN_FRONTEND=noninteractive
 END
 source /etc/profile.d/tsuru.sh
-
-#cat <<"END" | sudo tee -a /usr/local/bin/indent >/dev/null
-#echo $'\e[1G\e[K'"      "$*
-#END
-#cat <<"END" | sudo tee -a /usr/local/bin/indent_arrow >/dev/null
-#echo $'\e[1G\e[K'"----> "$*
-#END
-#sudo chmod +x /usr/local/bin/indent /usr/local/bin/indent_arrow
 
 source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
