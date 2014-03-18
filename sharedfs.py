@@ -46,7 +46,7 @@ def execute_links(app_dir, mountpoint, paths):
 
            # Something strange here, dir not empty or not a link, skipping.
            else:
-               print " %s already exists in repository and is not empty. Ignoring it." % (path) 
+               print " %s already exists in repository and is not empty. Ignoring it." % path
                continue
         else:
            os.makedirs(linkDest)
@@ -55,7 +55,7 @@ def execute_links(app_dir, mountpoint, paths):
         # Create symlink
         os.symlink(linkSource, linkDest)
 
-        print " Sharing %s" % (path, linkDest, linkSource)
+        print " Sharing %s" % path
 
 def main():
     print "Parsing directories to share..."
