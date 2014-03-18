@@ -2,11 +2,7 @@ import os
 import sys
 import yaml
 
-def load_file():
-    app_dir = os.environ.get('TSURU_APP_DIR', '')
-    if app_dir == '':
-        return False
-
+def load_file(app_dir):
     files_name = ["app.yaml", "app.yml"]
     for file_name in files_name:
         try:
@@ -58,7 +54,7 @@ def execute_links(paths):
         print " Sharing %s" % (path)
 
 def main():
-    print "Parsing Shared FS"
+    print "Parsing directories to share..."
 
     app_dir = os.environ.get('TSURU_APP_DIR', '')
     mountpoint = os.environ.get('TSURU_SHAREDFS_MOUNTPOINT', '')
@@ -69,7 +65,7 @@ def main():
         print " Skipping shared fs, missing environments."
         return False
 
-    data = load_file()
+    data = load_file(app_dir)
     paths = load_paths(data)
     execute_links(paths)
 
