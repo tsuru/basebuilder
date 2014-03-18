@@ -18,10 +18,7 @@ def load_paths(data):
     return []
 
 def execute_links(app_dir, mountpoint, paths):
-    run = 0
     for path in paths:
-        run = run + 1
-
         path = os.path.normpath(path)
 
         if path[0] == '/':
@@ -29,25 +26,28 @@ def execute_links(app_dir, mountpoint, paths):
         if path[:3] == '../':
             path = path.replace(path[:3], '')
 
-        linkdest = os.path.join(mountpoint, path)
-        linksource = os.path.join(app_dir, path)
+        linkSource = os.path.join(mountpoint, path) # e.g: /mnt/sharedfs/myshare
+        linkDest = os.path.join(app_dir, path)      # e.g: /home/application/current/wp-content
 
-        # Check existance of directory in shared mount point
-        if not os.path.exists(linkdest):
-            os.makedirs(linkdest)
+        # Check existance of source directory in shared mount point
+        if not os.path.exists(linkSource):
+            os.makedirs(linkSource)
 
-        # Remove old link, if exists or create the full dir path
-        if os.path.exists(linksource):
-           os.unlink(linksource)
+        # Remove old link, if exists or create the full dir path. 
+        if os.path.exists(linkDest):
+           # TODO: properly manage not empty dirs
+           # ...
+
+           # If it's a link...
+           os.unlink(linkDest)         
         else:
-           os.makedirs(linksource)
-           os.rmdir(linksource)
+           os.makedirs(linkDest)
+           os.rmdir(linkDest)
 
-        # Create symlink if not exist
-        if not os.path.exists(linkdest):
-            os.symlink(linkdest,linksource)
+        # Create symlink
+        os.symlink(linkSource, linkDest)
 
-        print " Sharing %s from %s to %s" % (path, linksource, linkdest)
+        print " Sharing %s from %s to %s" % (path, linkDest, linkSource)
 
 def main():
     print "Parsing directories to share..."
@@ -55,10 +55,7 @@ def main():
     app_dir = os.environ.get('TSURU_APP_DIR', '')
     mountpoint = os.environ.get('TSURU_SHAREDFS_MOUNTPOINT', '')
 
-    print " APP_DIR: %s - MOUNTPOINT: %s" % (app_dir, mountpoint)
-
     if not mountpoint or not app_dir:
-        print " Skipping shared fs, missing environments."
         return False
 
     data = load_file(app_dir)
