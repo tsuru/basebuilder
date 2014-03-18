@@ -9,15 +9,15 @@ then
 fi
 
 function deploy() {
-    if [ -d $CURRENT_DIR ]; then
-        cd $CURRENT_DIR
+    if [ -d ${CURRENT_DIR} ]; then
+        cd ${CURRENT_DIR}
         git reset --hard
         git fetch origin
         cd -
     else
-        git clone $1 $CURRENT_DIR
+        git clone $1 ${CURRENT_DIR}
     fi
-    cd $CURRENT_DIR
+    cd ${CURRENT_DIR}
     git checkout $2 >/dev/null 2>&1
     cd -
 }
