@@ -35,14 +35,13 @@ def execute_links(app_dir, mountpoint, paths):
 
         # Remove old link, if exists or create the full dir path. 
         if os.path.exists(linkDest):
+            # If it's a link, remove it (this should happens on a second push)
+            if os.path.islink(linkDest):
+                os.unlink(linkDest)   
 
-           # Empty dir, remove it
-           if os.path.isdir(linkDest) and not os.listdir(linkDest):
-               os.rmdir(linkDest)
-
-           # If it's a link, remove it (this should never happen)
-           elif os.path.islink(linkDest):
-               os.unlink(linkDest)   
+            # Empty dir, remove it
+            elif os.path.isdir(linkDest) and not os.listdir(linkDest):
+                os.rmdir(linkDest)
 
            # Something strange here, dir not empty or not a link, skipping.
            else:
