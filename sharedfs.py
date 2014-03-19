@@ -43,10 +43,10 @@ def execute_links(app_dir, mountpoint, paths):
             elif os.path.isdir(linkDest) and not os.listdir(linkDest):
                 os.rmdir(linkDest)
 
-           # Something strange here, dir not empty or not a link, skipping.
-           else:
-               print " %s already exists in repository and is not empty. Ignoring it." % path
-               continue
+            # Something strange here, dir not empty or not a link, skipping.
+            else:
+                print " %s already exists in repository and is not empty. Ignoring it." % path
+                continue
         else:
            os.makedirs(linkDest)
            os.rmdir(linkDest)
