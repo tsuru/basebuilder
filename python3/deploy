@@ -6,6 +6,10 @@ ${SOURCE_DIR}/base/deploy $@
 source ${SOURCE_DIR}/config
 
 if [ -f ${CURRENT_DIR}/requirements.txt ]; then
+	sudo apt-get install python-software-properties
+	sudo add-apt-repository ppa:fkrull/deadsnakes
+	sudo apt-get update
+	sudo apt-get install python3.3
 	sudo pip-3.2 install -r ${CURRENT_DIR}/requirements.txt
 fi
 
