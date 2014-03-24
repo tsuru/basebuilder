@@ -4,7 +4,10 @@
 # 2- run: $ docker build -t tsuru/python https://raw.github.com/tatiana/basebuilder/master/python3/Dockerfile
 
 from	base:ubuntu-quantal
+run apt-get install python-software-properties -y
+run add-apt-repository ppa:fkrull/deadsnakes
 run apt-get update -y
+run apt-get install python3.3 -y
 run apt-get install python3-pip -y
 run apt-get install wget -y --force-yes
 run	wget http://github.com/tatiana/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
