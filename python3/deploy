@@ -1,0 +1,14 @@
+#!/bin/bash -el
+ 
+SOURCE_DIR=/var/lib/tsuru
+${SOURCE_DIR}/base/deploy $@
+ 
+source ${SOURCE_DIR}/config
+ 
+if [ -f ${CURRENT_DIR}/requirements.txt ]; then
+    sudo pip3 install -r ${CURRENT_DIR}/requirements.txt
+fi
+ 
+shift; shift
+export $@
+python ${SOURCE_DIR}/hooks.py
