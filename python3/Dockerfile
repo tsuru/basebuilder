@@ -1,12 +1,12 @@
 # this file describes how to build tsuru python image
 # to run it:
 # 1- install docker
-# 2- run: $ docker build -t tsuru/python https://raw.github.com/tatiana/basebuilder/master/python3/Dockerfile
+# 2- run: $ docker build -t tsuru/python https://raw.github.com/flaviamissi/basebuilder/master/python3/Dockerfile
  
 from    base:ubuntu-quantal
 run apt-get update
 run apt-get install software-properties-common curl wget -y
-run wget http://github.com/tatiana/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
+run wget http://github.com/flaviamissi/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
 run mkdir /var/lib/tsuru
 run tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run cp /var/lib/tsuru/python3/deploy /var/lib/tsuru
