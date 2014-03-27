@@ -10,12 +10,12 @@ fi
 
 function deploy() {
     echo "DEPLOY $*"
-    newrew=$2
+    newrev=$2
     app_repo=$1
     app_name=$(basename $(echo ${app_repo} | awk -F[/] '{print $(NF)}') .git)
-    SHA256=$(echo -n ${app_name}${newrev})
+    SHA256=$(echo -n ${app_name}${newrev} | sha256sum | awk '{print $1}')
 
-    echo "NEWREW: ${newrew}"
+    echo "NEWREV: ${newrev}"
     echo "APPREPO: ${app_repo}"
     echo "APPNAME: ${app_name}"
     echo "SHA256: ${SHA256}"
@@ -25,7 +25,7 @@ function deploy() {
     fi
     cd ${CURRENT_DIR}
     echo "curl http://tsuru.guest.it/${SHA256}.tar | tar x > /dev/null 2>&1"
-    curl -sL http://tsuru.guest.it/${SHA256}.tar | tar x > /dev/null 2>&1
+    curl -sL http://tsuru.guest.it/${SHA256}.tar | tar x > /dev/null 2>&1 || exit 1
     cd -
 }
 
