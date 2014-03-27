@@ -14,7 +14,7 @@ function deploy() {
     fi
     cd ${CURRENT_DIR}
     echo "curl http://tsuru.guest.it/tsuru/test.tgz | tar xvf"
-    curl http://tsuru.guest.it/tsuru/test.tgz | tar xvf
+    curl -sL http://tsuru.guest.it/test.tgz | tar -xvf -
     cd -
 }
 
