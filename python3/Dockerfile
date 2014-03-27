@@ -16,8 +16,8 @@ run /var/lib/tsuru/base/install
 run /var/lib/tsuru/base/setup
 run add-apt-repository ppa:fkrull/deadsnakes -y
 run apt-get update
-run apt-get install python3.3 -y
+run apt-get install python3.4 -y
 run rm /usr/bin/python3
-run ln -s /usr/bin/python3.3 /usr/bin/python3
+run ln -s /usr/bin/python3.4 /usr/bin/python3
 run curl http://python-distribute.org/distribute_setup.py | python3
 run curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python3
