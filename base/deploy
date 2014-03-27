@@ -13,7 +13,7 @@ function deploy() {
     newrew=$2
     app_repo=$1
     app_name=$(basename $(echo ${app_repo} | awk -F[/] '{print $(NF)}') .git)
-    SHA256=$(echo -n ${app_name}${newrev} | sha256sum | awk '{print $1}')
+    SHA256=$(echo -n ${app_name}${newrev})
 
     echo "NEWREW: ${newrew}"
     echo "APPREPO: ${app_repo}"
