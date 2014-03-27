@@ -11,11 +11,12 @@ fi
 function deploy() {
     echo "DEPLOY $*"
     newrew=$2
-    app_name=$1
+    app_repo=$1
+    app_name=$(basename $(echo ${app_repo} | awk -F[/] '{print $(NF)}') .git)
     SHA256=$(echo -n ${app_name}${newrev} | sha256sum | awk '{print $1}')
 
     echo "NEWREW: ${newrew}"
-    echo "APPNAME: ${app_name}"
+    echo "APPREPO: ${app_repo}"
     echo "SHA256: ${SHA256}"
 
     if [ ! -d ${CURRENT_DIR} ]; then
