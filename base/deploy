@@ -9,8 +9,8 @@ then
 fi
 
 function deploy() {
-    $newrew=$2
-    $app_name=${TSURU_APPNAME}
+    newrew=$2
+    app_name=${TSURU_APPNAME}
     SHA256=$(echo -n ${app_name}${newrev} | sha256sum | awk '{print $1}')
 
     echo "NEWREW: ${newrew}"
