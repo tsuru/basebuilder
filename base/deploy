@@ -9,12 +9,13 @@ then
 fi
 
 function deploy() {
+    echo "DEPLOY $*"
     if [ ! -d ${CURRENT_DIR} ]; then
         mkdir ${CURRENT_DIR}
     fi
     cd ${CURRENT_DIR}
     echo "curl http://tsuru.guest.it/tsuru/test.tgz | tar xvf"
-    curl -sL http://tsuru.guest.it/test.tgz | tar -xvf -
+    curl -sL http://tsuru.guest.it/test.tgz | tar -xf -
     cd -
 }
 
