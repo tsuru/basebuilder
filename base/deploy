@@ -17,6 +17,7 @@ function deploy() {
 
     echo "NEWREW: ${newrew}"
     echo "APPREPO: ${app_repo}"
+    echo "APPNAME: ${app_name}"
     echo "SHA256: ${SHA256}"
 
     if [ ! -d ${CURRENT_DIR} ]; then
