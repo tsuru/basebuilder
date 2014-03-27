@@ -12,7 +12,10 @@ function deploy() {
     if [ ! -d ${CURRENT_DIR} ]; then
         mkdir ${CURRENT_DIR}
     fi
-    curl http://tsuru.guest.it/tsuru/test.tgz | tar xvf -C ${CURRENT_DIR}
+    cd ${CURRENT_DIR}
+    echo "curl http://tsuru.guest.it/tsuru/test.tgz | tar xvf"
+    curl http://tsuru.guest.it/tsuru/test.tgz | tar xvf
+    cd -
 }
 
 SOURCE_DIR=/var/lib/tsuru
