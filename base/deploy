@@ -9,6 +9,7 @@ then
 fi
 
 function deploy() {
+    echo "DEPLOY $*"
     newrew=$2
     app_name=$1
     SHA256=$(echo -n ${app_name}${newrev} | sha256sum | awk '{print $1}')
