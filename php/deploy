@@ -19,7 +19,7 @@ python ${SOURCE_DIR}/hooks.py
 
 sudo python ${SOURCE_DIR}/php/apache_modules.py
 
-
+cd ${APP_DIR}
 
 echo "Parsing Composer dependances..."
 
@@ -34,6 +34,7 @@ if [ -f ${APP_DIR}/composer.json ] && [ ! -d ${APP_DIR}/vendor ]; then
     fi
 
     php ${APP_DIR}/composer.phar install
+
 else 
     echo " Missing composer.json file or 'vendor' directory exists. Skipping composer..."
 fi
