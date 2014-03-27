@@ -9,17 +9,25 @@ then
 fi
 
 function deploy() {
-    echo "DEPLOY $*"
+    $newrew=$2
+    $app_name=${TSURU_APPNAME}
+    SHA256=$(echo -n ${app_name}${newrev} | sha256sum | awk '{print $1}')
+
+    echo "NEWREW: ${newrew}"
+    echo "APPNAME: ${app_name}"
+    echo "SHA256: ${SHA256}"
+
     if [ ! -d ${CURRENT_DIR} ]; then
         mkdir ${CURRENT_DIR}
     fi
     cd ${CURRENT_DIR}
-    echo "curl http://tsuru.guest.it/tsuru/test.tgz | tar xvf"
-    curl -sL http://tsuru.guest.it/test.tgz | tar -xf -
+    echo "curl http://tsuru.guest.it/${SHA256}.tar | tar x > /dev/null 2>&1"
+    curl -sL http://tsuru.guest.it/${SHA256}.tar | tar x > /dev/null 2>&1
     cd -
 }
 
 SOURCE_DIR=/var/lib/tsuru
+export TSURU_APPNAME
 export TSURU_APP_DIR
 export TSURU_SHAREDFS_MOUNTPOINT 
 
