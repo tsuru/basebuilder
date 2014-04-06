@@ -3,7 +3,7 @@
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
 
-apt-get install bzr mercurial git bzr -qqy --force-yes
+apt-get install curl bzr mercurial git bzr -qqy --force-yes
 
 source $SOURCE_DIR/config
 mkdir -p $APP_DIR
