@@ -1,0 +1,6 @@
+from base:ubuntu-quantal
+add . /var/lib/tsuru
+run cp /var/lib/tsuru/base/* /var/lib/tsuru
+run cp /var/lib/tsuru/{{IMAGE_NAME}}/* /var/lib/tsuru
+run /var/lib/tsuru/install
+run /var/lib/tsuru/setup
