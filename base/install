@@ -6,5 +6,6 @@ apt-get update
 apt-get install git openssh-server python-pip libzmq-dev g++ python-dev wget -y
 pip install git+https://github.com/andrewsmedina/circus.git@validate_option_hooks
 pip install tsuru-circus
+pip install tsuru-unit-agent
 mkdir /var/run/sshd
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
