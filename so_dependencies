@@ -1,4 +1,4 @@
-#!/bin/sh -el
+#!/bin/sh -l
 
 function so_dependencies() {
     if [ -f ${CURRENT_DIR}/requirements.apt ]; then

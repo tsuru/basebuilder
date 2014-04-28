@@ -27,4 +27,6 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
 deploy $@
+set +e
 so_dependencies
+set -e
