@@ -6,7 +6,7 @@
 # you should run your container using this image with the following command:
 # docker run -t -p 3306 mysqlimage mysqld_safe
 # you should also change the default environments variables values set here, e.g.: ROOT_PASSWORD and MYSQL_USER_*
-from	base:ubuntu-quantal
+from	ubuntu:14.04
 run	apt-get install wget -y --force-yes
 run	wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
 run	mkdir /var/lib/tsuru

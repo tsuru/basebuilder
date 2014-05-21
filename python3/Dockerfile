@@ -3,7 +3,7 @@
 # 1- install docker
 # 2- run: $ docker build -t tsuru/python https://raw.github.com/tsuru/basebuilder/master/python3/Dockerfile
  
-from    base:ubuntu-quantal
+from ubuntu:14.04
 run apt-get update
 run apt-get install software-properties-common curl wget -y
 run wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
