@@ -3,7 +3,7 @@
 # do not remove, circus is needed to manage application processes
 # and its environment variables
 apt-get update
-apt-get install git openssh-server python-pip libzmq-dev g++ python-dev wget libyaml-dev -y
+apt-get install curl git openssh-server python-pip libzmq-dev g++ python-dev wget libyaml-dev -y
 pip install git+https://github.com/andrewsmedina/circus.git@validate_option_hooks
 pip install tsuru-circus
 pip install tsuru-unit-agent
