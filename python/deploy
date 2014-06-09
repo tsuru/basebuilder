@@ -9,7 +9,7 @@ if [ -f ${CURRENT_DIR}/requirements.txt ]; then
 	sudo pip install -r ${CURRENT_DIR}/requirements.txt
 elif [ -f ${CURRENT_DIR}/setup.py ]; then
     source ${SOURCE_DIR}/unproxy
-    sudo pip install -e.
+    sudo pip install .
 fi
 
 shift; shift
