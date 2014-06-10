@@ -52,6 +52,8 @@ case $1 in
 		shift; shift
 		;;
 esac
+
+export $@
 set +e
 so_dependencies
 set -e
