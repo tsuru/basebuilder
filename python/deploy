@@ -1,17 +1,16 @@
 #!/bin/bash -el
 
 SOURCE_DIR=/var/lib/tsuru
-${SOURCE_DIR}/base/deploy $@
+source ${SOURCE_DIR}/base/deploy
 
 source ${SOURCE_DIR}/config
 
 if [ -f ${CURRENT_DIR}/requirements.txt ]; then
 	sudo pip install -r ${CURRENT_DIR}/requirements.txt
 elif [ -f ${CURRENT_DIR}/setup.py ]; then
-    source ${SOURCE_DIR}/unproxy
-    sudo pip install .
+	source ${SOURCE_DIR}/unproxy
+	sudo pip install .
 fi
 
-shift; shift
 export $@
 python ${SOURCE_DIR}/hooks.py
