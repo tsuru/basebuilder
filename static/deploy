@@ -1,30 +1,5 @@
 #!/bin/bash -el
 
-if [ $# -lt 2 ]
-then
-    echo "Usage:"
-    echo
-    echo "  % $0 <git-repository> <git-ref-id>"
-    exit 1
-fi
-
-function deploy() {
-    if [ -d $CURRENT_DIR ]; then
-        cd $CURRENT_DIR
-        git fetch origin
-        cd -
-    else
-        git clone $1 $CURRENT_DIR
-    fi
-    cd $CURRENT_DIR
-    git checkout $2 >/dev/null 2>&1
-    cd -
-}
-
 SOURCE_DIR=/var/lib/tsuru
-source ${SOURCE_DIR}/config
-deploy $@
-
-shift; shift
-export $@
+source ${SOURCE_DIR}/deploy
 python ${SOURCE_DIR}/hooks.py

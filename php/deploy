@@ -4,10 +4,7 @@ echo "Deploying on platform PHP 5.4-1"
 
 APP_DIR=/home/application/current
 SOURCE_DIR=/var/lib/tsuru
-${SOURCE_DIR}/base/deploy $@
-
-shift; shift
-export $@
+source ${SOURCE_DIR}/base/deploy
 
 python ${SOURCE_DIR}/hooks.py
 
@@ -28,10 +25,10 @@ if [ -f ${APP_DIR}/composer.json ] && [ ! -d ${APP_DIR}/vendor ]; then
         echo "   Using provided composer..."
     else
         echo "   Downloading composer..."
-        wget --quiet http://getcomposer.org/composer.phar -O ${APP_DIR}/composer.phar 
+        wget --quiet http://getcomposer.org/composer.phar -O ${APP_DIR}/composer.phar
     fi
 
     php ${APP_DIR}/composer.phar install
-else 
+else
     echo "   Missing composer.json file or 'vendor' directory exists. Skipping composer..."
 fi
