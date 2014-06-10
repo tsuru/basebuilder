@@ -1,32 +1,57 @@
 #!/bin/bash -el
 
-if [ $# -lt 2 ]
+if [ $# -lt 1 ]
 then
-    echo "Usage:"
-    echo
-    echo "  % $0 <git-repository> <git-ref-id> <envs>"
-    exit 1
+	echo "Usage:"
+	echo
+	echo "  % $0 <type> [param_1] [param_2] ... [param_n]"
+	exit 1
 fi
 
-function deploy() {
-    if [ -d $CURRENT_DIR ]; then
-        cd $CURRENT_DIR
-        git reset --hard
-        git fetch origin
-        cd -
-    else
-        git clone $1 $CURRENT_DIR
-    fi
-    cd $CURRENT_DIR
-    git checkout $2 >/dev/null 2>&1
-    cd -
+function git_deploy() {
+	if [ -d $CURRENT_DIR ]; then
+		cd $CURRENT_DIR
+		git reset --hard
+		git fetch origin
+		cd -
+	else
+		git clone $1 $CURRENT_DIR
+	fi
+	cd $CURRENT_DIR
+	git checkout $2 >/dev/null 2>&1
+	cd -
+}
+
+function archive_deploy() {
+	if [ -d $CURRENT_DIR ]
+	then
+		rm -rf $CURRENT_DIR
+	fi
+	mkdir -p $CURRENT_DIR
+	curl -sNL $1 -o /tmp/archive.tar.gz
+	tar -C $CURRENT_DIR -xzf /tmp/archive.tar.gz
+	rm /tmp/archive.tar.gz
 }
 
 SOURCE_DIR=/var/lib/tsuru
 
 source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
-deploy $@
+
+case $1 in
+	"git")
+		git_deploy $2 $3
+		shift; shift; shift
+		;;
+	"archive")
+		archive_deploy $2
+		shift; shift;
+		;;
+	*) # backward compatibility, when type is not specified
+		git_deploy $1 $2
+		shift; shift
+		;;
+esac
 set +e
 so_dependencies
 set -e
