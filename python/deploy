@@ -12,5 +12,4 @@ elif [ -f ${CURRENT_DIR}/setup.py ]; then
 	sudo pip install .
 fi
 
-export $@
 python ${SOURCE_DIR}/hooks.py
