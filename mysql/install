@@ -1,6 +1,0 @@
-#!/bin/bash
-echo mysql-server-5.5 mysql-server/root_password password $ROOT_PASSWORD | debconf-set-selections
-echo mysql-server-5.5 mysql-server/root_password_again password $ROOT_PASSWORD | debconf-set-selections
-echo mysql-server-5.5 mysql-server/start_on_boot boolean false | debconf-set-selections
-apt-get install mysql-server -y --force-yes
-exit 0
