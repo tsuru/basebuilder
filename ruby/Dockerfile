@@ -4,6 +4,7 @@
 # 2- run: $ docker build -t tsuru/ruby https://raw.github.com/tsuru/basebuilder/master/ruby/Dockerfile
 
 from	ubuntu:14.04
+run	apt-get update
 run	apt-get install wget -y --force-yes
 run	wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
 run	mkdir /var/lib/tsuru

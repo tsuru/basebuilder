@@ -4,6 +4,7 @@
 # 2- run wget https://raw.github.com/dotcloud/docker/v0.1.6/contrib/docker-build/docker-build && python docker-build <user>/base < Dockerfile
 
 from	ubuntu:14.04
+run	apt-get update
 run	apt-get install wget -y --force-yes
 run	wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
 run	mkdir /var/lib/tsuru

@@ -4,6 +4,7 @@
 # 2- run: $ docker build -no-cache -t tsuru/php https://github.com/tsuru/basebuilder/master/php/Dockerfile
 
 from    ubuntu:14.04
+run     apt-get update
 run     apt-get install wget -y --force-yes
 run     mkdir /var/lib/tsuru
 run     wget --no-check-certificate https://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz
