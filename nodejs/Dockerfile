@@ -13,5 +13,5 @@ run	cp /var/lib/tsuru/nodejs/deploy /var/lib/tsuru
 run	cp /var/lib/tsuru/base/restart /var/lib/tsuru
 run	cp /var/lib/tsuru/base/start /var/lib/tsuru
 run	/var/lib/tsuru/base/install
-run	apt-get install nodejs -y
+run	apt-get install nodejs npm nodejs-legacy -y
 run	/var/lib/tsuru/base/setup
