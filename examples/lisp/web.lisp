@@ -1,7 +1,7 @@
 (in-package #:web)
 
 (defroute (:get "/") (req res)
-  (send-response res :body "Hello from tsuru"))
+  (send-response res :body "Hello world from tsuru"))
 
 (defun start ()
   (with-event-loop (:catch-app-errors t)
