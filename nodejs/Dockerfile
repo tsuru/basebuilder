@@ -12,5 +12,6 @@ run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	cp /var/lib/tsuru/nodejs/deploy /var/lib/tsuru
 run	cp /var/lib/tsuru/base/restart /var/lib/tsuru
 run	cp /var/lib/tsuru/base/start /var/lib/tsuru
-run	/var/lib/tsuru/nodejs/install
+run	/var/lib/tsuru/base/install
+run	apt-get install nodejs -y
 run	/var/lib/tsuru/base/setup
