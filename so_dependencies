@@ -7,8 +7,5 @@ function so_dependencies() {
             sudo apt-get update
             DEBIAN_FRONTEND=noninteractive sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y --force-yes
         fi
-    else
-        echo "requirements.apt not found."
-        echo "Skipping..."
     fi
 }
