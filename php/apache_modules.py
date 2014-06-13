@@ -20,10 +20,11 @@ def install_modules(modules):
         installed = installed + 1
 
     if installed > 0:
-       os.system('/etc/init.d/apache2 restart >/dev/null 2>&1')
-       print "   Done enabling Apache modules."
+        os.system('/etc/init.d/apache2 restart >/dev/null 2>&1')
+        print "   Done enabling Apache modules."
     else:
-       print "   No Apache modules to enable."
+        print "   No Apache modules to enable."
+
 
 def load_file(working_dir="/home/application/current"):
     files_name = ["app.yaml", "app.yml"]
