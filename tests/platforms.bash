@@ -27,7 +27,7 @@ function test_platform() {
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} push git@localhost:${app_name}.git master
 
 	set +e
-	for i in `seq 1 3`
+	for i in `seq 1 5`
 	do
 		output=`curl -m 5 -sNH "Host: ${app_name}.tsuru-sample.com" localhost`
 		if [ $? == 0 ]
