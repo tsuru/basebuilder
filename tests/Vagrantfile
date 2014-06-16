@@ -1,11 +1,19 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu14.04"
+  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
   config.vm.provider "virtualbox" do |v|
     v.memory = 1024
   end
-  config.vm.box = "ubuntu14.04"
-  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
-  config.vm.network :private_network, ip: "192.168.50.40"
-  config.vm.provision :shell, :path => "run.bash"
+
+  config.vm.define :post_receive, autostart: false do |post_receive|
+    post_receive.vm.network :private_network, ip: "192.168.50.40"
+    post_receive.vm.provision :shell, path: "run.bash", args: "post_receive"
+  end
+
+  config.vm.define :pre_receive_archive, autostart: false do |pre_receive_archive|
+    pre_receive_archive.vm.network :private_network, ip: "192.168.50.41"
+    pre_receive_archive.vm.provision :shell, path: "run.bash", args: "pre_receive_archive"
+  end
 end
