@@ -59,12 +59,14 @@ function clone_basebuilder() {
 }
 
 function clean_tsuru_now() {
+	rm /tmp/tsuru-now.bash
 	tsuru app-remove -ya tsuru-dashboard 2>/dev/null
 	mongo tsurudb --eval 'db.platforms.remove({_id: "python"})'
 	docker rmi -f tsuru/python 2>/dev/null
 }
 
-curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash | bash
+curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash -o /tmp/tsuru-now.bash
+bash /tmp/tsuru-now.bash $@
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
