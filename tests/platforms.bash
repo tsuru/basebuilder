@@ -66,7 +66,7 @@ function clean_tsuru_now() {
 }
 
 curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash -o /tmp/tsuru-now.bash
-bash /tmp/tsuru-now.bash $@
+bash /tmp/tsuru-now.bash "$@"
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
