@@ -1,11 +1,14 @@
-#!/bin/sh -l
+#!/bin/sh -el
 
 function so_dependencies() {
+    export DEBIAN_FRONTEND=noninteractive
     if [ -f ${CURRENT_DIR}/requirements.apt ]; then
-        DEBIAN_FRONTEND=noninteractive sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y --force-yes
+        set +e
+        sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y --force-yes
+        set -e
         if [ "$?" -ne "0" ]; then
             sudo apt-get update
-            DEBIAN_FRONTEND=noninteractive sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y --force-yes
+            sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y --force-yes
         fi
     fi
 }

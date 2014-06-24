@@ -54,6 +54,4 @@ case $1 in
 esac
 
 export $@
-set +e
 so_dependencies
-set -e
