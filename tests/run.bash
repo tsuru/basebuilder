@@ -19,4 +19,4 @@ case $1 in
 		;;
 esac
 
-sudo -iu vagrant /vagrant/platforms.bash "${args[@]}"
+sudo -iu $SUDO_USER /vagrant/platforms.bash "${args[@]}"
