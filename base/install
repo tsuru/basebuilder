@@ -7,7 +7,5 @@ apt-get install curl git openssh-server python-pip libzmq-dev g++ python-dev wge
 pip install git+https://github.com/andrewsmedina/circus.git@validate_option_hooks
 pip install tsuru-circus
 pip install tsuru-unit-agent
-# Workaround for https://github.com/dotcloud/docker/issues/5663
-sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' /etc/pam.d/sshd
 mkdir /var/run/sshd
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
