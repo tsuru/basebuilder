@@ -79,7 +79,7 @@ set -e
 clone_basebuilder /tmp/basebuilder
 echo -e "Host localhost\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
-platforms="buildpack lisp nodejs php python python3 ruby ruby20 static"
+platforms="buildpack nodejs php python python3 ruby ruby20 static lisp"
 
 for platform in $platforms
 do
