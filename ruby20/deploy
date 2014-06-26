@@ -5,7 +5,7 @@ source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
 
 if [ -f ${CURRENT_DIR}/Gemfile ]; then
-	pushd $CURRENT_DIR && sudo bundle install --deployment --without test development
+	pushd $CURRENT_DIR && sudo bundle install --deployment --without ${BUNDLE_WITHOUT-development:test}
 	popd
 fi
 
