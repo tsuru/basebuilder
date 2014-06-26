@@ -5,7 +5,8 @@ source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
 
 if [ -f ${CURRENT_DIR}/package.json ]; then
-	pushd $CURRENT_DIR && npm install
+	if [ -d ${CURRENT_DIR}/node_modules ]; then rm -rf ${CURRENT_DIR}/node_modules ; fi
+	pushd $CURRENT_DIR && npm install --production --cache modules_cache --no-registry --nodedir=/usr/include/nodejs
 	popd
 fi
 
