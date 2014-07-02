@@ -8,7 +8,7 @@ source ${SOURCE_DIR}/config
 if [ -f ${CURRENT_DIR}/requirements.txt ]; then
 	sudo pip install -r ${CURRENT_DIR}/requirements.txt
 elif [ -f ${CURRENT_DIR}/setup.py ]; then
-	sudo pip install .
+	sudo pip install ${CURRENT_DIR}/
 fi
 
 python ${SOURCE_DIR}/hooks.py
