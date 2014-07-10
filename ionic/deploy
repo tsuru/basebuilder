@@ -1,6 +1,5 @@
 #!/bin/bash -el
 
 SOURCE_DIR=/var/lib/tsuru
-chmod -R u+w ${SOURCE_DIR}
 source ${SOURCE_DIR}/base/deploy
 python ${SOURCE_DIR}/hooks.py
