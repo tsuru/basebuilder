@@ -1,6 +1,6 @@
 #!/bin/bash -el
 
 SOURCE_DIR=/var/lib/tsuru
-source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/base/deploy
+source ${SOURCE_DIR}/config
 python ${SOURCE_DIR}/hooks.py
