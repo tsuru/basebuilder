@@ -1,7 +1,5 @@
 #!/bin/bash -el
 
-USER=ubuntu
-
 if [ $# -lt 1 ]
 then
 	echo "Usage:"
@@ -13,7 +11,7 @@ fi
 function git_deploy() {
 	if [ -d $CURRENT_DIR ]; then
 		cd $CURRENT_DIR
-		#git reset  --hard
+		git reset --hard
 		git fetch origin
 		cd -
 	else
