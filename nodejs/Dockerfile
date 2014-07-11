@@ -6,7 +6,7 @@
 from	ubuntu:14.04
 run	apt-get update
 run	DEBIAN_FRONTEND=noninteractive apt-get install wget -y --force-yes
-run	wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
+run	wget http://github.com/jonaskac/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
 run	mkdir /var/lib/tsuru
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	cp /var/lib/tsuru/nodejs/deploy /var/lib/tsuru
