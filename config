@@ -4,3 +4,4 @@ APP_DIR=/home/application
 CURRENT_DIR=${APP_DIR}/current
 USER=ubuntu
 HOME=/home/ubuntu
+VENV_DIR=${CURRENT_DIR}/.venv
