@@ -66,7 +66,7 @@ function clean_tsuru_now() {
 }
 
 curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash -o /tmp/tsuru-now.bash
-bash /tmp/tsuru-now.bash "$@"
+bash /tmp/tsuru-now.bash "$@" --without-dashboard
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
@@ -83,10 +83,7 @@ platforms="buildpack nodejs php python python3 ruby ruby20 static lisp"
 
 for platform in $platforms
 do
-	set +e
 	add_platform $platform
-	set -e
-
 	test_platform $platform
 done
 
