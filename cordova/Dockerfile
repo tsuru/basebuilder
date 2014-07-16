@@ -14,6 +14,3 @@ run	cp /var/lib/tsuru/base/restart /var/lib/tsuru
 run	cp /var/lib/tsuru/base/start /var/lib/tsuru
 run	/var/lib/tsuru/cordova/install
 run	/var/lib/tsuru/cordova/setup
-
-
-
