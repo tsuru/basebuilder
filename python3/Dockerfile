@@ -13,7 +13,6 @@ run	cp /var/lib/tsuru/python3/deploy /var/lib/tsuru
 run	cp /var/lib/tsuru/base/restart /var/lib/tsuru
 run	cp /var/lib/tsuru/base/start /var/lib/tsuru
 run	/var/lib/tsuru/base/install
-run	/var/lib/tsuru/base/setup
 run	add-apt-repository ppa:fkrull/deadsnakes -y
 run	apt-get update
 run	apt-get install python3.4 -y --force-yes

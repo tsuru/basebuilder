@@ -8,6 +8,5 @@ run     cp /var/lib/tsuru/buildpack/deploy /var/lib/tsuru
 run     cp /var/lib/tsuru/base/restart /var/lib/tsuru
 run     cp /var/lib/tsuru/base/start /var/lib/tsuru
 run     /var/lib/tsuru/base/install
-run     /var/lib/tsuru/base/setup
 run     cp /var/lib/tsuru/buildpack/circus.ini /etc/circus/circus.ini
 run     chmod +x /var/lib/tsuru/deploy

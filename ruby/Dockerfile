@@ -13,4 +13,3 @@ run	cp /var/lib/tsuru/ruby/deploy /var/lib/tsuru
 run	cp /var/lib/tsuru/base/restart /var/lib/tsuru
 run	cp /var/lib/tsuru/base/start /var/lib/tsuru
 run	/var/lib/tsuru/ruby/install
-run	/var/lib/tsuru/base/setup

@@ -1,12 +1,24 @@
 #!/bin/bash -el
 
+SOURCE_DIR=/var/lib/tsuru
+source ${SOURCE_DIR}/config
+
+mkdir -p /home/application
+useradd -m ${USER} -s /bin/bash
+chown ${USER}:${USER} /home/application
+echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 # do not remove, circus is needed to manage application processes
 # and its environment variables
 apt-get update
 apt-get install python-virtualenv curl git openssh-server python-pip libzmq-dev g++ python-dev wget libyaml-dev -y
-source /var/lib/tsuru/config
 ${VENV_DIR}/bin/pip install circus==0.11.1 tsuru-circus tsuru-unit-agent
 pip install tsuru-unit-agent
+
 sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' /etc/pam.d/sshd
 mkdir /var/run/sshd
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
+
+mkdir -p /etc/circus
+cp ${SOURCE_DIR}/utils/circus.ini /etc/circus/circus.ini
+

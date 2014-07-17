@@ -13,4 +13,3 @@ run	cp /var/lib/tsuru/go/deploy /var/lib/tsuru
 #run	cp /var/lib/tsuru/base/restart /var/lib/tsuru
 run	cp /var/lib/tsuru/go/start /var/lib/tsuru
 run	/var/lib/tsuru/go/install
-run	/var/lib/tsuru/base/setup
