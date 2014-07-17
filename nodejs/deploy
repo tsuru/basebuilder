@@ -10,4 +10,4 @@ if [ -f ${CURRENT_DIR}/package.json ]; then
 	popd
 fi
 
-python ${SOURCE_DIR}/hooks.py
+/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py

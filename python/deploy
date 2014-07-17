@@ -11,4 +11,4 @@ elif [ -f ${CURRENT_DIR}/setup.py ]; then
 	sudo pip install ${CURRENT_DIR}/
 fi
 
-python ${SOURCE_DIR}/hooks.py
+/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py

@@ -40,4 +40,4 @@ fi
 echo "Compiling application...."
 sbcl --non-interactive --eval "(ql:quickload \"${SYSTEM_NAME}\")" &> /dev/null
 
-python ${SOURCE_DIR}/hooks.py
+/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py

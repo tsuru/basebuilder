@@ -6,9 +6,9 @@ APP_DIR=/home/application/current
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 
-python ${SOURCE_DIR}/hooks.py
+/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
 
-sudo python ${SOURCE_DIR}/php/apache_modules.py
+sudo /home/application/.venv/bin/python ${SOURCE_DIR}/php/apache_modules.py
 
 
 echo ""

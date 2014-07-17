@@ -11,4 +11,4 @@ export GOPATH GOROOT PATH
 
 cd ${CURRENT_DIR} && go get -d ./...
 
-python ${SOURCE_DIR}/hooks.py
+/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py

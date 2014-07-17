@@ -2,4 +2,4 @@
 
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
-python ${SOURCE_DIR}/hooks.py
+/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
