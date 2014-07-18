@@ -6,7 +6,7 @@ source ${SOURCE_DIR}/config
 mkdir -p /etc/circus
 cp ${SOURCE_DIR}/cordova/etc/circus.ini /etc/circus/circus.ini
 
-mkdir /home/application
+mkdir -p /home/application
 useradd -s /bin/bash -m ${USER}
 chown ${USER}:${USER} /home/application
 echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
