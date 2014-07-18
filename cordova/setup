@@ -9,7 +9,7 @@ cp ${SOURCE_DIR}/cordova/etc/circus.ini /etc/circus/circus.ini
 mkdir -p /home/application
 
 # If the user doesn't exist add it
-if [ "$(getent passwd ${USER})" != '' ]; then
+if [ "$(getent passwd ${USER})" == '' ]; then
 	useradd -s /bin/bash -m ${USER};
 fi
 
