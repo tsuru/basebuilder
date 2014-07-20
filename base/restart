@@ -1,4 +1,6 @@
 #!/bin/bash -l
 
-circusctl stop
-circusctl start
+source /var/lib/tsuru/config
+
+${VENV_DIR}/bin/circusctl stop
+${VENV_DIR}/bin/circusctl start
