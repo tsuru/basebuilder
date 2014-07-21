@@ -8,4 +8,4 @@ if [ -f ${CURRENT_DIR}/requirements.txt ]; then
     sudo pip3 install -r ${CURRENT_DIR}/requirements.txt
 fi
 
-python2.7 ${SOURCE_DIR}/hooks.py
+/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
