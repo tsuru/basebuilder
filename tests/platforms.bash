@@ -3,12 +3,13 @@
 function add_platform() {
 	platform=$1
 	echo "adding platform $platform..."
+	output_file="/tmp/platform-update-${platform}"
 	set +e
-	local output=$(tsuru-admin platform-add $platform -d https://raw.githubusercontent.com/tsuru/basebuilder/master/${platform}/Dockerfile)
+	tsuru-admin platform-add $platform -d https://raw.githubusercontent.com/tsuru/basebuilder/master/${platform}/Dockerfile | tee $output_file
 	set -e
 	local result=$?
 	if [ $result != 0 ]; then
-		if [[ $output != "Error: Duplicate platform" ]]; then
+		if [[ $(tail -n1 $output_file) != "Error: Duplicate platform" ]]; then
 			echo "error adding platform $platform"
 			exit $result
 		fi
