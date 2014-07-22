@@ -29,7 +29,7 @@ function test_platform() {
 
 	mkdir ${app_dir}
 	git init ${app_dir}
-	cp /tmp/basebuilder/examples/${platform}/* ${app_dir}
+	cp -r /tmp/basebuilder/examples/${platform}/* ${app_dir}
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} add ${app_dir}/*
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} commit -m "add files"
 
