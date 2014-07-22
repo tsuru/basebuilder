@@ -1,0 +1,1 @@
+script: ./tests/run.bash post_receive
