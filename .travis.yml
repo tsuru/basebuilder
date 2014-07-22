@@ -1,1 +1,3 @@
 script: ./tests/run.bash post_receive
+notifications:
+  email: false

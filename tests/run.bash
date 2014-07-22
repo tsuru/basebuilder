@@ -1,8 +1,14 @@
 #!/bin/bash -el
 
-if [ -f /vagrant/.env ]
+if [ -d /vagrant ]; then
+	base_dir="/vagrant"
+else
+	base_dir="./tests"
+fi
+
+if [ -f ${base_dir}/.env ]
 then
-	source /vagrant/.env
+	source ${base_dir}/.env
 fi
 
 args=""
@@ -19,4 +25,4 @@ case $1 in
 		;;
 esac
 
-sudo -iu $SUDO_USER /vagrant/platforms.bash "${args[@]}"
+sudo -iu $SUDO_USER ${base_dir}/platforms.bash "${args[@]}"
