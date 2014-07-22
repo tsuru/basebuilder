@@ -25,7 +25,7 @@ case $1 in
 		;;
 esac
 
-if [ $SUDO_USER == "" ]; then
+if [[ $SUDO_USER == "" ]]; then
 	${base_dir}/platforms.bash "${args[@]}"
 else
 	sudo -iu $SUDO_USER ${base_dir}/platforms.bash "${args[@]}"
