@@ -3,3 +3,5 @@
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
 apt-get install gcc make curl libpcre3-dev zlib1g-dev nginx -y
+cp ${SOURCE_DIR}/static/etc/circus.ini /etc/circus/circus.ini
+cp ${SOURCE_DIR}/static/etc/nginx.conf /etc/nginx/nginx.conf
