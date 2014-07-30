@@ -26,13 +26,21 @@ rm quicklisp.lisp
 echo "Seting up application inside quicklisp...."
 ln -s ${CURRENT_DIR} ${HOME}/quicklisp/local-projects/${SYSTEM_NAME}
 
-if [ -f ${CURRENT_DIR}/requirements.txt ]; then
+if [ -f "${CURRENT_DIR}/requirements.txt" ]; then
     echo "External quicklisp dependencies found, installing...."
     cd ${HOME}/quicklisp/local-projects
     while read line
     do
-	echo "Installing ${line}...."
-	git clone $line &> /dev/null
+	[[ "$line" =~ ^.*\/([^\/\.]+)(\.git)?$ ]]
+    	if [ -d "${BASH_REMATCH[1]}" ]; then
+    	  echo "Updating $line"
+    	  cd "${BASH_REMATCH[1]}"
+    	  git pull &> /dev/null
+    	  cd ..
+    	else  
+	  echo "Installing ${line}...."
+	  git clone $line &> /dev/null
+        fi
     done <${CURRENT_DIR}/requirements.txt
     echo "Done installing external dependencies"
 fi
