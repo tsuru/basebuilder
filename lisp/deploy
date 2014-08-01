@@ -24,7 +24,7 @@ else
   echo "Cleaning up quicklisp install...."
   rm quicklisp.lisp
 
-  echo "Seting up application inside quicklisp...."
+  echo "Setting up application inside quicklisp...."
   ln -s ${CURRENT_DIR} ${HOME}/quicklisp/local-projects/${SYSTEM_NAME}
 fi
 
