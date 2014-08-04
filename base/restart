@@ -1,6 +1,0 @@
-#!/bin/bash -l
-
-source /var/lib/tsuru/config
-
-${VENV_DIR}/bin/circusctl stop --waiting
-${VENV_DIR}/bin/circusctl start --waiting
