@@ -36,10 +36,12 @@ function test_platform() {
 	tsuru app-create ${app_name} ${platform}
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} push git@localhost:${app_name}.git master
 
+	host=`tsuru app-info -a ${app_name} | grep Address | awk '{print $2}'`
+
 	set +e
 	for i in `seq 1 5`
 	do
-		output=`curl -m 5 -sNH "Host: ${app_name}.tsuru-sample.com" localhost`
+		output=`curl -m 5 -sNH "Host: ${host}" localhost`
 		if [ $? == 0 ]
 		then
 			break
