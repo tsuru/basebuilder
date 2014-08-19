@@ -4,35 +4,44 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
 
-HOME=/home/${USER}
 cd ${CURRENT_DIR}
 
 SYSTEM_PATH=`find . -name "*.asd"`
 SYSTEM_FILE=${SYSTEM_PATH##*/}
 SYSTEM_NAME=${SYSTEM_FILE%.asd}
 
-echo "Downloading quicklisp...."
-wget http://beta.quicklisp.org/quicklisp.lisp &> /dev/null
+if [ -d "${HOME}/quicklisp" ]; then
+  echo "Updating quicklisp...."
+  sbcl --non-interactive --eval "(ql:update-all-dists)" --eval "(ql:update-client)"
+else
+  echo "Downloading quicklisp...."
+  wget http://beta.quicklisp.org/quicklisp.lisp
 
-echo "Installing quicklisp...."
-sbcl --non-interactive --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(setf ql-util::*do-not-prompt* t)' --eval '(ql:add-to-init-file)' &> /dev/null
+  echo "Installing quicklisp...."
+  sbcl --non-interactive --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(setf ql-util::*do-not-prompt* t)' --eval '(ql:add-to-init-file)'
 
-echo "Updating quicklisp...."
-sbcl --non-interactive --eval '(setf ql-util::*do-not-prompt* t)' --eval '(ql:update-client)' --eval '(ql:update-all-dists)' &> /dev/null
+  echo "Cleaning up quicklisp install...."
+  rm quicklisp.lisp
 
-echo "Cleaning up quicklisp install...."
-rm quicklisp.lisp
+  echo "Setting up application inside quicklisp...."
+  ln -s ${CURRENT_DIR} ${HOME}/quicklisp/local-projects/${SYSTEM_NAME}
+fi
 
-echo "Seting up application inside quicklisp...."
-ln -s ${CURRENT_DIR} ${HOME}/quicklisp/local-projects/${SYSTEM_NAME}
-
-if [ -f ${CURRENT_DIR}/requirements.txt ]; then
+if [ -f "${CURRENT_DIR}/requirements.txt" ]; then
     echo "External quicklisp dependencies found, installing...."
     cd ${HOME}/quicklisp/local-projects
     while read line
     do
-	echo "Installing ${line}...."
-	git clone $line &> /dev/null
+	[[ "$line" =~ ^.*\/([^\/\.]+)(\.git)?$ ]]
+    	if [ -d "${BASH_REMATCH[1]}" ]; then
+    	  echo "Updating $line"
+    	  cd "${BASH_REMATCH[1]}"
+    	  git pull &> /dev/null
+    	  cd ..
+    	else  
+	  echo "Installing ${line}...."
+	  git clone $line &> /dev/null
+        fi
     done <${CURRENT_DIR}/requirements.txt
     echo "Done installing external dependencies"
 fi
