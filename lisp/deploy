@@ -12,7 +12,7 @@ SYSTEM_NAME=${SYSTEM_FILE%.asd}
 
 if [ -d "${HOME}/quicklisp" ]; then
   echo "Updating quicklisp...."
-  sbcl --non-interactive --eval "(ql:update-all-dists)" --eval "(ql:update-client)"
+  sbcl --non-interactive --eval "(ql:update-all-dists :prompt nil)" --eval "(ql:update-client :prompt nil)"
 else
   echo "Downloading quicklisp...."
   wget http://beta.quicklisp.org/quicklisp.lisp
