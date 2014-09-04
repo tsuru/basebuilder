@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+SOURCE_DIR=/var/lib/tsuru
+$SOURCE_DIR/base/install
+wget -q -O - http://apt.hellobits.com/hellobits.key | apt-key add -
+echo 'deb http://apt.hellobits.com/ precise main' | tee /etc/apt/sources.list.d/hellobits.list
+apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get install -qqy ruby-2.1
+gem install bundler
