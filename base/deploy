@@ -25,7 +25,7 @@ function git_deploy() {
 function archive_deploy() {
 	if [ -d $CURRENT_DIR ]
 	then
-		rm -rf $CURRENT_DIR
+		sudo rm -rf $CURRENT_DIR
 	fi
 	mkdir -p $CURRENT_DIR
 	curl -sNL $1 -o /tmp/archive.tar.gz
