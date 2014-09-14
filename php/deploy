@@ -2,13 +2,20 @@
 
 echo "Deploying on platform PHP 5.4-1"
 
-APP_DIR=/home/application/current
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 
 /home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
 
 sudo /home/application/.venv/bin/python ${SOURCE_DIR}/php/apache_modules.py
+
+echo ""
+echo ""
+echo "--- Enabling Mcrypt ---"
+
+sudo ln -sfv /etc/php5/mods-available/mcrypt.ini /etc/php5/apache2/conf.d/25-mcrypt.ini
+sudo ln -sfv /etc/php5/mods-available/mcrypt.ini /etc/php5/cli/conf.d/25-mcrypt.ini
+
 
 
 echo ""
@@ -19,16 +26,35 @@ echo " Parsing Composer dependances..."
 echo "========================================"
 echo ""
 # check for Composer dependencies and vendors are not bundled in the pack
-if [ -f ${APP_DIR}/composer.json ] && [ ! -d ${APP_DIR}/vendor ]; then
+if [ -f ${CURRENT_DIR}/composer.json ] && [ ! -d ${CURRENT_DIR}/vendor ]; then
     # check if Composer is provided
-    if [ -f ${APP_DIR}/composer.phar ]; then
+    if [ -f ${CURRENT_DIR}/composer.phar ]; then
         echo "   Using provided composer..."
     else
         echo "   Downloading composer..."
-        wget --quiet http://getcomposer.org/composer.phar -O ${APP_DIR}/composer.phar
+        wget --quiet http://getcomposer.org/composer.phar -O ${CURRENT_DIR}/composer.phar
     fi
-
-    php ${APP_DIR}/composer.phar install
+    pushd ${CURRENT_DIR}
+    php composer.phar install
+    popd
 else
     echo "   Missing composer.json file or 'vendor' directory exists. Skipping composer..."
 fi
+
+echo ""
+echo "--- Checking for custom DOCROOT ---"
+echo ""
+APACHE_DOC_ROOT=""
+if [ -f ${CURRENT_DIR}/DOCROOT ]; then
+  APACHE_DOC_ROOT=$( cat ${CURRENT_DIR}/DOCROOT )
+  echo ""
+  echo "DocRoot: $APACHE_DOC_ROOT"
+  echo ""
+fi
+sudo sed -i "s#DocumentRoot /home/application/current.*#DocumentRoot /home/application/current$APACHE_DOC_ROOT#" /etc/apache2/sites-enabled/tsuru-vhost.conf
+echo ""
+echo "--- Current Apache VHOST Config ---"
+echo ""
+cat /etc/apache2/sites-enabled/tsuru-vhost.conf
+echo ""
+echo ""

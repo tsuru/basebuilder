@@ -12,7 +12,7 @@ Listen 8888
 	</Directory>
 	<Directory /home/application/current/>
 		Options Indexes FollowSymLinks MultiViews
-		AllowOverride None
+		AllowOverride All
 		Order allow,deny
 		Allow from all
 		Require all granted

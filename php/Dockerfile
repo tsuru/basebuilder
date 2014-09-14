@@ -7,7 +7,7 @@ from    ubuntu:14.04
 run	apt-get update
 run	apt-get install wget -y --force-yes
 run	mkdir /var/lib/tsuru
-run	wget --no-check-certificate https://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz
+run	wget --no-check-certificate https://github.com/drowe/basebuilder/tarball/master -O basebuilder.tar.gz
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	rm basebuilder.tar.gz
 run	cp /var/lib/tsuru/php/deploy /var/lib/tsuru
