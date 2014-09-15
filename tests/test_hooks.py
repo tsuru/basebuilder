@@ -37,15 +37,25 @@ other:
 class ExecuteCommandsTest(TestCase):
     @patch("subprocess.call")
     def test_execute_commands(self, subprocess_call):
+        subprocess_call.return_value = 0
         execute_commands(["ble"])
         subprocess_call.assert_called_with("ble", shell=True,
                                            cwd="/home/application/current")
 
     @patch("subprocess.call")
     def test_execute_commands_specific_cwd(self, subprocess_call):
+        subprocess_call.return_value = 0
         execute_commands(["ble"], working_dir="/tmp")
         subprocess_call.assert_called_with("ble", shell=True,
                                            cwd="/tmp")
+
+    @patch("subprocess.call")
+    def test_execute_commands_failure(self, subprocess_call):
+        subprocess_call.return_value = 7
+        with self.assertRaises(SystemExit) as cm:
+            execute_commands(["ble"])
+        exc = cm.exception
+        self.assertEqual(7, exc.code)
 
 
 class LoadFileTest(TestCase):

@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys
 
 import yaml
 
@@ -15,7 +16,9 @@ def load_commands(data):
 
 def execute_commands(commands, working_dir="/home/application/current"):
     for command in commands:
-        subprocess.call(command, shell=True, cwd=working_dir)
+        status = subprocess.call(command, shell=True, cwd=working_dir)
+        if status != 0:
+            sys.exit(status)
 
 
 def load_file(working_dir="/home/application/current"):
