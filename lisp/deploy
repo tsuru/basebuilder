@@ -47,6 +47,7 @@ if [ -f "${CURRENT_DIR}/requirements.txt" ]; then
 fi
 
 echo "Compiling application...."
-sbcl --non-interactive --eval "(ql:quickload \"${SYSTEM_NAME}\")" &> /dev/null
+sbcl --non-interactive --eval "(ql:quickload \"${SYSTEM_NAME}\")"
 
+echo "Running python hooks...."
 /home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
