@@ -53,5 +53,10 @@ case $1 in
 		;;
 esac
 
-export $@
+if [[ $@ != "" ]]; then
+	export $@
+else
+	export TSURU_DEPLOY_NO_ENVS=1
+fi
+
 so_dependencies

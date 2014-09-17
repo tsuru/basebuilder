@@ -33,6 +33,10 @@ def load_file(working_dir="/home/application/current"):
 
 
 def main():
+    if os.environ.get('TSURU_DEPLOY_NO_ENVS'):
+        # No environment variables sent to deploy script we'll assume hooks
+        # are being handled by tsuru-unit-agent.
+        return
     data = load_file()
     commands = load_commands(data)
     execute_commands(commands)

@@ -1,4 +1,4 @@
-from base:ubuntu-quantal
+from ubuntu:14.04
 add . /var/lib/tsuru
 run cp /var/lib/tsuru/base/* /var/lib/tsuru
 run cp /var/lib/tsuru/{{IMAGE_NAME}}/* /var/lib/tsuru
