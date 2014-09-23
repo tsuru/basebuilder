@@ -1,47 +1,48 @@
 This repository has the scripts used to build tsuru's docker images.
-Keep reading for better understanding what that image does and how to create
-your own image for using at tsuru.
 
+Installing platforms
+--------------------
 
-Why this image?
----------------
+Each directory describes a tsuru platform. To add one of these platforms to
+your tsuru installation you simply call:
 
-Tsuru performs some actions in the containers created by docker.
-Each image has a built-in deployment script, which also runs the
-requirements.apt file (`so_requirements` file). If none of the default
-images attends your needs, you have to customize an image.
-This repository aims to make this process easier.
+```
+$ tsuru-admin platform-add <name> -d https://raw.github.com/tsuru/basebuilder/master/<name>/Dockerfile
+```
 
-In order to create a base image for a platform (let's say you wanna add
-support for php, for instance) you can use tsuru's base image as your base
-image, and addapt to your needs. Implementing the hooks (described below)
-will allow tsuru to run php apps properly.
+Creating new platforms
+----------------------
 
+The only mandatory file if you're creating a new platform is the Dockerfile.
 
-Hooks explained
----------------
+tsuru will look for two scripts to be available inside the platform image:
 
-Images must have two scripts (or hooks):
+ - /var/lib/tsuru/start
+ - /var/lib/tsuru/deploy
 
- - deploy
- - so_dependencies
+You should make sure these scripts are added by your Dockerfile, in a similar
+fashion to how it's done in the example platforms.
 
-The `deploy` hook receives the application git read-only url. It will clone
-the repository into the `$CURRENT_DIR` environment defined in the config file.
-If the directory already exists, the script will simply run a `git pull`
-inside `$CURRENT_DIR`. This script will also call the `so_dependencies` function,
-defined in the `so_dependencies` file.
-The `so_dependencies` script is intended to install OS requirements. It is not
-platform dependent and, therefore, can be used for any kind of application.
+The `deploy` script is called by tsuru when creating an image for your
+application. It's responsible for downloading the source code and installing
+possible dependencies.
 
-Making your own docker image
-----------------------------
+It's highly recommended for your platform's deploy script to source the
+contents of the `/base/deploy` script. This script already handles downloading
+the source code and installing OS dependencies described by the
+`requirements.apt` file.
 
-To add support for platforms tsuru does not have built-in support, one must
-create images. Simply create a container using tsuru base image and install
-everything your platform needs to run. When you're done, commit and push the
-image to docker registry. You might have to change some of the default scripts.
-For example, if you need to search platform specific dependencies (and you
-will probably need), you'll have to call your custom dependencies seeker in the
-deploy script, which is the only one called directly by tsuru in deployment
-time.
+The `start` script is called by tsuru to start your application on an image
+previously built with the `deploy` script.
+
+Currently all of our platforms rely on **circus** to run the application based
+on a the contents of a `Procfile` present in the application. It's recommended
+that a new platform use circus in the same way, therefore avoiding the need to
+change the start script from the one already available at `/base/start`.
+
+Using circus is useful since it already handles parsing the Procfile, log
+forwarding to tsuru and restarting the process if it dies for some reason. You
+can customize your platform's circus.ini from the one available in
+`/utils/circus.ini` by making sure your Dockerfile writes your file to
+`/etc/circus/circus.ini`.
+
