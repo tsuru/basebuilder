@@ -5,10 +5,14 @@ source ${SOURCE_DIR}/base/deploy
 
 source ${SOURCE_DIR}/config
 
-if [ -f ${CURRENT_DIR}/requirements.txt ]; then
-	sudo pip install -r ${CURRENT_DIR}/requirements.txt
-elif [ -f ${CURRENT_DIR}/setup.py ]; then
-	sudo pip install ${CURRENT_DIR}/
-fi
+(
+	cd ${CURRENT_DIR}
+
+	if [ -f ${CURRENT_DIR}/requirements.txt ]; then
+		sudo pip install -r ${CURRENT_DIR}/requirements.txt
+	elif [ -f ${CURRENT_DIR}/setup.py ]; then
+		sudo pip install ${CURRENT_DIR}/
+	fi
+)
 
 /home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
