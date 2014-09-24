@@ -1,7 +1,6 @@
 # this file describes how to build tsuru python image
 # to run it:
-# 1- install docker
-# 2- run: $ docker build -t tsuru/python https://raw.github.com/tsuru/basebuilder/master/python/Dockerfile
+# 1 - tsuru-admin platform-add python -d https://raw.github.com/tsuru/basebuilder/master/python/Dockerfile
 
 from	ubuntu:14.04
 run	apt-get update

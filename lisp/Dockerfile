@@ -1,7 +1,6 @@
 # this file describes how to build tsuru lisp image
 # to run it:
-# 1- install docker
-# 2- run: $ docker build -t tsuru/lisp https://raw.github.com/tsuru/basebuilder/master/lisp/Dockerfile
+# 1 - tsuru-admin platform-add lisp -d https://raw.github.com/tsuru/basebuilder/master/lisp/Dockerfile
 
 from	ubuntu:14.04
 run	apt-get update

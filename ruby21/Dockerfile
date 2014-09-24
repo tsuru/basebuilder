@@ -1,7 +1,6 @@
-# this file describes how to build tsuru ruby 2.1 image
+# this file describes how to build tsuru ruby21 image
 # to run it:
-# 1- install docker
-# 2- run: $ docker build -t tsuru/ruby21 https://raw.github.com/tsuru/basebuilder/master/ruby21/Dockerfile
+# 1 - tsuru-admin platform-add ruby21 -d https://raw.github.com/tsuru/basebuilder/master/ruby21/Dockerfile
 
 from	ubuntu:14.04
 run	apt-get update

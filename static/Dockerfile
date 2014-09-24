@@ -1,7 +1,6 @@
 # this file describes how to build tsuru static image
 # to run it:
-# 1- install docker
-# 2- run: $ docker build -t tsuru/static https://raw.github.com/tsuru/basebuilder/master/static/Dockerfile
+# 1 - tsuru-admin platform-add static -d https://raw.github.com/tsuru/basebuilder/master/static/Dockerfile
 
 from	ubuntu:14.04
 run	apt-get update

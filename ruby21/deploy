@@ -9,4 +9,4 @@ if [ -f ${CURRENT_DIR}/Gemfile ]; then
 	popd
 fi
 
-/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
+${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py

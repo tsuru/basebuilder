@@ -15,4 +15,4 @@ source ${SOURCE_DIR}/config
 	fi
 )
 
-/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
+${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py

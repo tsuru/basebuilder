@@ -2,6 +2,6 @@
 
 APP_DIR=/home/application
 CURRENT_DIR=${APP_DIR}/current
-USER=ubuntu
 HOME=/home/ubuntu
-VENV_DIR=${APP_DIR}/.venv
+USER=ubuntu
+VENV_DIR=${APP_DIR}/.circus_env
