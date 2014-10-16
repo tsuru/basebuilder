@@ -1,6 +1,7 @@
 #!/bin/bash -el
 
 cd /
+SOURCE_DIR=/var/lib/tsuru
 
 if [ $# -lt 1 ]
 then
@@ -11,7 +12,8 @@ then
 fi
 
 function git_deploy() {
-	if [ -d $CURRENT_DIR ]; then
+	if [ -d $CURRENT_DIR ]
+	then
 		cd $CURRENT_DIR
 		git reset --hard
 		git fetch origin
@@ -35,11 +37,26 @@ function archive_deploy() {
 	rm /tmp/archive.tar.gz
 }
 
-SOURCE_DIR=/var/lib/tsuru
+function pre_deploy() {
+	if [ -f /home/application/.default_procfile ]
+	then
+		rm /home/application/.default_procfile /home/application/current/Procfile
+	fi
+}
+
+function post_deploy() {
+	if [ ! -f /home/application/current/Procfile ] && [ -f ${SOURCE_DIR}/utils/Procfile ]
+	then
+		cp ${SOURCE_DIR}/utils/Procfile /home/application/current/Procfile
+		touch /home/application/.default_procfile
+	fi
+}
+
 
 source ${SOURCE_DIR}/config
 source ${SOURCE_DIR}/so_dependencies
 
+pre_deploy
 case $1 in
 	"git")
 		git_deploy $2 $3
@@ -54,6 +71,7 @@ case $1 in
 		shift; shift
 		;;
 esac
+post_deploy
 
 if [[ $@ != "" ]]; then
 	export $@
