@@ -4,6 +4,7 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 
 source ${SOURCE_DIR}/config
+APP_VENV=/home/application/.app_env
 
 (
 	cd ${CURRENT_DIR}
@@ -11,9 +12,9 @@ source ${SOURCE_DIR}/config
 	echo_debug "*** $0: About to do pip install (pwd: $(pwd))"
 
 	if [ -f ${CURRENT_DIR}/requirements.txt ]; then
-		sudo pip install -r ${CURRENT_DIR}/requirements.txt
+		${APP_VENV}/bin/pip install -r ${CURRENT_DIR}/requirements.txt
 	elif [ -f ${CURRENT_DIR}/setup.py ]; then
-		sudo pip install ${CURRENT_DIR}/
+		${APP_VENV}/bin/pip install ${CURRENT_DIR}/
 	fi
 )
 
