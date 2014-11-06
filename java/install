@@ -18,5 +18,6 @@ apt-get install -y tomcat7 maven
 
 rm -rf /var/lib/tomcat7/webapps
 ln -s /home/application/current /var/lib/tomcat7/webapps
-chown -R ${USER}:${USER} /etc/tomcat7 /var/lib/tomcat7 /var/cache/tomcat7 /var/log/tomcat7
+mkdir -p /usr/share/tomcat7/common/classes /usr/share/tomcat7/server/classes /usr/share/tomcat7/shared/classes
+chown -R ${USER}:${USER} /etc/tomcat7 /var/lib/tomcat7 /var/cache/tomcat7 /var/log/tomcat7 /usr/share/tomcat7
 sed -i 's/8080/8888/' /etc/tomcat7/server.xml
