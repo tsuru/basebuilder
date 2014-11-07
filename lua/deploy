@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -el
 
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy

@@ -15,5 +15,4 @@ wget http://luarocks.org/releases/luarocks-2.2.0.tar.gz
 tar zxvpf luarocks-2.2.0.tar.gz
 cd luarocks-2.2.0
 ./configure
-make bootstrap;
-
+make bootstrap
