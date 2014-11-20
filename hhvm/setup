@@ -1,0 +1,10 @@
+#!/bin/bash -el
+
+SOURCE_DIR=/var/lib/tsuru
+source ${SOURCE_DIR}/config
+
+mkdir -p /etc/circus
+cp ${SOURCE_DIR}/php/etc/circus.ini /etc/circus/circus.ini
+
+/usr/share/hhvm/install_fastcgi.sh
+sudo sed -i -e 's/\/usr\/share\/nginx\/html/\/home\/application\/current/' /etc/nginx/sites-enabled/default
