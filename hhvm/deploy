@@ -1,6 +1,6 @@
 #!/bin/bash -el
 
-echo "Deploying on platform PHP 5.4-1"
+echo "Deploying on platform HHVM"
 
 APP_DIR=/home/application/current
 SOURCE_DIR=/var/lib/tsuru

@@ -1,7 +1,7 @@
-# this file describes how to build tsuru php image
+# this file describes how to build tsuru hhvm image
 # to run it:
 # 1- install docker
-# 2- run: $ docker build -no-cache -t tsuru/php https://github.com/tsuru/basebuilder/master/php/Dockerfile
+# 2- run: $ docker build -no-cache -t tsuru/hhvm https://raw.githubusercontent.com/7IN0-labs/basebuilder/master/hhvm/Dockerfile
 
 from    ubuntu:14.04
 run	apt-get update
