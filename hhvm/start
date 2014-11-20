@@ -2,6 +2,6 @@
 
 source /var/lib/tsuru/config
 
-/usr/bin/hhvm --config /etc/hhvm/php.ini --config /etc/hhvm/server.ini --user www-data --mode daemon -vPidFile=/var/run/hhvm/pid
+/usr/sbin/nginx -c /etc/nginx/nginx.conf > /dev/null 2>&1 &
 
-/usr/sbin/nginx -c /etc/nginx/nginx.conf
+/usr/bin/hhvm --config /etc/hhvm/php.ini --config /etc/hhvm/server.ini --user www-data --mode daemon -vPidFile=/var/run/hhvm/pid
