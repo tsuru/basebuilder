@@ -1,9 +1,0 @@
-#!/bin/bash -l
-
-source /var/lib/tsuru/config
-
-start nginx
-
-start hhvm
-
-/var/lib/tsuru/base/start
