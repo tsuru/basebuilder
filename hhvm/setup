@@ -7,4 +7,5 @@ mkdir -p /etc/circus
 cp ${SOURCE_DIR}/hhvm/etc/circus.ini /etc/circus/circus.ini
 
 /usr/share/hhvm/install_fastcgi.sh
-sudo sed -i -e 's/\/usr\/share\/nginx\/html/\/home\/application\/current/' /etc/nginx/sites-enabled/default
+sed -i -e 's/\/usr\/share\/nginx\/html/\/home\/application\/current/' /etc/nginx/sites-enabled/default
+sed -i -e 's/index index.html index.htm;/index index.html index.htm index.php;/' /etc/nginx/sites-enabled/default
