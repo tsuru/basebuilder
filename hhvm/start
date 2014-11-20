@@ -1,4 +1,6 @@
-#!/bin/bash -e
+#!/bin/bash -l
+
+source /var/lib/tsuru/config
 
 /usr/sbin/nginx -c /etc/nginx/nginx.conf
 
