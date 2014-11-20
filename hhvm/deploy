@@ -2,7 +2,6 @@
 
 echo "Deploying on platform HHVM"
 
-APP_DIR=/home/application/current
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 
