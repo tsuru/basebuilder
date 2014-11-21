@@ -2,4 +2,4 @@
 
 source /var/lib/tsuru/config
 
-/usr/bin/hhvm -S localhost:8000 -t /home/application/current/
+/usr/bin/hhvm -S 0.0.0.0:8888 -t /home/application/current/
