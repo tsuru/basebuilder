@@ -2,6 +2,6 @@
 
 source /var/lib/tsuru/config
 
-service nginx start
+/etc/init.d/nginx start
 
-service hhvm start
+/etc/init.d/hhvm start
