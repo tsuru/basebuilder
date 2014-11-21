@@ -1,7 +1,0 @@
-#!/bin/bash -l
-
-source /var/lib/tsuru/config
-
-/etc/init.d/nginx start
-
-/etc/init.d/hhvm start
