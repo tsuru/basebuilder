@@ -8,7 +8,7 @@ source ${SOURCE_DIR}/base/deploy
 
 ${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py
 
-sudo ${VENV_DIR}/bin/python ${SOURCE_DIR}/php/apache_modules.py
+sudo ${VENV_DIR}/bin/python ${SOURCE_DIR}/hhvm/apache_modules.py
 
 
 echo ""
