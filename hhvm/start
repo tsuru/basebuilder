@@ -1,0 +1,7 @@
+#!/bin/bash -l
+
+source /var/lib/tsuru/config
+
+/usr/sbin/apache2 -d /etc/apache2 -k start -DNO_DETACH &
+
+/usr/bin/hhvm --config /etc/hhvm/php.ini --config /etc/hhvm/server.ini --user www-data --mode daemon -vPidFile=/var/run/hhvm/pid &
