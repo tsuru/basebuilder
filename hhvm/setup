@@ -4,7 +4,7 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/config
 
 rm /etc/apache2/sites-enabled/*
-ln -s ${SOURCE_DIR}/php/etc/apache-vhost /etc/apache2/sites-enabled/tsuru-vhost.conf
+ln -s ${SOURCE_DIR}/hhvm/etc/apache-vhost /etc/apache2/sites-enabled/tsuru-vhost.conf
 /usr/share/hhvm/install_fastcgi.sh
 
 cat >> /etc/profile<<END
