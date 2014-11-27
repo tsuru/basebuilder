@@ -25,5 +25,6 @@ echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
 mkdir -p /etc/circus
 cp ${SOURCE_DIR}/utils/circus.ini /etc/circus/circus.ini
 
+mkdir -p /var/run/apache2
 apt-get install sudo apache2 php5 -y
 echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
