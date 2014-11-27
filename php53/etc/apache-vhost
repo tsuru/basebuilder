@@ -8,14 +8,12 @@ Listen 8888
 	<Directory />
 		Options FollowSymLinks
 		AllowOverride None
-		Require all denied
 	</Directory>
 	<Directory /home/application/current/>
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride None
 		Order allow,deny
 		Allow from all
-		Require all granted
 	</Directory>
 
 	ErrorLog ${APACHE_LOG_DIR}/error.log
