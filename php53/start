@@ -1,4 +1,0 @@
-#!/bin/bash -l
-
-source /var/lib/tsuru/config
-${VENV_DIR}/bin/circusd /etc/circus/circus.ini --daemon --log-output /var/log/circus.log

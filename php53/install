@@ -6,13 +6,14 @@ source ${SOURCE_DIR}/config
 mkdir -p /home/application
 useradd -m ${USER} -s /bin/bash
 chown ${USER}:${USER} /home/application
+echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 cat >> /home/ubuntu/.bashrc <<EOF
 [ -f /home/application/apprc ] && source /home/application/apprc
 EOF
 
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get install curl git openssh-server python-virtualenv python-pip libzmq-dev g++ python-dev wget libyaml-dev -y
+DEBIAN_FRONTEND=noninteractive apt-get install sudo curl git openssh-server python-virtualenv python-pip libzmq-dev g++ python-dev wget libyaml-dev -y
 
 virtualenv ${VENV_DIR}
 ${VENV_DIR}/bin/pip install circus==0.11.1 tsuru-circus tsuru-unit-agent
