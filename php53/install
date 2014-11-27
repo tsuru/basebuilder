@@ -6,7 +6,6 @@ source ${SOURCE_DIR}/config
 mkdir -p /home/application
 useradd -m ${USER} -s /bin/bash
 chown ${USER}:${USER} /home/application
-echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 cat >> /home/ubuntu/.bashrc <<EOF
 [ -f /home/application/apprc ] && source /home/application/apprc

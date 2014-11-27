@@ -11,6 +11,6 @@ run	wget --no-check-certificate https://github.com/7IN0-labs/basebuilder/tarball
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	rm basebuilder.tar.gz
 run	cp /var/lib/tsuru/php53/deploy /var/lib/tsuru
-run	cp /var/lib/tsuru/base/start /var/lib/tsuru
+run	cp /var/lib/tsuru/php53/start /var/lib/tsuru
 run	/var/lib/tsuru/php53/install
 run	/var/lib/tsuru/php53/setup
