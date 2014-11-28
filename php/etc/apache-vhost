@@ -6,12 +6,12 @@ Listen 8888
 
 	DocumentRoot /home/application/current
 	<Directory />
-		Options FollowSymLinks
+		Options None
 		AllowOverride None
 		Require all denied
 	</Directory>
 	<Directory /home/application/current/>
-		Options Indexes FollowSymLinks MultiViews
+		Options None
 		AllowOverride None
 		Order allow,deny
 		Allow from all
