@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+SOURCE_DIR=/var/lib/tsuru
+$SOURCE_DIR/base/install
+wget -O - http://dl.hiphop-php.com/conf/hhvm.gpg.key | sudo apt-key add -
+echo deb http://dl.hiphop-php.com/ubuntu trusty main | sudo tee /etc/apt/sources.list.d/hhvm.list
+sudo apt-get update
+apt-get install nginx hhvm -y
+cp ${SOURCE_DIR}/hhvm/etc/circus.ini /etc/circus/circus.ini
+cp ${SOURCE_DIR}/hhvm/etc/nginx.conf /etc/nginx/nginx.conf
+cp ${SOURCE_DIR}/hhvm/etc/php.ini /etc/hhvm/php.ini
+/usr/share/hhvm/install_fastcgi.sh
