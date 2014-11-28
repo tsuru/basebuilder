@@ -4,7 +4,6 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/config
 
 mkdir -p /etc/circus
-cp ${SOURCE_DIR}/php/etc/circus.ini /etc/circus/circus.ini
 rm /etc/apache2/sites-enabled/*
 ln -s ${SOURCE_DIR}/php/etc/apache-vhost /etc/apache2/sites-enabled/tsuru-vhost.conf
 cat >> /etc/profile<<END
