@@ -11,7 +11,7 @@ Listen 8888
 		Require all denied
 	</Directory>
 	<Directory /home/application/current/>
-		Options Indexes FollowSymLinks MultiViews
+		Options FollowSymLinks
 		AllowOverride None
 		Order allow,deny
 		Allow from all
