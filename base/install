@@ -19,6 +19,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install curl git openssh-server python-vi
 
 virtualenv ${VENV_DIR}
 ${VENV_DIR}/bin/pip install circus==0.11.1 tsuru-circus tsuru-unit-agent
+pip install tsuru-unit-agent
 
 sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' /etc/pam.d/sshd
 mkdir /var/run/sshd
