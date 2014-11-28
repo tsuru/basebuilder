@@ -6,11 +6,11 @@ Listen 8888
 
 	DocumentRoot /home/application/current
 	<Directory />
-		Options None
+		Options FollowSymLinks
 		AllowOverride None
 	</Directory>
 	<Directory /home/application/current/>
-		Options None
+		Options FollowSymLinks
 		AllowOverride None
 		Order allow,deny
 		Allow from all
