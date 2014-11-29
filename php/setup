@@ -14,3 +14,7 @@ export APACHE_RUN_DIR=/var/run/apache2
 export APACHE_LOCK_DIR=/var/lock/apache2
 export APACHE_LOG_DIR=/var/log/apache2
 END
+> /etc/apache2/ports.conf
+rm -rf /var/log/apache2
+mkdir /var/log/apache2
+chown ubuntu:ubuntu -R /var/run/apache2/ /var/log/apache2 /var/lock/apache2
