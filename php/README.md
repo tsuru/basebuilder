@@ -8,6 +8,7 @@ php:
         name: nginx
     interpretor:
         name: hvvm
+    composer: true
 ```
 
 ## Front ends
@@ -28,6 +29,7 @@ Each frontend supports options that can be set in the `php.frontend.options` par
 ### Apache options
 
 - `vhost_file`: The relative path of your Apache virtual host configuration file
+- `modules`: An array of module names, such as `rewrite` for instance
 
 ### Nginx options
 
@@ -56,6 +58,12 @@ These interpretors can also have options configured in the `php.interpretor.opti
 ## `hhvm` options
 
 - `ini_file`: The relative path of your `php.ini` file used by HHVM
+
+## General options
+
+In addition to the `frontend` and `interpretor` options, there's an other one:
+
+- `composer`: A boolean that is by default to true. If the value is true, it'll run a `composer install` if there's a `composer.json` file at the root of your application.
 
 ## Backward compatibility
 
