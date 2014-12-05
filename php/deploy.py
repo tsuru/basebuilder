@@ -28,6 +28,11 @@ class Manager(object):
         if os.system("apt-get install -y %s" % (' '.join(packages))) != 0:
             raise InstallationException('An error appeared while installing needed packages')
 
+        # Calling post-install hooks
+        self.frontend.post_install()
+        if self.interpretor is not None:
+            self.interpretor.post_install()
+
         # If there's no Procfile, create it
         Procfile_path = os.path.join(self.application.get('directory'), 'Procfile')
         if not os.path.isfile(Procfile_path):
@@ -37,6 +42,26 @@ class Manager(object):
                 f.write('interpretor: %s\n' % self.interpretor.get_startup_cmd())
 
             f.close()
+
+        if self.configuration.get('composer', True):
+            self.install_composer()
+
+    def install_composer(self):
+        if os.path.isfile(os.path.join(self.application.get('directory'), 'composer.json')):
+            print('Install composer dependencies')
+
+            composer_phar = os.path.join(self.application.get('directory'), 'composer.phar')
+            if not os.path.isfile(composer_phar):
+                print('Composer is not found locally, downloading it')
+
+                download_cmd = 'wget --quiet http://getcomposer.org/composer.phar -O %s && chmod +x %s' % \
+                               (composer_phar, composer_phar)
+
+                if os.system(download_cmd) != 0:
+                    raise InstallationException('Unable to download composer')
+
+            if os.system('cd %s && %s install' % (self.application.get('directory'), composer_phar)) != 0:
+                raise InstallationException('Unable to install composer dependencies')
 
     def configure(self):
         if self.interpretor is not None:
@@ -80,6 +105,7 @@ class Manager(object):
             raise ConfigurationException('Frontend %s is unknown' % name)
 
         return frontends.get(name)
+
 
 def load_file(working_dir="/home/application/current"):
     files_name = ["app.yaml", "app.yml"]
