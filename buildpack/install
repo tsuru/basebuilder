@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+SOURCE_DIR=/var/lib/tsuru
+${SOURCE_DIR}/base/install
+
+cat >> /etc/profile <<EOF
+export APP_WORKING_DIR=/app
+export PROCFILE_PATH=/Procfile
+EOF

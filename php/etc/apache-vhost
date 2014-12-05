@@ -1,5 +1,5 @@
-NameVirtualHost *:8888
 Listen 8888
+ServerName localhost
 
 <VirtualHost *:8888>
 	ServerAdmin webmaster@tsuru
