@@ -18,6 +18,10 @@ class Manager(object):
         self.configuration = configuration
         self.application = application
 
+        self.frontend = self.create_frontend()
+        self.interpretor = self.create_interpretor()
+
+
     def install(self):
         packages = self.frontend.get_packages()
 
@@ -66,13 +70,12 @@ class Manager(object):
     def configure(self):
         if self.interpretor is not None:
             print('Configuring interpretor...')
-            self.interpretor.configure()
+            self.interpretor.configure(self.frontend)
 
         print('Configuring frontend...')
         self.frontend.configure(self.interpretor)
 
-    @property
-    def frontend(self):
+    def create_frontend(self):
         frontend = self.configuration.get('frontend', {
             'name': 'apache-mod-php'
         })
@@ -82,8 +85,7 @@ class Manager(object):
 
         return self.get_frontend_by_name(frontend.get('name'))(frontend.get('options', {}), self.application)
 
-    @property
-    def interpretor(self):
+    def create_interpretor(self):
         interpretor = self.configuration.get('interpretor', None)
         if interpretor is None:
             return None

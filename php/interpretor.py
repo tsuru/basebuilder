@@ -15,12 +15,23 @@ class Interpretor(object):
 
 
 class FPM54(Interpretor):
-    def configure(self):
+    def __init__(self, configuration, application):
+        super(FPM54, self).__init__(configuration, application)
+
+        self.socket_address = None
+
+    def configure(self, frontend):
+        # If frontend supports unix sockets, use them by default
+        pool_template = 'pool-unix.conf'
+        self.socket_address = 'unix:/var/run/php5/fpm.sock'
+        if not frontend.supports_unix_proxy():
+            pool_template = 'pool-network.conf'
+            self.socket_address = '127.0.0.1:9000'
+
         # Clear pre-configured pools
         map(os.unlink, [os.path.join('/etc/php5/fpm/pool.d', f) for f in os.listdir('/etc/php5/fpm/pool.d')])
-
         templates_mapping = {
-            'pool.conf': '/etc/php5/fpm/pool.d/tsuru.conf',
+            pool_template: '/etc/php5/fpm/pool.d/tsuru.conf',
             'php-fpm.conf': '/etc/php5/fpm/php-fpm.conf'
         }
 
@@ -28,6 +39,12 @@ class FPM54(Interpretor):
             shutil.copyfile(
                 os.path.join(self.application.get('source_directory'), 'php', 'interpretor', 'fpm54', template),
                 target
+            )
+
+        if 'ini_file' in self.configuration:
+            shutil.copyfile(
+                os.path.join(self.application.get('directory'), self.configuration.get('ini_file')),
+                '/etc/php5/fpm/php.ini'
             )
 
         # Clean log files
@@ -48,11 +65,10 @@ class FPM54(Interpretor):
 
     def post_install(self):
         # Remove autostart
-        os.system('update-rc.d php5-fpm disable')
         os.system('service php5-fpm stop')
 
     def get_address(self):
-        return 'unix:/var/run/php5/fpm.sock'
+        return self.socket_address
 
     def get_startup_cmd(self):
         return '/usr/sbin/php5-fpm --fpm-config /etc/php5/fpm/php-fpm.conf'

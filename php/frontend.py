@@ -14,20 +14,33 @@ class Frontend(object):
     def get_packages(self):
         return []
 
+    def supports_unix_proxy(self):
+        return True
+
 
 class Apache(Frontend):
     def get_packages(self):
         return ['apache2']
 
+    def supports_unix_proxy(self):
+        return False
+
     def post_install(self):
         os.system('service apache2 stop')
-        os.system('update-rc.d apache2 disable')
+        os.system('update-rc.d apache2 remove')
 
     def configure(self, interpretor=None):
         # Set apache virtual host
         vhost_directory = '/etc/apache2/sites-enabled'
         map(os.unlink, [os.path.join(vhost_directory, f) for f in os.listdir(vhost_directory)])
-        shutil.copyfile(self.get_vhost_filepath(), os.path.join(vhost_directory, 'tsuru-vhost.conf'))
+        vhost_path = os.path.join(vhost_directory, 'tsuru-vhost.conf')
+        shutil.copyfile(self.get_vhost_filepath(), vhost_path)
+
+        # Set interpretor address is there's any
+        if interpretor is not None:
+            address = interpretor.get_address()
+            replace(vhost_path, 'FASTCGI_INTERPRETOR_ADDRESS', address)
+            os.system('a2enmod proxy_fcgi')
 
         # Empty `ports.conf` file
         open('/etc/apache2/ports.conf', 'w').close()
@@ -45,10 +58,12 @@ class Apache(Frontend):
                  % (self.application.get('user'), self.application.get('user'))
             )
 
-        # Clean log files
+        # Create directories
         logs_directory = '/var/log/apache2'
-        if not os.path.exists(logs_directory):
-            os.makedirs(logs_directory)
+        directories = [logs_directory, '/var/lock/apache2', '/var/run/apache2']
+        for directory in directories:
+            if not os.path.exists(directory):
+                os.makedirs(directory)
 
         map(os.unlink, [os.path.join(logs_directory, f) for f in os.listdir(logs_directory)])
         for log_file in ['access.log', 'error.log']:
@@ -60,7 +75,7 @@ class Apache(Frontend):
             os.system('a2enmod %s' % module)
 
         # Fix user rights
-        os.system('chown -R %s /var/run/apache2 /var/log/apache2 /var/lock/apache2' % self.application.get('user'))
+        os.system('chown -R %s /etc/apache2 /var/run/apache2 /var/log/apache2 /var/lock/apache2' % self.application.get('user'))
 
     def get_vhost_filepath(self):
         if 'vhost_file' in self.configuration:
@@ -89,7 +104,7 @@ class Nginx(Frontend):
 
     def post_install(self):
         os.system('service nginx stop')
-        os.system('update-rc.d nginx disable')
+        os.system('update-rc.d nginx remove')
 
     def configure(self, interpretor=None):
         # Copy nginx configuration
@@ -127,5 +142,6 @@ class Nginx(Frontend):
 
 frontends = {
     'apache-mod-php': ApacheModPHP,
+    'apache': Apache,
     'nginx': Nginx
 }
