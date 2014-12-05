@@ -3,8 +3,6 @@
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/config
 
-mkdir -p /etc/circus
-cp ${SOURCE_DIR}/php/etc/circus.ini /etc/circus/circus.ini
 rm /etc/apache2/sites-enabled/*
 ln -s ${SOURCE_DIR}/php/etc/apache-vhost /etc/apache2/sites-enabled/tsuru-vhost.conf
 cat >> /etc/profile<<END
@@ -15,3 +13,8 @@ export APACHE_RUN_DIR=/var/run/apache2
 export APACHE_LOCK_DIR=/var/lock/apache2
 export APACHE_LOG_DIR=/var/log/apache2
 END
+> /etc/apache2/ports.conf
+rm -rf /var/log/apache2
+mkdir /var/log/apache2
+touch /var/log/apache2/{access,error}.log
+chown ubuntu:ubuntu -R /var/run/apache2/ /var/log/apache2 /var/lock/apache2

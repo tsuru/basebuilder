@@ -8,7 +8,7 @@ source ${SOURCE_DIR}/config
 mkdir -p /home/application
 useradd -m ${USER} -s /bin/bash
 chown ${USER}:${USER} /home/application
-echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 cat >> /home/ubuntu/.bashrc <<EOF
 [ -f /home/application/apprc ] && source /home/application/apprc
@@ -25,6 +25,6 @@ sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.
 mkdir /var/run/sshd
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
 
-mkdir -p /etc/circus
+mkdir -p /etc/circus /var/log/circus
 cp ${SOURCE_DIR}/utils/circus.ini /etc/circus/circus.ini
-
+chown -R ${USER}:${USER} /etc/circus /var/log/circus

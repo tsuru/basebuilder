@@ -6,6 +6,5 @@ run     mkdir /var/lib/tsuru
 run     tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run     cp /var/lib/tsuru/buildpack/deploy /var/lib/tsuru
 run     cp /var/lib/tsuru/base/start /var/lib/tsuru
-run     /var/lib/tsuru/base/install
-run     cp /var/lib/tsuru/buildpack/circus.ini /etc/circus/circus.ini
+run     /var/lib/tsuru/buildpack/install
 run     chmod +x /var/lib/tsuru/deploy

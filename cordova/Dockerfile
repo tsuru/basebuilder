@@ -11,4 +11,3 @@ run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	cp /var/lib/tsuru/cordova/deploy /var/lib/tsuru
 run	cp /var/lib/tsuru/base/start /var/lib/tsuru
 run	/var/lib/tsuru/cordova/install
-run	/var/lib/tsuru/cordova/setup
