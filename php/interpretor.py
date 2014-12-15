@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
+from utils import replace
 
 class Interpretor(object):
     def __init__(self, configuration, application):
@@ -22,16 +23,14 @@ class FPM54(Interpretor):
 
     def configure(self, frontend):
         # If frontend supports unix sockets, use them by default
-        pool_template = 'pool-unix.conf'
         self.socket_address = 'unix:/var/run/php5/fpm.sock'
         if not frontend.supports_unix_proxy():
-            pool_template = 'pool-network.conf'
             self.socket_address = '127.0.0.1:9000'
 
         # Clear pre-configured pools
         map(os.unlink, [os.path.join('/etc/php5/fpm/pool.d', f) for f in os.listdir('/etc/php5/fpm/pool.d')])
         templates_mapping = {
-            pool_template: '/etc/php5/fpm/pool.d/tsuru.conf',
+            'pool.conf': '/etc/php5/fpm/pool.d/tsuru.conf',
             'php-fpm.conf': '/etc/php5/fpm/php-fpm.conf'
         }
 
@@ -40,6 +39,13 @@ class FPM54(Interpretor):
                 os.path.join(self.application.get('source_directory'), 'php', 'interpretor', 'fpm54', template),
                 target
             )
+
+        # Replace pool listen address
+        listen_address = self.socket_address
+        if listen_address[0:5] == 'unix:':
+            listen_address = listen_address[5:]
+
+        replace(templates_mapping['pool.conf'], '_FPM_POOL_LISTEN_', listen_address)
 
         if 'ini_file' in self.configuration:
             shutil.copyfile(
