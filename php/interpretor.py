@@ -14,6 +14,9 @@ class Interpretor(object):
     def post_install(self):
         pass
 
+    def setup_environment(self):
+        pass
+
 
 class FPM54(Interpretor):
     def __init__(self, configuration, application):
@@ -53,8 +56,8 @@ class FPM54(Interpretor):
                 '/etc/php5/fpm/php.ini'
             )
 
-        # Clean log files
-        for file_path in ['/var/log/php5-fpm.log']:
+        # Clean and touch some files
+        for file_path in ['/var/log/php5-fpm.log', '/etc/php5/fpm/environment.conf']:
             open(file_path, 'a').close()
             os.system('chown %s %s' % (self.application.get('user'), file_path))
 
@@ -65,6 +68,13 @@ class FPM54(Interpretor):
 
         # Fix user rights
         os.system('chown -R %s /etc/php5/fpm /var/run/php5' % self.application.get('user'))
+
+    def setup_environment(self):
+        target = '/etc/php5/fpm/environment.conf'
+
+        with open(target, 'w') as f:
+            for (k, v) in self.application.get('env', {}).items():
+                f.write('env[%s] = %s\n' % (k, v))
 
     def get_packages(self):
         return ['php5-fpm']

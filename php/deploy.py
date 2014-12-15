@@ -1,5 +1,7 @@
 import os
 import yaml
+import sys
+from utils import parse_env
 
 from interpretor import interpretors
 from frontend import frontends
@@ -75,6 +77,12 @@ class Manager(object):
         print('Configuring frontend...')
         self.frontend.configure(self.interpretor)
 
+    def setup_environment(self):
+        if self.interpretor is not None:
+            self.interpretor.setup_environment()
+
+        self.frontend.setup_environment()
+
     def create_frontend(self):
         frontend = self.configuration.get('frontend', {
             'name': 'apache-mod-php'
@@ -129,6 +137,13 @@ def load_configuration():
     return {}
 
 
+def print_help():
+    print('This have to be called with 1 argument, which is the action')
+    print()
+    print('Possible values are:')
+    print('- install: Install dependencies and configure system')
+    print('- environment: Setup the environment')
+
 if __name__ == '__main__':
     # Load PHP configuration from `app.yml`
     config = load_configuration()
@@ -137,10 +152,21 @@ if __name__ == '__main__':
     application = {
         'directory': '/home/application/current',
         'user': 'ubuntu',
-        'source_directory': '/var/lib/tsuru'
+        'source_directory': '/var/lib/tsuru',
+        'env': parse_env(config)
     }
 
-    # Run installation & configuration
+    # Get the application manager
     manager = Manager(config, application)
-    manager.install()
-    manager.configure()
+
+    # Run installation & configuration
+    if len(sys.argv) <= 1:
+        print_help()
+    elif sys.argv[1] == 'install':
+        manager.install()
+        manager.configure()
+    elif sys.argv[1] == 'environment':
+        manager.setup_environment()
+    else:
+        print('Action "%s" not found\n' % sys.argv[1])
+        print_help()

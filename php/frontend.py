@@ -17,6 +17,8 @@ class Frontend(object):
     def supports_unix_proxy(self):
         return True
 
+    def setup_environment(self):
+        pass
 
 class Apache(Frontend):
     def get_packages(self):
