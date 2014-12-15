@@ -1,6 +1,6 @@
 # PHP platform
 
-The PHP platform is built to be able to manage multiple front-end and interpretors. You can manage them in your `app.yml` configuration file.
+The PHP platform is built to be able to manage multiple front-end and interpretors. You can manage them in your `tsuru.yml` configuration file.
 
 ```yml
 php:

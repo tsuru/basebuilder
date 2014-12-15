@@ -118,10 +118,14 @@ class Manager(object):
 
 
 def load_file(working_dir="/home/application/current"):
-    files_name = ["app.yaml", "app.yml"]
+    files_name = ["tsuru.yml", "tsuru.yaml", "app.yaml", "app.yml"]
     for file_name in files_name:
         try:
-            with open(os.path.join(working_dir, file_name)) as f:
+            file_path = os.path.join(working_dir, file_name)
+            if os.path.exists(file_path) and file_name[0:3] == 'app':
+                print('[WARNING] The `%s` configuration file name is deprecated' % file_name)
+
+            with open(file_path) as f:
                 return f.read()
         except IOError:
             pass
@@ -145,7 +149,7 @@ def print_help():
     print('- environment: Setup the environment')
 
 if __name__ == '__main__':
-    # Load PHP configuration from `app.yml`
+    # Load PHP configuration from `tsuru.yml`
     config = load_configuration()
 
     # Create an application object from environ
