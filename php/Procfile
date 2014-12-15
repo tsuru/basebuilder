@@ -1,1 +1,0 @@
-apache2: /usr/sbin/apache2 -d /etc/apache2 -k start -DNO_DETACH
