@@ -1,5 +1,5 @@
+NameVirtualHost *:8888
 Listen 8888
-ServerName localhost
 
 <VirtualHost *:8888>
 	ServerAdmin webmaster@tsuru
@@ -8,14 +8,12 @@ ServerName localhost
 	<Directory />
 		Options FollowSymLinks
 		AllowOverride None
-		Require all denied
 	</Directory>
 	<Directory /home/application/current/>
 		Options FollowSymLinks
 		AllowOverride None
 		Order allow,deny
 		Allow from all
-		Require all granted
 	</Directory>
 
 	ErrorLog ${APACHE_LOG_DIR}/error.log

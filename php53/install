@@ -1,0 +1,30 @@
+#!/bin/bash -e
+
+SOURCE_DIR=/var/lib/tsuru
+source ${SOURCE_DIR}/config
+
+mkdir -p /home/application
+useradd -m ${USER} -s /bin/bash
+chown ${USER}:${USER} /home/application
+
+cat >> /home/ubuntu/.bashrc <<EOF
+[ -f /home/application/apprc ] && source /home/application/apprc
+EOF
+
+apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get install curl git openssh-server python-virtualenv python-pip libzmq-dev g++ python-dev wget libyaml-dev -y
+
+virtualenv ${VENV_DIR}
+${VENV_DIR}/bin/pip install circus==0.11.1 tsuru-circus tsuru-unit-agent
+pip install tsuru-unit-agent
+
+sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' /etc/pam.d/sshd
+mkdir /var/run/sshd
+echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
+
+mkdir -p /etc/circus
+cp ${SOURCE_DIR}/utils/circus.ini /etc/circus/circus.ini
+
+mkdir -p /var/run/apache2
+apt-get install sudo apache2 php5 -y
+echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
