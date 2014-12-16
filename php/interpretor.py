@@ -115,10 +115,9 @@ class HHVM(Interpretor):
             )
 
         # Replace pool listen address
-        listen_address = self.socket_address
-        if listen_address[0:5] == 'unix:':
-            listen_address = 'hhvm.server.file_socket = ' + listen_address[5:]
-        else listen_address = 'hhvm.server.port = 9000'
+        listen_address = 'hhvm.server.port = 9000'
+        if self.socket_address[0:5] == 'unix:':
+            listen_address = 'hhvm.server.file_socket = ' + self.socket_address[5:]
 
         replace(templates_mapping['server.ini'], '_FPM_POOL_LISTEN_', listen_address)
 
@@ -141,14 +140,17 @@ class HHVM(Interpretor):
         # Fix user rights
         os.system('chown -R %s /etc/hhvm /var/run/hhvm' % self.application.get('user'))
 
-    def get_packages(self):
-        return ['wget']
-
-    def post_install(self):
-        # Remove autostart
+    def pre_install(self):
+        # Add GPG key and source list
         os.system('wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add -')
         os.system('echo deb http://dl.hhvm.com/ubuntu trusty main | tee /etc/apt/sources.list.d/hhvm.list')
-        os.system('apt-get update && apt-get install -y hhvm')
+        os.system('apt-get update')
+
+    def get_packages(self):
+        return ['hhvm']
+
+    def post_install(self):
+        # Set up HHVM fastcgi and remove autostart
         os.system('/usr/share/hhvm/install_fastcgi.sh')
         os.system('service hhvm stop')
 

@@ -51,6 +51,7 @@ php:
 The following PHP interpretors are supported:
 
 - `fpm54`: PHP 5.4 though PHP-FPM
+- `hhvm`: HipHop Virtual Machine (PHP 5.4)
 
 You can chose between them by setting the `php.interpretor.name` parameter:
 ```yml
@@ -74,6 +75,10 @@ php:
 
 - `ini_file`: The relative path of your `php.ini` file in your project, that will replace the default one
 
+## `hhvm` options
+
+- `ini_file`: The relative path of your `php.ini` file in your project, that will replace the default one
+
 ## General options
 
 In addition to the `frontend` and `interpretor` options, there's an other one:
@@ -87,4 +92,4 @@ That's currently the default configuration if no parameter is set.
 
 ## Next steps
 
-With the current implementation, it's quite easy to add an `hhvm` interpretor for instance.
+With the current implementation, it's quite easy to add another interpretor for instance.
