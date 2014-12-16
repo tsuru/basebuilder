@@ -26,6 +26,17 @@ php:
 
 Each frontend supports options that can be set in the `php.frontend.options` parameters.
 
+All these options are not required, and can be used the following way:
+```yml
+php:
+    frontend:
+        name: apache
+        options:
+            vhost_file: /path/to/vhost.conf
+            modules:
+                - rewrite
+```
+
 ### Apache options
 
 - `vhost_file`: The relative path of your Apache virtual host configuration file
@@ -49,6 +60,15 @@ php:
 ```
 
 These interpretors can also have options configured in the `php.interpretor.options` parameter.
+
+All these options are not required and can be used the following ways
+```yml
+php:
+    interpretor:
+        name: fpm54
+        options:
+            ini_file: /path/to/file.ini
+```
 
 ## `fpm54` options
 
