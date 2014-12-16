@@ -89,7 +89,76 @@ class FPM54(Interpretor):
     def get_startup_cmd(self):
         return '/usr/sbin/php5-fpm --fpm-config /etc/php5/fpm/php-fpm.conf'
 
+class HHVM(Interpretor):
+    def __init__(self, configuration, application):
+        super(HHVM, self).__init__(configuration, application)
+
+        self.socket_address = None
+
+    def configure(self, frontend):
+        # If frontend supports unix sockets, use them by default
+        self.socket_address = 'unix:/var/run/hhvm/sock'
+        if not frontend.supports_unix_proxy():
+            self.socket_address = '127.0.0.1:9000'
+
+        # Clear pre-configured pools
+        map(os.unlink, [os.path.join('/etc/hhvm', f) for f in os.listdir('/etc/hhvm')])
+        templates_mapping = {
+            'php.ini': '/etc/hhvm/php.ini',
+            'server.ini': '/etc/hhvm/server.ini'
+        }
+
+        for template, target in templates_mapping.iteritems():
+            shutil.copyfile(
+                os.path.join(self.application.get('source_directory'), 'php', 'interpretor', 'hhvm', template),
+                target
+            )
+
+        # Replace pool listen address
+        listen_address = self.socket_address
+        if listen_address[0:5] == 'unix:':
+            listen_address = 'hhvm.server.file_socket = ' + listen_address[5:]
+        else listen_address = 'hhvm.server.port = 9000'
+
+        replace(templates_mapping['server.ini'], '_FPM_POOL_LISTEN_', listen_address)
+
+        if 'ini_file' in self.configuration:
+            shutil.copyfile(
+                os.path.join(self.application.get('directory'), self.configuration.get('ini_file')),
+                '/etc/hhvm/php.ini'
+            )
+
+        # Clean and touch some files
+        for file_path in ['/var/log/hhvm/error.log']:
+            open(file_path, 'a').close()
+            os.system('chown %s %s' % (self.application.get('user'), file_path))
+
+        # Clean run directory
+        run_directory = '/var/run/hhvm'
+        if not os.path.exists(run_directory):
+            os.makedirs(run_directory)
+
+        # Fix user rights
+        os.system('chown -R %s /etc/hhvm /var/run/hhvm' % self.application.get('user'))
+
+    def get_packages(self):
+        return ['wget']
+
+    def post_install(self):
+        # Remove autostart
+        os.system('wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add -')
+        os.system('echo deb http://dl.hhvm.com/ubuntu trusty main | tee /etc/apt/sources.list.d/hhvm.list')
+        os.system('apt-get update && apt-get install -y hhvm')
+        os.system('/usr/share/hhvm/install_fastcgi.sh')
+        os.system('service hhvm stop')
+
+    def get_address(self):
+        return self.socket_address
+
+    def get_startup_cmd(self):
+        return '/usr/bin/hhvm --config /etc/hhvm/php.ini --config /etc/hhvm/server.ini --user %s --mode daemon -vPidFile=/var/run/hhvm/pid' % self.application.get('user')
 
 interpretors = {
-    'fpm54': FPM54
+    'fpm54': FPM54,
+    'hhvm': HHVM
 }
