@@ -51,6 +51,7 @@ php:
 The following PHP interpretors are supported:
 
 - `fpm54`: PHP 5.4 though PHP-FPM
+- `fpm55`: PHP 5.5 though PHP-FPM
 - `hhvm`: HipHop Virtual Machine (PHP 5.4)
 
 You can chose between them by setting the `php.interpretor.name` parameter:
@@ -79,6 +80,10 @@ php:
 
 - `ini_file`: The relative path of your `php.ini` file in your project, that will replace the default one
 - `extensions`: A list of php5 extensions you need
+
+## `fpm55` options
+
+- `ini_file`: The relative path of your `php.ini` file in your project, that will replace the default one
 
 ## `hhvm` options
 
