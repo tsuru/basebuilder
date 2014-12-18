@@ -62,6 +62,8 @@ php:
 
 These interpretors can also have options configured in the `php.interpretor.options` parameter.
 
+If you choose `fpm54` interpretor, use `extensions` option to install php5 extensions instead of using `requirements.apt`
+
 All these options are not required and can be used the following ways
 ```yml
 php:
@@ -69,11 +71,14 @@ php:
         name: fpm54
         options:
             ini_file: /path/to/file.ini
+        extensions:
+            - php5-mysql
 ```
 
 ## `fpm54` options
 
 - `ini_file`: The relative path of your `php.ini` file in your project, that will replace the default one
+- `extensions`: A list of php5 extensions you need
 
 ## `hhvm` options
 

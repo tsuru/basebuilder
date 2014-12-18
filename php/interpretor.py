@@ -1,27 +1,13 @@
 # -*- coding: utf-8 -*-
 import os
 import shutil
+import subprocess
 from utils import replace
 
 class Interpretor(object):
     def __init__(self, configuration, application):
         self.configuration = configuration
         self.application = application
-
-    def get_packages(self):
-        return []
-
-    def post_install(self):
-        pass
-
-    def setup_environment(self):
-        pass
-
-
-class FPM54(Interpretor):
-    def __init__(self, configuration, application):
-        super(FPM54, self).__init__(configuration, application)
-
         self.socket_address = None
 
     def configure(self, frontend):
@@ -39,7 +25,7 @@ class FPM54(Interpretor):
 
         for template, target in templates_mapping.iteritems():
             shutil.copyfile(
-                os.path.join(self.application.get('source_directory'), 'php', 'interpretor', 'fpm54', template),
+                os.path.join(self.application.get('source_directory'), 'php', 'interpretor', 'fpm5', template),
                 target
             )
 
@@ -69,15 +55,11 @@ class FPM54(Interpretor):
         # Fix user rights
         os.system('chown -R %s /etc/php5/fpm /var/run/php5' % self.application.get('user'))
 
-    def setup_environment(self):
-        target = '/etc/php5/fpm/environment.conf'
-
-        with open(target, 'w') as f:
-            for (k, v) in self.application.get('env', {}).items():
-                f.write('env[%s] = %s\n' % (k, v))
+    def pre_install(self):
+        pass
 
     def get_packages(self):
-        return ['php5-fpm']
+        return []
 
     def post_install(self):
         # Remove autostart
@@ -86,14 +68,42 @@ class FPM54(Interpretor):
     def get_address(self):
         return self.socket_address
 
+    def setup_environment(self):
+        target = '/etc/php5/fpm/environment.conf'
+
+        with open(target, 'w') as f:
+            for (k, v) in self.application.get('env', {}).items():
+                f.write('env[%s] = %s\n' % (k, v))
+
     def get_startup_cmd(self):
         return '/usr/sbin/php5-fpm --fpm-config /etc/php5/fpm/php-fpm.conf'
+
+class FPM54(Interpretor):
+    def __init__(self, configuration, application):
+        super(FPM54, self).__init__(configuration, application)
+
+    def pre_install(self):
+        os.system('apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2098A6E')
+        os.system('echo deb http://php53.dotdeb.org stable all | tee /etc/apt/sources.list.d/php54.list')
+        os.system('apt-get update')
+        self.phpversion = subprocess.check_output('apt-cache madison php5|grep 5.4|awk "{print $3}"', shell=True)
+
+    def get_packages(self):
+        packages = ['php5-common='.join(self.phpversion), 'php5-fpm=5.4.36-1~dotdeb.1'.join(self.phpversion)]
+        for extension in self.configuration.extensions:
+            packages.append(extension.join(self.phpversion))
+        return packages
+
+class FPM55(Interpretor):
+    def __init__(self, configuration, application):
+        super(FPM55, self).__init__(configuration, application)
+
+    def get_packages(self):
+        return ['php5-fpm']
 
 class HHVM(Interpretor):
     def __init__(self, configuration, application):
         super(HHVM, self).__init__(configuration, application)
-
-        self.socket_address = None
 
     def configure(self, frontend):
         # If frontend supports unix sockets, use them by default
@@ -154,13 +164,14 @@ class HHVM(Interpretor):
         os.system('/usr/share/hhvm/install_fastcgi.sh')
         os.system('service hhvm stop')
 
-    def get_address(self):
-        return self.socket_address
+    def setup_environment(self):
+        pass
 
     def get_startup_cmd(self):
         return '/usr/bin/hhvm --config /etc/hhvm/php.ini --config /etc/hhvm/server.ini --user %s --mode daemon -vPidFile=/var/run/hhvm/pid' % self.application.get('user')
 
 interpretors = {
     'fpm54': FPM54,
+    'fpm55': FPM55,
     'hhvm': HHVM
 }
