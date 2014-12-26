@@ -86,12 +86,12 @@ class FPM54(Interpretor):
         os.system('apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2098A6E')
         os.system('echo deb http://php53.dotdeb.org stable all | tee /etc/apt/sources.list.d/php54.list')
         os.system('apt-get update')
-        self.phpversion = subprocess.check_output('apt-cache madison php5|grep 5.4|awk "{print $3}"', shell=True)
+        self.phpversion = '='.join(['', subprocess.check_output('apt-cache madison php5|grep 5.4|awk "{print $3}"', shell=True)])
 
     def get_packages(self):
-        packages = ['php5-common='.join(self.phpversion), 'php5-fpm=5.4.36-1~dotdeb.1'.join(self.phpversion)]
+        packages = ['php5-common'.join(['', self.phpversion]), 'php5-fpm'.join(['', self.phpversion])]
         for extension in self.configuration.extensions:
-            packages.append(extension.join(self.phpversion))
+            packages.append(extension.join(['', self.phpversion]))
         return packages
 
 class FPM55(Interpretor):
