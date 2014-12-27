@@ -55,16 +55,6 @@ class Interpretor(object):
         # Fix user rights
         os.system('chown -R %s /etc/php5/fpm /var/run/php5' % self.application.get('user'))
 
-    def pre_install(self):
-        pass
-
-    def get_packages(self):
-        return []
-
-    def post_install(self):
-        # Remove autostart
-        os.system('service php5-fpm stop')
-
     def get_address(self):
         return self.socket_address
 
@@ -94,12 +84,20 @@ class FPM54(Interpretor):
             packages.append(extension.join(['', self.phpversion]))
         return packages
 
+    def post_install(self):
+        # Remove autostart
+        os.system('service php5-fpm stop')
+
 class FPM55(Interpretor):
     def __init__(self, configuration, application):
         super(FPM55, self).__init__(configuration, application)
 
     def get_packages(self):
         return ['php5-fpm']
+
+    def post_install(self):
+        # Remove autostart
+        os.system('service php5-fpm stop')
 
 class HHVM(Interpretor):
     def __init__(self, configuration, application):

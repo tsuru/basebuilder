@@ -72,8 +72,8 @@ php:
         name: fpm54
         options:
             ini_file: /path/to/file.ini
-        extensions:
-            - php5-mysql
+            extensions:
+                - php5-mysql
 ```
 
 ## `fpm54` options
