@@ -6,12 +6,6 @@ wget -q -O - http://apt.hellobits.com/hellobits.key | apt-key add -
 echo 'deb http://apt.hellobits.com/ trusty main' | tee /etc/apt/sources.list.d/hellobits.list
 apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get install -qqy ruby-2.1
-rm /usr/bin/ruby /usr/bin/gem /usr/bin/irb /usr/bin/rdoc /usr/bin/erb
-ln -s /usr/bin/ruby2.1 /usr/bin/ruby
-ln -s /usr/bin/gem2.1 /usr/bin/gem
-ln -s /usr/bin/irb2.1 /usr/bin/irb
-ln -s /usr/bin/rdoc2.1 /usr/bin/rdoc
-ln -s /usr/bin/erb2.1 /usr/bin/erb
 /usr/bin/gem update --system
 /usr/bin/gem pristine --all
 /usr/bin/gem install bundler
