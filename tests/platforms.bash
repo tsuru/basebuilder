@@ -77,10 +77,10 @@ function clean_tsuru_now() {
 	docker rmi -f tsuru/python 2>/dev/null
 }
 
-sudo apt-get update
-sudo apt-get install curl -qqy
-sudo apt-get install linux-image-extra-$(uname -r) -qqy
-curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash -o /tmp/tsuru-now.bash
+DEBIAN_FRONTEND=noninteractive
+sudo -E apt-get update
+sudo -E apt-get install curl -qqy
+sudo -E apt-get install linux-image-extra-$(uname -r) -qqy
 bash /tmp/tsuru-now.bash "$@" --without-dashboard
 
 export GOPATH=$HOME/go
