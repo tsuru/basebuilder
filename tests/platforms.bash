@@ -79,7 +79,7 @@ function clean_tsuru_now() {
 
 sudo apt-get update
 sudo apt-get install curl -qqy
-sudo apt-get install linux-image-extra-$(uname -r)
+sudo apt-get install linux-image-extra-$(uname -r) -qqy
 curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash -o /tmp/tsuru-now.bash
 bash /tmp/tsuru-now.bash "$@" --without-dashboard
 
