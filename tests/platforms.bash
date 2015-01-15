@@ -77,7 +77,7 @@ function clean_tsuru_now() {
 	docker rmi -f tsuru/python 2>/dev/null
 }
 
-DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND=noninteractive
 sudo -E apt-get update
 sudo -E apt-get install curl -qqy
 sudo -E apt-get install linux-image-extra-$(uname -r) -qqy

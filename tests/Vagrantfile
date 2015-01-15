@@ -24,6 +24,7 @@ Vagrant.configure("2") do |config|
     aws.tags = {
       "Name" => "vagrant_platform_test",
     }
+    aws.user_data = "#!/bin/bash\nperl -i -pe 's/^# *(.+)(trusty|trusty-updates|trusty-security) multiverse$/$1$2 multiverse/gi' /etc/apt/sources.list"
   end
 
   config.vm.provider :parallels do |prl, override|
