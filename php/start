@@ -1,0 +1,12 @@
+#!/bin/bash -l
+
+echo "Starting the PHP application..."
+
+SOURCE_DIR=/var/lib/tsuru
+source ${SOURCE_DIR}/config
+
+# Setup environment variables before starting up
+${VENV_DIR}/bin/python ${SOURCE_DIR}/php/deploy.py environment
+
+# Call the default start script
+source ${SOURCE_DIR}/base/start

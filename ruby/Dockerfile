@@ -1,7 +1,6 @@
-# this file describes how to build tsuru ruby1.9.3 image
+# this file describes how to build tsuru ruby image
 # to run it:
-# 1- install docker
-# 2- run: $ docker build -t tsuru/ruby https://raw.github.com/tsuru/basebuilder/master/ruby/Dockerfile
+# 1 - tsuru-admin platform-add ruby -d https://raw.github.com/tsuru/basebuilder/master/ruby/Dockerfile
 
 from	ubuntu:14.04
 run	apt-get update

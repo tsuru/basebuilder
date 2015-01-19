@@ -1,3 +1,5 @@
 hooks:
   build:
     - mvn package
+healthcheck:
+  path: /

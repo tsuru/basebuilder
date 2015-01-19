@@ -28,25 +28,52 @@ else
 fi
 
 if [ -f "${CURRENT_DIR}/requirements.txt" ]; then
-    echo "External quicklisp dependencies found, installing...."
-    cd ${HOME}/quicklisp/local-projects
-    while read line
+  echo "External quicklisp dependencies found, installing...."
+  cd ${HOME}/quicklisp/local-projects
+  lines=$(<${CURRENT_DIR}/requirements.txt)
+  for line in $lines
+  do
+    [[ "$line" =~ ^.*\/([^\/\.]+)(\.git)?$ ]]
+    if [ -d "${BASH_REMATCH[1]}" ]; then
+      cd "${BASH_REMATCH[1]}"
+      if [ "$(git remote -v | head -n 1 | awk '{print $2}')" = "$line" ]; then
+        echo "Updating $line"
+        git pull 
+        cd ..
+      else
+        echo "Git url changed for ${BASH_REMATCH[1]}, removing and cloning again"
+        cd ..
+        rm -rf "${BASH_REMATCH[1]}"
+        git clone $line
+      fi
+    else
+      echo "Installing ${line}...."
+      git clone $line
+    fi
+  done
+  echo "Done installing external dependencies"
+  for dir in *
+  do
+    if [[ ! -d $dir || $dir == $SYSTEM_NAME ]]; then
+      continue
+    fi 
+    match=0
+    for line in $lines
     do
-	[[ "$line" =~ ^.*\/([^\/\.]+)(\.git)?$ ]]
-    	if [ -d "${BASH_REMATCH[1]}" ]; then
-    	  echo "Updating $line"
-    	  cd "${BASH_REMATCH[1]}"
-    	  git pull &> /dev/null
-    	  cd ..
-    	else  
-	  echo "Installing ${line}...."
-	  git clone $line &> /dev/null
-        fi
-    done <${CURRENT_DIR}/requirements.txt
-    echo "Done installing external dependencies"
+      [[ "$line" =~ ^.*\/([^\/\.]+)(\.git)?$ ]]
+      if [ "$dir" = "${BASH_REMATCH[1]}" ]; then
+        match=1
+      fi
+    done
+    if [ $match -eq 0 ]; then
+      rm -rf $dir
+      echo "Removed $dir because it is not in requirements.txt"
+    fi
+  done
 fi
 
 echo "Compiling application...."
-sbcl --non-interactive --eval "(ql:quickload \"${SYSTEM_NAME}\")" &> /dev/null
+sbcl --non-interactive --eval "(ql:quickload \"${SYSTEM_NAME}\")"
 
-/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
+echo "Running python hooks...."
+${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py

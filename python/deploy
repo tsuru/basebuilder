@@ -4,11 +4,20 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 
 source ${SOURCE_DIR}/config
+APP_VENV=/home/application/.app_env
 
-if [ -f ${CURRENT_DIR}/requirements.txt ]; then
-	sudo pip install -r ${CURRENT_DIR}/requirements.txt
-elif [ -f ${CURRENT_DIR}/setup.py ]; then
-	sudo pip install ${CURRENT_DIR}/
-fi
+(
+	cd ${CURRENT_DIR}
 
-/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
+	echo_debug "*** $0: About to do pip install (pwd: $(pwd))"
+
+	if [ -f ${CURRENT_DIR}/requirements.txt ]; then
+		${APP_VENV}/bin/pip install -r ${CURRENT_DIR}/requirements.txt
+	elif [ -f ${CURRENT_DIR}/setup.py ]; then
+		${APP_VENV}/bin/pip install ${CURRENT_DIR}/
+	fi
+)
+
+echo_debug "*** $0: Running any hooks in ${SOURCE_DIR}/hooks.py (pwd: $(pwd))"
+${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py
+echo_debug "*** $0: Done."

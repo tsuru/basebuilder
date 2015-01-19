@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys
 
 import yaml
 
@@ -15,7 +16,9 @@ def load_commands(data):
 
 def execute_commands(commands, working_dir="/home/application/current"):
     for command in commands:
-        subprocess.call(command, shell=True, cwd=working_dir)
+        status = subprocess.call(command, shell=True, cwd=working_dir)
+        if status != 0:
+            sys.exit(status)
 
 
 def load_file(working_dir="/home/application/current"):
@@ -30,6 +33,10 @@ def load_file(working_dir="/home/application/current"):
 
 
 def main():
+    if os.environ.get('TSURU_DEPLOY_NO_ENVS'):
+        # No environment variables sent to deploy script we'll assume hooks
+        # are being handled by tsuru-unit-agent.
+        return
     data = load_file()
     commands = load_commands(data)
     execute_commands(commands)

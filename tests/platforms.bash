@@ -6,9 +6,9 @@ function add_platform() {
 	output_file="/tmp/platform-update-${platform}"
 	set +e
 	tsuru-admin platform-add $platform -d https://raw.githubusercontent.com/tsuru/basebuilder/master/${platform}/Dockerfile | tee $output_file
+	result=$?
 	set -e
-	local result=$?
-	if [ $result != 0 ]; then
+	if [[ $result != 0 ]]; then
 		if [[ $(tail -n1 $output_file) != "Error: Duplicate platform" ]]; then
 			echo "error adding platform $platform"
 			exit $result
@@ -77,6 +77,10 @@ function clean_tsuru_now() {
 	docker rmi -f tsuru/python 2>/dev/null
 }
 
+export DEBIAN_FRONTEND=noninteractive
+sudo -E apt-get update
+sudo -E apt-get install curl -qqy
+sudo -E apt-get install linux-image-extra-$(uname -r) -qqy
 curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash -o /tmp/tsuru-now.bash
 bash /tmp/tsuru-now.bash "$@" --without-dashboard
 
@@ -91,7 +95,7 @@ set -e
 clone_basebuilder /tmp/basebuilder
 echo -e "Host localhost\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
-platforms="java nodejs php python python3 ruby ruby20 static buildpack cordova lisp"
+platforms="java nodejs php python python3 ruby ruby20 ruby21 static buildpack cordova lua"
 
 for platform in $platforms
 do

@@ -3,10 +3,25 @@
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
 
+source $SOURCE_DIR/config
+
+cp $SOURCE_DIR/java/Procfile $SOURCE_DIR/utils/Procfile
 echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
 apt-get update
 apt-get install -y software-properties-common
 add-apt-repository -y ppa:webupd8team/java
 apt-get update
-apt-get install -y oracle-java7-installer maven
+apt-get install -y oracle-java8-installer
+apt-get install -y oracle-java7-installer
+apt-get install -y tomcat7 maven
+
+echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config
+
+rm -rf /var/lib/tomcat7/webapps
+ln -s /home/application/current /var/lib/tomcat7/webapps
+mkdir -p /usr/share/tomcat7/common/classes /usr/share/tomcat7/server/classes /usr/share/tomcat7/shared/classes
+chown -R ${USER}:${USER} /etc/tomcat7 /var/lib/tomcat7 /var/cache/tomcat7 /var/log/tomcat7 /usr/share/tomcat7
+sed -i 's/8080/8888/' /etc/tomcat7/server.xml
+sed -i 's;\[ -f /home/application/apprc \] && source /home/application/apprc;#JAVA_HOME#;' /home/ubuntu/.bashrc
+echo '[ -f /home/application/apprc ] && source /home/application/apprc' >> /home/ubuntu/.bashrc

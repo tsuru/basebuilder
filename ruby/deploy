@@ -5,8 +5,8 @@ source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
 
 if [ -f ${CURRENT_DIR}/Gemfile ]; then
-	pushd $CURRENT_DIR && sudo bundle install --deployment --without=test development
+	pushd $CURRENT_DIR && bundle install --deployment --path ${CURRENT_DIR}/../vendor/bundle --without=test development
 	popd
 fi
 
-/home/application/.venv/bin/python ${SOURCE_DIR}/hooks.py
+${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py

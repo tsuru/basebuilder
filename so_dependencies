@@ -2,6 +2,19 @@
 
 function so_dependencies() {
     export DEBIAN_FRONTEND=noninteractive
+    if [ -f ${CURRENT_DIR}/repositories.apt ]; then
+        set +e
+        sudo -E apt-get install software-properties-common -y --force-yes
+        status=$?
+        set -e
+        if [ ${status} != 0 ]; then
+            sudo apt-get update
+            sudo -E apt-get install software-properties-common -y --force-yes
+        fi
+        for repo in `cat ${CURRENT_DIR}/repositories.apt`; do
+            sudo -E add-apt-repository -y ${repo}
+        done
+    fi
     if [ -f ${CURRENT_DIR}/requirements.apt ]; then
         set +e
         sudo -E apt-get install $(cat ${CURRENT_DIR}/requirements.apt) -y --force-yes

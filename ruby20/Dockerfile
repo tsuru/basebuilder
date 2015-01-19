@@ -1,7 +1,6 @@
-# this file describes how to build tsuru ruby 2.0 image
+# this file describes how to build tsuru ruby20 image
 # to run it:
-# 1- install docker
-# 2- run: $ docker build -t tsuru/ruby20 https://raw.github.com/tsuru/basebuilder/master/ruby20/Dockerfile
+# 1 - tsuru-admin platform-add ruby20 -d https://raw.github.com/tsuru/basebuilder/master/ruby20/Dockerfile
 
 from	ubuntu:14.04
 run	apt-get update
