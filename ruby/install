@@ -2,5 +2,9 @@
 
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
-apt-get install ruby1.9.3 -y
-gem install bundler
+
+add-apt-repository ppa:brightbox/ruby-ng -y
+
+apt-get update
+
+DEBIAN_FRONTEND=noninteractive apt-get install -qqy ruby1.9.3 ruby1.9.1-dev ruby2.0 ruby2.0-dev ruby2.1 ruby2.1-dev ruby2.2 ruby2.2-dev
