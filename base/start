@@ -3,7 +3,7 @@
 source /var/lib/tsuru/config
 
 circus_params="--log-output /var/log/circus/circus.log"
-if [[ $(ps aux | grep -i sshd | grep -v grep) > 0 ]]; then
+if [[ $(ps aux | grep -i sshd | grep -v grep | wc -l) > 0 ]]; then
     circus_params="--daemon $circus_params"
 fi
 
