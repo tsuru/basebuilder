@@ -1,7 +1,6 @@
 # this file describes how to build tsuru java image
 # to run it:
-# 1- install docker
-# 2- run: $ docker build --rm --no-cache -t tsuru/java https://raw.github.com/tsuru/basebuilder/master/java/Dockerfile
+# 1- run: $ tsuru-admin platform-add java -d https://raw.github.com/tsuru/basebuilder/master/java/Dockerfile
 
 from	ubuntu:14.04
 run	apt-get update

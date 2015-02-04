@@ -1,7 +1,6 @@
 # this file describes how to build tsuru php image
 # to run it:
-# 1- install docker
-# 2- run: $ docker build -no-cache -t tsuru/php https://github.com/tsuru/basebuilder/master/php/Dockerfile
+# 1- run: $ tsuru-admin platform-add php -d https://raw.github.com/tsuru/basebuilder/master/php/Dockerfile
 
 from    ubuntu:14.04
 run	apt-get update
