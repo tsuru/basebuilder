@@ -14,7 +14,7 @@ APP_VENV=/home/application/.app_env
 	if [ -f ${CURRENT_DIR}/requirements.txt ]; then
 		${APP_VENV}/bin/pip install -r ${CURRENT_DIR}/requirements.txt
 	elif [ -f ${CURRENT_DIR}/setup.py ]; then
-		${APP_VENV}/bin/pip install ${CURRENT_DIR}/
+		${APP_VENV}/bin/pip install -e ${CURRENT_DIR}/
 	fi
 )
 
