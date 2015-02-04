@@ -6,7 +6,7 @@ source ${SOURCE_DIR}/config
 
 if [ -f ${CURRENT_DIR}/.ruby-version -a "${RUBY_VERSION}" == "" ]; then
     RUBY_VERSION=$(cat ${CURRENT_DIR}/.ruby-version)
-    if [[ "${RUBY_VERSION}" =~ ([0-9\.]+).+ ]]; then
+    if [[ "${RUBY_VERSION}" =~ ([0-9\.]+).* ]]; then
         RUBY_VERSION=${BASH_REMATCH[1]}
     fi
 fi
