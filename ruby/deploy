@@ -4,6 +4,10 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
 
+if [ -f ${CURRENT_DIR}/Gemfile ]; then
+    RUBY_VERSION=$(/usr/bin/ruby /var/lib/tsuru/ruby/ruby_version_eval.rb ${CURRENT_DIR}/Gemfile 2>/dev/null || echo "")
+fi
+
 if [ -f ${CURRENT_DIR}/.ruby-version -a "${RUBY_VERSION}" == "" ]; then
     RUBY_VERSION=$(cat ${CURRENT_DIR}/.ruby-version)
     if [[ "${RUBY_VERSION}" =~ ([0-9\.]+).* ]]; then
