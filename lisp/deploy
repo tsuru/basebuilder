@@ -72,8 +72,5 @@ if [ -f "${CURRENT_DIR}/requirements.txt" ]; then
   done
 fi
 
-echo "Compiling application...."
-sbcl --non-interactive --eval "(ql:quickload \"${SYSTEM_NAME}\")"
-
 echo "Running python hooks...."
 ${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py
