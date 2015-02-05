@@ -1,4 +1,5 @@
 class Mock < BasicObject
+  ENV = ::ENV
   def method_missing(name, *args)
   end
   def ruby(*args)

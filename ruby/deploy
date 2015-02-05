@@ -34,6 +34,8 @@ case $TSURU_RUBY_VERSION in
         ;;
 esac
 
+echo "-- Using ruby version: ${TSURU_RUBY_VERSION} --"
+
 sudo update-alternatives --set ruby /usr/bin/ruby${ruby_to_use} > /dev/null
 sudo update-alternatives --set gem /usr/bin/gem${ruby_to_use} > /dev/null
 sudo gem install bundler
