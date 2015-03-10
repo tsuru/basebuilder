@@ -3,6 +3,12 @@
 # 1 - tsuru-admin platform-add python -d https://raw.github.com/tsuru/basebuilder/master/python/Dockerfile
 
 from	ubuntu:14.04
+# setting python runtime env
+RUN locale-gen en_US.UTF-8
+ENV LANG       en_US.UTF-8
+ENV LC_ALL     en_US.UTF-8
+ENV PYTHONIOENCODING utf_8
+
 run	apt-get update
 run	apt-get install wget -y --force-yes
 run	wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
