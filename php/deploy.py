@@ -25,6 +25,11 @@ class Manager(object):
 
 
     def install(self):
+        # Calling pre-install hooks
+        self.frontend.pre_install()
+        if self.interpretor is not None:
+            self.interpretor.pre_install()
+
         packages = self.frontend.get_packages()
 
         if self.interpretor is not None:

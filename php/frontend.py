@@ -8,6 +8,9 @@ class Frontend(object):
         self.configuration = configuration
         self.application = application
 
+    def pre_install(self):
+        pass
+
     def post_install(self):
         pass
 

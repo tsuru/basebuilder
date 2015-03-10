@@ -51,6 +51,8 @@ php:
 The following PHP interpretors are supported:
 
 - `fpm54`: PHP 5.4 though PHP-FPM
+- `fpm55`: PHP 5.5 though PHP-FPM
+- `hhvm`: HipHop Virtual Machine (PHP 5.4)
 
 You can chose between them by setting the `php.interpretor.name` parameter:
 ```yml
@@ -61,6 +63,8 @@ php:
 
 These interpretors can also have options configured in the `php.interpretor.options` parameter.
 
+If you choose `fpm54` interpretor, use `extensions` option to install php5 extensions instead of using `requirements.apt`
+
 All these options are not required and can be used the following ways
 ```yml
 php:
@@ -68,9 +72,20 @@ php:
         name: fpm54
         options:
             ini_file: /path/to/file.ini
+            extensions:
+                - php5-mysql
 ```
 
 ## `fpm54` options
+
+- `ini_file`: The relative path of your `php.ini` file in your project, that will replace the default one
+- `extensions`: A list of php5 extensions you need
+
+## `fpm55` options
+
+- `ini_file`: The relative path of your `php.ini` file in your project, that will replace the default one
+
+## `hhvm` options
 
 - `ini_file`: The relative path of your `php.ini` file in your project, that will replace the default one
 
@@ -87,4 +102,4 @@ That's currently the default configuration if no parameter is set.
 
 ## Next steps
 
-With the current implementation, it's quite easy to add an `hhvm` interpretor for instance.
+With the current implementation, it's quite easy to add another interpretor for instance.
