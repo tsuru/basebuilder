@@ -94,6 +94,9 @@ class FPM55(Interpretor):
     def __init__(self, configuration, application):
         super(FPM55, self).__init__(configuration, application)
 
+    def pre_install(self):
+        pass
+
     def get_packages(self):
         return ['php5-fpm']
 
