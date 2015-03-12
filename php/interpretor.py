@@ -80,8 +80,10 @@ class FPM54(Interpretor):
 
     def get_packages(self):
         packages = ['php5-common'.join(['', self.phpversion]), 'php5-fpm'.join(['', self.phpversion])]
-        for extension in self.configuration.extensions:
-            packages.append(extension.join(['', self.phpversion]))
+        if 'extensions' in self.configuration:
+            for extension in self.configuration.extensions:
+                packages.append(extension.join(['', self.phpversion]))
+        
         return packages
 
     def post_install(self):
