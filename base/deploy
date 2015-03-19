@@ -22,6 +22,7 @@ function git_deploy() {
 		git clone $1 $CURRENT_DIR
 	fi
 	cd $CURRENT_DIR
+	git submodule update --init --recursive
 	git checkout $2 >/dev/null 2>&1
 	cd -
 }
