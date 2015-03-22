@@ -4,7 +4,7 @@
 
 from    ubuntu:14.04
 run	apt-get update
-run	apt-get install wget php5-cli -y --force-yes
+run	apt-get install wget -y --force-yes
 run	mkdir /var/lib/tsuru
 run	wget --no-check-certificate https://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
