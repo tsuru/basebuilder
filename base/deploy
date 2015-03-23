@@ -12,6 +12,10 @@ then
 fi
 
 function git_deploy() {
+	if [ ! -d $CURRENT_DIR/.git ]
+	then
+		rm -rf $CURRENT_DIR
+	fi
 	if [ -d $CURRENT_DIR ]
 	then
 		cd $CURRENT_DIR
