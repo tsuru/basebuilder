@@ -43,7 +43,7 @@ function archive_deploy() {
 }
 
 function pre_deploy() {
-	rm /home/application/current/Procfile
+	rm -f /home/application/current/Procfile
 }
 
 function post_deploy() {
