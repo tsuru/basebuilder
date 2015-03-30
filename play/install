@@ -15,5 +15,7 @@ rm typesafe-activator-${ACTIVATOR_VERSION}.zip
 mv activator-${ACTIVATOR_VERSION} /var/lib/activator
 chown -R ubuntu:ubuntu /var/lib/activator
 
-echo "Installing openjdk 1.7.0..."
-apt-get install -y openjdk-7-jdk
+echo "Installing openjdk 1.8.0..."
+add-apt-repository -y ppa:openjdk-r/ppa
+apt-get update
+apt-get install -y openjdk-8-jdk
