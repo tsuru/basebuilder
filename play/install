@@ -1,0 +1,19 @@
+#!/bin/bash
+
+ACTIVATOR_VERSION="1.3.2-minimal"
+
+/var/lib/tsuru/base/install
+
+apt-get install software-properties-common -y
+
+echo "Downloading activator..."
+
+cd /tmp
+wget http://downloads.typesafe.com/typesafe-activator/1.3.2/typesafe-activator-${ACTIVATOR_VERSION}.zip
+unzip typesafe-activator-${ACTIVATOR_VERSION}.zip
+rm typesafe-activator-${ACTIVATOR_VERSION}.zip
+mv activator-${ACTIVATOR_VERSION} /var/lib/activator
+chown -R ubuntu:ubuntu /var/lib/activator
+
+echo "Installing openjdk 1.7.0..."
+apt-get install -y openjdk-7-jdk

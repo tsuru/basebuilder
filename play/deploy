@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source /var/lib/tsuru/base/deploy
+
+echo "Building..."
+cd /home/application/current
+dir /var/lib/activator --recursive
+/var/lib/activator/activator stage
+
+echo "Procfile:"
+cat /home/application/current/Procfile
+
+cp /home/application/current/Procfile ${SOURCE_DIR}/utils/Procfile
