@@ -81,7 +81,7 @@ class FPM54(Interpretor):
     def get_packages(self):
         packages = ['php5-common'.join(['', self.phpversion]), 'php5-fpm'.join(['', self.phpversion])]
         if 'extensions' in self.configuration:
-            for extension in self.configuration.extensions:
+            for extension in self.configuration.get('extensions'):
                 packages.append(extension.join(['', self.phpversion]))
         
         return packages
@@ -98,7 +98,12 @@ class FPM55(Interpretor):
         pass
 
     def get_packages(self):
-        return ['php5-fpm']
+        packages = ['php5-fpm']
+        if 'extensions' in self.configuration:
+            for extension in self.configuration.get('extensions'):
+                packages.append(extension.join(['', self.phpversion]))
+        
+        return packages
 
     def post_install(self):
         # Remove autostart

@@ -84,6 +84,7 @@ php:
 ## `fpm55` options
 
 - `ini_file`: The relative path of your `php.ini` file in your project, that will replace the default one
+- `extensions`: A list of php5 extensions you need
 
 ## `hhvm` options
 
