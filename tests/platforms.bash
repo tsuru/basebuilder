@@ -96,7 +96,7 @@ set -e
 clone_basebuilder /tmp/basebuilder
 echo -e "Host localhost\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
-platforms="java nodejs php python python3 ruby static cordova"
+platforms="java nodejs php python python3 ruby static cordova play"
 
 for platform in $platforms
 do
