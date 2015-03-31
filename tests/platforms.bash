@@ -41,7 +41,7 @@ function test_platform() {
 	set +e
 	for i in `seq 1 5`
 	do
-		output=`curl -m 5 -sNH "Host: ${host}" localhost`
+		output=`curl -m 5 -fsSNH "Host: ${host}" localhost`
 		if [ $? == 0 ]
 		then
 			break
