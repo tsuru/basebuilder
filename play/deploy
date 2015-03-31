@@ -9,5 +9,3 @@ dir /var/lib/activator --recursive
 
 echo "Procfile:"
 cat /home/application/current/Procfile
-
-cp /home/application/current/Procfile ${SOURCE_DIR}/utils/Procfile
