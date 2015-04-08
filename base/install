@@ -10,7 +10,7 @@ useradd -m ${USER} -s /bin/bash
 chown ${USER}:${USER} /home/application
 echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-cat >> /home/ubuntu/.bashrc <<EOF
+cat >> /home/ubuntu/.profile <<EOF
 [ -f /home/application/apprc ] && source /home/application/apprc
 EOF
 
