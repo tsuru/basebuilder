@@ -83,7 +83,7 @@ class FPM54(Interpretor):
         if 'extensions' in self.configuration:
             for extension in self.configuration.get('extensions'):
                 packages.append(extension.join(['', self.phpversion]))
-        
+
         return packages
 
     def post_install(self):
@@ -95,14 +95,14 @@ class FPM55(Interpretor):
         super(FPM55, self).__init__(configuration, application)
 
     def pre_install(self):
-        pass
+        os.system('apt-get update')
 
     def get_packages(self):
         packages = ['php5-fpm']
         if 'extensions' in self.configuration:
             for extension in self.configuration.get('extensions'):
                 packages.append(extension.join(['', self.phpversion]))
-        
+
         return packages
 
     def post_install(self):
