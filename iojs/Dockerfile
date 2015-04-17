@@ -3,6 +3,10 @@
 # 1- run $ tsuru-admin platform-add iojs -d https://raw.github.com/tsuru/basebuilder/master/iojs/Dockerfile
 
 from	ubuntu:14.04
+run     locale-gen en_US.UTF-8
+env     LANG en_US.UTF-8
+env     LANGUAGE en_US:en
+env     LC_ALL en_US.UTF-8
 run	apt-get update
 run	DEBIAN_FRONTEND=noninteractive apt-get install wget curl gnupg -y --force-yes
 run	wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
