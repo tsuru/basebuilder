@@ -3,7 +3,9 @@
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
 
-apt-add-repository ppa:tsuru/golang -y --force-yes
+apt-get update
+apt-get install -y software-properties-common
+apt-add-repository ppa:tsuru/golang -y
 apt-get update
 apt-get install curl bzr mercurial git bzr golang -qqy --force-yes
 cp ${SOURCE_DIR}/go/Procfile ${SOURCE_DIR}/utils/Procfile
