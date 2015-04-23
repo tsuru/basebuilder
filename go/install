@@ -3,9 +3,15 @@
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
 
+source ${SOURCE_DIR}/config
+
 apt-get update
 apt-get install -y software-properties-common
 apt-add-repository ppa:tsuru/golang -y
 apt-get update
 apt-get install curl bzr mercurial git bzr golang -qqy --force-yes
 cp ${SOURCE_DIR}/go/Procfile ${SOURCE_DIR}/utils/Procfile
+sed -i 's;\[ -f /home/application/apprc \] && source /home/application/apprc;GOPATH=${APP_DIR};' /home/ubuntu/.profile
+echo 'PATH=$GOPATH:$PATH' >> /home/ubuntu/.profile
+echo 'export PATH GOPATH' >> /home/ubuntu/.profile
+echo '[ -f /home/application/apprc ] && source /home/application/apprc' >> /home/ubuntu/.profile
