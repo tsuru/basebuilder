@@ -1,3 +1,7 @@
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 from ubuntu:14.04
 run locale-gen en_US.UTF-8
 env LANG en_US.UTF-8

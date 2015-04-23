@@ -1,3 +1,7 @@
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 from    progrium/buildstep
 run     apt-get update
 run     apt-get install wget sudo -y --force-yes
