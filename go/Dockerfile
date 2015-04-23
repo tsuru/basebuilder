@@ -9,5 +9,5 @@ run	wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.g
 run	mkdir /var/lib/tsuru
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	cp /var/lib/tsuru/go/deploy /var/lib/tsuru
-run	cp /var/lib/tsuru/go/start /var/lib/tsuru
+run	cp /var/lib/tsuru/base/start /var/lib/tsuru
 run	/var/lib/tsuru/go/install

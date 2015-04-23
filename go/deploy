@@ -4,11 +4,17 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
 
-GOROOT=${APP_DIR}/go
-GOPATH=${APP_DIR}/.go
-PATH=${GOROOT}/bin:${GOPATH}/bin:${PATH}
-export GOPATH GOROOT PATH
+GOPATH=${APP_DIR}
+PATH=${GOPATH}/bin:${PATH}
+export GOPATH PATH
 
-cd ${CURRENT_DIR} && go get -d ./...
-
+pushd ${CURRENT_DIR}
+go get -d ./...
 ${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py
+
+if [ -f ${APP_DIR}/.default_procfile ]
+then
+	go build -o tsuru-app
+fi
+
+popd
