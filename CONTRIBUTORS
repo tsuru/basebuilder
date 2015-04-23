@@ -1,0 +1,38 @@
+# This is the official list of people who have contributed code to
+# basebuilder.
+# The AUTHORS file lists the copyright holders; this file lists people.
+# For example, Globo.com employees are listed here but not in AUTHORS,
+# because Globo.com holds the copyright.
+#
+# You can the list of contributors using the following command:
+#
+#   % git shortlog -se
+#
+# Please keep this file sorted, and group users with multiple emails.
+
+IN0SAN9 <me@7in0.me>
+Adam Clark <adamclerk@gmail.com>
+Alessandro Corbelli <alessandro.corbelli@guest.it>
+Andrews Medina <andrewsmedina@gmail.com>
+Cezar Sá Espinola <cezar.sa@corp.globo.com> <cezarsa@gmail.com>
+Conrad Pankoff <deoxxa@fknsrs.biz>
+Evandro Leopoldino Gonçalves <evandrolgoncalves@gmail.com>
+Flavia Missi <flaviamissi@gmail.com>
+Francisco Souza <f@souza.cc> <franciscossouza@gmail.com> <fss@corp.globo.com>
+GUEST.it s.r.l <assistenza@guest.it>
+Guilherme Cirne <gcirne@gmail.com>
+Guilherme Souza <guivideojob@gmail.com>
+Jannis Leidel <jannis@leidel.info>
+Jason Thigpen <darwin@senet.us>
+Jonas Kac <jonas@tuzame.com>
+Josh Blancett <josh@firma8.com> <joshblancett@gmail.com>
+Łukasz Kurowski <crackcomm@gmail.com>
+Marc Abramowitz <marc@marc-abramowitz.com>
+Nick Ricketts <nightshade427@gmail.com>
+Paulo Sousa <paulo.sousa@corp.globo.com> <psousa@morpheu.org>
+Roberto Soares <roberto.tech@gmail.com>
+Robson Peixoto <robsonpeixoto@gmail.com>
+Samuel ROZE <samuel.roze@gmail.com>
+Tarsis Azevedo <tarsis.azevedo@gmail.com>
+Tatiana Al-Chueyr <tatiana.alchueyr@gmail.com>
+Wouter van Outersterp <wouter.van.outersterp@whyellow.nl> <wouter@gennsoft.com> <woutersterp@hotmail.com>
