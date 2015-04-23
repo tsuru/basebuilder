@@ -1,3 +1,0 @@
-#!/bin/bash
-
-killall -9 tsuru-app || echo "WARNING: project not running, skipping stop"
