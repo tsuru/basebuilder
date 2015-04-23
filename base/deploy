@@ -43,13 +43,17 @@ function archive_deploy() {
 }
 
 function pre_deploy() {
-	rm -f /home/application/current/Procfile
+	if [ -f ${APP_DIR}/.default_procfile ]
+	then
+		rm ${APP_DIR}/.default_procfile ${CURRENT_DIR}/Procfile
+	fi
 }
 
 function post_deploy() {
-	if [ ! -f /home/application/current/Procfile ] && [ -f ${SOURCE_DIR}/utils/Procfile ]
+	if [ ! -f ${CURRENT_DIR}/Procfile ] && [ -f ${SOURCE_DIR}/utils/Procfile ]
 	then
-		cp ${SOURCE_DIR}/utils/Procfile /home/application/current/Procfile
+		cp ${SOURCE_DIR}/utils/Procfile ${CURRENT_DIR}/Procfile
+		touch ${APP_DIR}/.default_procfile
 	fi
 }
 
