@@ -12,9 +12,9 @@ apt-get update
 apt-get install -y software-properties-common
 add-apt-repository -y ppa:webupd8team/java
 apt-get update
-apt-get install -y oracle-java8-installer
-apt-get install -y oracle-java7-installer
-apt-get install -y tomcat7 maven
+apt-get install -y --force-yes oracle-java8-installer
+apt-get install -y --force-yes oracle-java7-installer
+apt-get install -y --force-yes tomcat7 maven
 
 echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config
 
