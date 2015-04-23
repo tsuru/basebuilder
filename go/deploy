@@ -11,8 +11,6 @@ set +e
 go get -d ./...
 set -e
 
-${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py
-
 if [ -f ${APP_DIR}/.default_procfile ]
 then
 	go build -o tsuru-app

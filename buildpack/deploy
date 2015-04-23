@@ -16,4 +16,3 @@ LC_ALL=C perl -lne '/^(.*?):/ && print "$1: /start $1"' /app/Procfile | sudo tee
 sudo sed -i "s^\(\s*\)\(.*\) | bash^\1exec /bin/bash -c \"\`\2\`\"^g" /start
 sudo sed -i 's/chown -R .*//' /start
 sudo sed -i 's/setuidgid .*/$(eval echo ${command})/' /start
-${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py

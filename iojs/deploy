@@ -9,5 +9,3 @@ if [ -f ${CURRENT_DIR}/package.json ]; then
 	pushd $CURRENT_DIR && npm install --production
 	popd
 fi
-
-${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py
