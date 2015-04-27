@@ -79,7 +79,7 @@ class FPM54(Interpretor):
 
     def pre_install(self):
         os.system('apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2098A6E')
-        os.system('echo deb http://php53.dotdeb.org stable all | tee /etc/apt/sources.list.d/php54.list')
+        os.system('echo deb http://packages.dotdeb.org stable all | tee /etc/apt/sources.list.d/php54.list')
         os.system('apt-get update')
         self.phpversion = subprocess.check_output('apt-cache madison php5|grep 5.4|awk \'{print "="$3}\'', shell=True)
 
