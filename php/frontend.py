@@ -65,6 +65,7 @@ class Apache(Frontend):
                 "export APACHE_RUN_DIR=/var/run/apache2\n"
                 "export APACHE_LOCK_DIR=/var/lock/apache2\n"
                 "export APACHE_LOG_DIR=/var/log/apache2\n"
+                "sudo chmod 777 /dev/stdout /dev/stderr\n"
                  % (self.application.get('user'), self.application.get('user'))
             )
 
