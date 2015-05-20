@@ -19,7 +19,7 @@ if [ -f ${CURRENT_DIR}/.ruby-version -a "${RUBY_VERSION}" == "" ]; then
     fi
 fi
 
-if [[ ${RUBY_VERSION} =~ ([0-9]\.[0-9])\.0 ]]; then
+if [[ ${RUBY_VERSION} =~ ([0-9]\.[0-9])[0-9\.]* ]]; then
     RUBY_VERSION=${BASH_REMATCH[1]}
 fi
 
