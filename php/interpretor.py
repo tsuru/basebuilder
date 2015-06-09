@@ -181,7 +181,7 @@ class HHVM(Interpretor):
         pass
 
     def get_startup_cmd(self):
-        return '/usr/bin/hhvm --config /etc/hhvm/php.ini --config /etc/hhvm/server.ini --user %s --mode daemon -vPidFile=/var/run/hhvm/pid' % self.application.get('user')
+        return '/usr/bin/hhvm --config /etc/hhvm/php.ini --config /etc/hhvm/server.ini --user %s --mode server -vPidFile=/var/run/hhvm/pid' % self.application.get('user')
 
 interpretors = {
     'fpm54': FPM54,
