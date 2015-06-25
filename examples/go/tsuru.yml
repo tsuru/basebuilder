@@ -1,2 +1,5 @@
+hooks:
+  build:
+    - go run hook.go
 healthcheck:
   path: /
