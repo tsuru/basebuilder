@@ -1,5 +1,5 @@
 hooks:
   build:
-    - go run hook.go
+    - go run web.go -h
 healthcheck:
   path: /

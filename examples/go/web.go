@@ -5,11 +5,23 @@
 package main
 
 import (
+	"flag"
 	"net/http"
 	"os"
 )
 
+var hook bool
+
+func init() {
+	flag.BoolVar(&hook, "h", false, "run hook")
+}
+
 func main() {
+	flag.Parse()
+	if hook {
+		println("hello")
+		return
+	}
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello world from tsuru"))
 	})
