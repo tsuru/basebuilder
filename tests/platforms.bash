@@ -37,7 +37,7 @@ function test_platform() {
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} add ${app_dir}/*
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} commit -m "add files"
 
-	tsuru app-create ${app_name} ${platform}
+	tsuru app-create ${app_name} ${platform} -o theonepool
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} push git@localhost:${app_name}.git master
 
 	host=`tsuru app-info -a ${app_name} | grep Address | awk '{print $2}'`
