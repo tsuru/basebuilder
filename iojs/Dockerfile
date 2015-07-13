@@ -16,6 +16,7 @@ run	DEBIAN_FRONTEND=noninteractive apt-get install wget curl gnupg -y --force-ye
 run	wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
 run	mkdir /var/lib/tsuru
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
+run	rm basebuilder.tar.gz
 run	cp /var/lib/tsuru/iojs/deploy /var/lib/tsuru
 run	cp /var/lib/tsuru/base/start /var/lib/tsuru
 run gpg --keyserver pool.sks-keyservers.net --recv-keys \
