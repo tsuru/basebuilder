@@ -1,0 +1,24 @@
+#!/bin/bash -e
+
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+APP_VENV=/home/application/.app_env
+
+SOURCE_DIR=/var/lib/tsuru
+${SOURCE_DIR}/base/install
+source ${SOURCE_DIR}/config
+
+apt-get install libatlas-dev gfortran liblapack-dev -y
+
+virtualenv $APP_VENV
+$APP_VENV/pip install -U numpy scipy scikit-learn pandas matplot sympy 
+
+echo "export PATH=${APP_VENV}/bin:\${PATH}" | tee -a ${HOME}/.profile /etc/profile
+echo "Defaults secure_path=\"${APP_VENV}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"" > /etc/sudoers.d/venv
+echo "PermitUserEnvironment yes" | tee -a /etc/ssh/sshd_config
+mkdir -p /home/${USER}/.ssh
+chmod 700 /home/${USER}/.ssh
+echo "PATH=${APP_VENV}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" | tee -a /home/${USER}/.ssh/environment
+chown -R ${USER}:${USER} /home/${USER}/.ssh ${APP_VENV}
