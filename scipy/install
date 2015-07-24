@@ -13,7 +13,7 @@ source ${SOURCE_DIR}/config
 apt-get install libatlas-dev gfortran liblapack-dev -y
 
 virtualenv $APP_VENV
-$APP_VENV/pip install -U numpy scipy scikit-learn pandas matplot sympy 
+$APP_VENV/pip install -U numpy scipy scikit-learn pandas matplotlib sympy 
 
 echo "export PATH=${APP_VENV}/bin:\${PATH}" | tee -a ${HOME}/.profile /etc/profile
 echo "Defaults secure_path=\"${APP_VENV}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"" > /etc/sudoers.d/venv
