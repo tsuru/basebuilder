@@ -13,7 +13,7 @@ args=""
 
 case $1 in
 	pre_receive_archive)
-		args=(--archive-server --hook-url https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.archive-server --hook-name pre-receive)
+		args=("pre_receive_archive")
 		;;
 	pre_receive_swift)
 		args=(--hook-url https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.swift --hook-name pre-receive --env AUTH_PARAMS "${SWIFT_AUTH_PARAMS}" --env CONTAINER_NAME ${SWIFT_CONTAINER_NAME} --env CDN_URL ${SWIFT_CDN_URL})

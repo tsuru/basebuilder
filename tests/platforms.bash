@@ -87,7 +87,9 @@ sudo -E apt-get install curl -qqy
 sudo -E apt-get update
 sudo -E apt-get install linux-image-extra-$(uname -r) -qqy
 curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash -o /tmp/tsuru-now.bash
-bash /tmp/tsuru-now.bash "$@" --without-dashboard --tsuru-pkg-nightly
+if [[ $@ != "pre_receive_archive" ]]; then
+    bash /tmp/tsuru-now.bash "$@" --without-dashboard --tsuru-pkg-nightly
+fi
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
