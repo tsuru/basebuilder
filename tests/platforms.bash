@@ -112,8 +112,8 @@ echo "Configuring gandalf mode..."
 hook_dir=/home/git/bare-template/hooks
 sudo rm -rf $hook_dir
 sudo mkdir -p $hook_dir
-sudo curl -sSL ${hook_url} -o ${hook_dir}/${hook_name}
-sudo chmod +x ${hook_dir}/${hook_name}
+sudo curl -sSL $hook_url -o $hook_dir/$hook_name
+sudo chmod +x $hook_dir/$hook_name
 echo export ${envs[@]} | sudo tee -a ~git/.bash_profile > /dev/null
 echo "Done configuring gandalf mode!"
 
