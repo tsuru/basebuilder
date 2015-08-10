@@ -82,18 +82,40 @@ function clean_tsuru_now() {
 }
 
 export DEBIAN_FRONTEND=noninteractive
-sudo -E apt-get update
 sudo -E apt-get install curl -qqy
-sudo -E apt-get update
-sudo -E apt-get install linux-image-extra-$(uname -r) -qqy
-curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash -o /tmp/tsuru-now.bash
-if [[ $@ != "pre_receive_archive" ]]; then
-    bash /tmp/tsuru-now.bash "$@" --without-dashboard --tsuru-pkg-nightly
-fi
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 export DOCKER_HOST="tcp://127.0.0.1:4243"
+
+case $1 in
+	post_receive)
+        hook_url="https://raw.github.com/tsuru/tsuru/master/misc/git-hooks/post-receive"
+        hook_name="post-receive"
+		;;
+	pre_receive_swift)
+		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.swift"
+        hook_name="pre-receive"
+        envs=('AUTH_PARAMS="${SWIFT_AUTH_PARAMS}"' 'CONTAINER_NAME=${SWIFT_CONTAINER_NAME}' 'CDN_URL=${SWIFT_CDN_URL}')
+        change_gandalf_mode hook_url hook_name envs
+		;;
+	pre_receive_s3)
+		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.s3cmd"
+        hook_name="pre-receive"
+        envs=('BUCKET_NAME=$S3_BUCKET_NAME')
+        export AWS_ACCESS_KEY=$AWS_ACCESS_KEY
+        export AWS_SECRET_KEY=$AWS_SECRET_KEY
+		;;
+esac
+
+echo "Configuring gandalf mode..."
+hook_dir=/home/git/bare-template/hooks
+sudo rm -rf $hook_dir
+sudo mkdir -p $hook_dir
+sudo curl -sSL ${hook_url} -o ${hook_dir}/${hook_name}
+sudo chmod +x ${hook_dir}/${hook_name}
+echo export ${envs[@]} | sudo tee -a ~git/.bash_profile > /dev/null
+echo "Done configuring gandalf mode!"
 
 set +e
 clean_tsuru_now
