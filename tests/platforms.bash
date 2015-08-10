@@ -75,7 +75,6 @@ function clone_basebuilder() {
 }
 
 function clean_tsuru_now() {
-	rm /tmp/tsuru-now.bash
 	tsuru app-remove -ya tsuru-dashboard 2>/dev/null
 	mongo tsurudb --eval 'db.platforms.remove({_id: "python"})'
 	docker rmi -f tsuru/python 2>/dev/null
@@ -108,14 +107,16 @@ case $1 in
 		;;
 esac
 
-echo "Configuring gandalf mode..."
-hook_dir=/home/git/bare-template/hooks
-sudo rm -rf $hook_dir
-sudo mkdir -p $hook_dir
-sudo curl -sSL $hook_url -o $hook_dir/$hook_name
-sudo chmod +x $hook_dir/$hook_name
-echo export ${envs[@]} | sudo tee -a ~git/.bash_profile > /dev/null
-echo "Done configuring gandalf mode!"
+if [[ "$1" != "pre_receive_archive" ]]; then
+    echo "Configuring gandalf mode..."
+    hook_dir=/home/git/bare-template/hooks
+    sudo rm -rf $hook_dir
+    sudo mkdir -p $hook_dir
+    sudo curl -sSL ${hook_url} -o ${hook_dir}/${hook_name}
+    sudo chmod +x ${hook_dir}/${hook_name}
+    echo export ${envs[@]} | sudo tee -a ~git/.bash_profile > /dev/null
+    echo "Done configuring gandalf mode!"
+fi
 
 set +e
 clean_tsuru_now
