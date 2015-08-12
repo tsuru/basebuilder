@@ -96,7 +96,6 @@ case $1 in
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.swift"
         hook_name="pre-receive"
         envs=('AUTH_PARAMS="${SWIFT_AUTH_PARAMS}"' 'CONTAINER_NAME=${SWIFT_CONTAINER_NAME}' 'CDN_URL=${SWIFT_CDN_URL}')
-        change_gandalf_mode hook_url hook_name envs
 		;;
 	pre_receive_s3)
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.s3cmd"
