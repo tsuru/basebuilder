@@ -151,7 +151,7 @@ case $1 in
 	pre_receive_s3)
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.s3cmd"
         hook_name="pre-receive"
-        envs=('BUCKET_NAME=$S3_BUCKET_NAME')
+        envs=("BUCKET_NAME=$S3_BUCKET_NAME")
         install_s3cmd
 		;;
 esac
