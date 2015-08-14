@@ -80,7 +80,7 @@ function clean_tsuru_now() {
 	docker rmi -f tsuru/python 2>/dev/null
 }
 
-function install_s3cmd {
+function install_s3cmd() {
     sudo apt-get install s3cmd python-magic -y
     cat > /tmp/s3cfg <<END
 [default]
@@ -152,8 +152,6 @@ case $1 in
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.s3cmd"
         hook_name="pre-receive"
         envs=('BUCKET_NAME=$S3_BUCKET_NAME')
-        export AWS_ACCESS_KEY=$AWS_ACCESS_KEY
-        export AWS_SECRET_KEY=$AWS_SECRET_KEY
         install_s3cmd
 		;;
 esac
@@ -165,7 +163,7 @@ if [[ "$1" != "pre_receive_archive" ]]; then
     sudo mkdir -p $hook_dir
     sudo curl -sSL ${hook_url} -o ${hook_dir}/${hook_name}
     sudo chmod +x ${hook_dir}/${hook_name}
-    echo export ${envs[@]} | sudo tee -a ~git/.bash_profile > /dev/null
+    echo export ${envs[@]} | sudo tee -a ~git/.bash_profile
     echo "Done configuring gandalf mode!"
 fi
 

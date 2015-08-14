@@ -9,4 +9,4 @@ then
 	source /vagrant/.env
 fi
 
-sudo -iu $SUDO_USER /vagrant/platforms.bash "$1"
+sudo -E -iu $SUDO_USER /vagrant/platforms.bash "$1"
