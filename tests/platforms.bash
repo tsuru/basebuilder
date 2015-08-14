@@ -85,6 +85,11 @@ function clean_tsuru_now() {
 	docker rmi -f tsuru/python 2>/dev/null
 }
 
+function install_swift {
+    sudo apt-get install python-pip python-dev libxml2-dev libxslt-dev libz-dev -y
+    sudo pip install python-swiftclient python-keystoneclient
+}
+
 function install_s3cmd() {
     sudo apt-get install s3cmd python-magic -y
     cat > /tmp/s3cfg <<END
@@ -152,6 +157,7 @@ case $1 in
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.swift"
         hook_name="pre-receive"
         envs=('AUTH_PARAMS="${SWIFT_AUTH_PARAMS}"' 'CONTAINER_NAME=${SWIFT_CONTAINER_NAME}' 'CDN_URL=${SWIFT_CDN_URL}')
+        install_swift
 		;;
 	pre_receive_s3)
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.s3cmd"
