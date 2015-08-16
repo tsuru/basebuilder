@@ -1,19 +1,21 @@
 #!/bin/bash -el
 
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
 
-apt-get install curl bzr mercurial git bzr -qqy --force-yes
+source ${SOURCE_DIR}/config
 
-source $SOURCE_DIR/config
-mkdir -p $APP_DIR
-
-ver=1.2.1
-file=go$ver.linux-amd64.tar.gz
-url=http://go.googlecode.com/files/$file
-
-pushd $APP_DIR
-	curl -sO $url
-	tar zxf $file
-	rm -f $file
-popd
+apt-get update
+apt-get install -y software-properties-common
+apt-add-repository ppa:tsuru/golang -y
+apt-get update
+apt-get install curl bzr mercurial git bzr golang -qqy --force-yes
+cp ${SOURCE_DIR}/go/Procfile ${SOURCE_DIR}/utils/Procfile
+sed -i "s;\[ -f /home/application/apprc \] && source /home/application/apprc;GOPATH=${APP_DIR};" /home/ubuntu/.profile
+echo 'PATH=$GOPATH:$PATH' >> /home/ubuntu/.profile
+echo 'export PATH GOPATH' >> /home/ubuntu/.profile
+echo '[ -f /home/application/apprc ] && source /home/application/apprc' >> /home/ubuntu/.profile

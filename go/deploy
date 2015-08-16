@@ -1,14 +1,23 @@
 #!/bin/bash -el
 
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
 
-GOROOT=${APP_DIR}/go
-GOPATH=${APP_DIR}/.go
-PATH=${GOROOT}/bin:${GOPATH}/bin:${PATH}
-export GOPATH GOROOT PATH
+pushd ${CURRENT_DIR} > /dev/null 2>&1
 
-cd ${CURRENT_DIR} && go get -d ./...
+# do not fail if the application is not go gettable
+set +e
+go get -d ./...
+set -e
 
-${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py
+if [ -f ${APP_DIR}/.default_procfile ]
+then
+	go build -o tsuru-app
+fi
+
+popd

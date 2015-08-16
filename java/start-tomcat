@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 XMX=${JAVA_MAX_MEMORY-128}
 
 mkdir -p /tmp/tomcat7-tomcat7-tmp

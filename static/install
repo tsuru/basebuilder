@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
 apt-get install gcc make curl libpcre3-dev zlib1g-dev nginx -y
@@ -8,3 +12,4 @@ mkdir -p /var/log/nginx /var/lib/nginx
 chown -R ubuntu:ubuntu /var/lib/nginx /var/log/nginx
 cp ${SOURCE_DIR}/static/Procfile ${SOURCE_DIR}/utils/Procfile
 cp ${SOURCE_DIR}/static/etc/nginx.conf /etc/nginx/nginx.conf
+echo "sudo chmod 777 /dev/stdout" >> /etc/profile

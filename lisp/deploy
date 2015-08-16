@@ -1,5 +1,9 @@
 #!/bin/bash -el
 
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
@@ -38,7 +42,7 @@ if [ -f "${CURRENT_DIR}/requirements.txt" ]; then
       cd "${BASH_REMATCH[1]}"
       if [ "$(git remote -v | head -n 1 | awk '{print $2}')" = "$line" ]; then
         echo "Updating $line"
-        git pull 
+        git pull
         cd ..
       else
         echo "Git url changed for ${BASH_REMATCH[1]}, removing and cloning again"
@@ -56,7 +60,7 @@ if [ -f "${CURRENT_DIR}/requirements.txt" ]; then
   do
     if [[ ! -d $dir || $dir == $SYSTEM_NAME ]]; then
       continue
-    fi 
+    fi
     match=0
     for line in $lines
     do
@@ -71,9 +75,3 @@ if [ -f "${CURRENT_DIR}/requirements.txt" ]; then
     fi
   done
 fi
-
-echo "Compiling application...."
-sbcl --non-interactive --eval "(ql:quickload \"${SYSTEM_NAME}\")"
-
-echo "Running python hooks...."
-${VENV_DIR}/bin/python ${SOURCE_DIR}/hooks.py

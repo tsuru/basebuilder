@@ -1,5 +1,9 @@
 #!/bin/bash -el
 
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 chmod +s /usr/bin/sudo
 
 SOURCE_DIR=/var/lib/tsuru
@@ -10,7 +14,7 @@ useradd -m ${USER} -s /bin/bash
 chown ${USER}:${USER} /home/application
 echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-cat >> /home/ubuntu/.bashrc <<EOF
+cat >> /home/ubuntu/.profile <<EOF
 [ -f /home/application/apprc ] && source /home/application/apprc
 EOF
 

@@ -1,5 +1,9 @@
 #!/bin/bash -el
 
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 cd /
 SOURCE_DIR=/var/lib/tsuru
 
@@ -12,6 +16,10 @@ then
 fi
 
 function git_deploy() {
+	if [ ! -d $CURRENT_DIR/.git ]
+	then
+		rm -rf $CURRENT_DIR
+	fi
 	if [ -d $CURRENT_DIR ]
 	then
 		cd $CURRENT_DIR
@@ -22,6 +30,7 @@ function git_deploy() {
 		git clone $1 $CURRENT_DIR
 	fi
 	cd $CURRENT_DIR
+	git submodule update --init --recursive
 	git checkout $2 >/dev/null 2>&1
 	cd -
 }
@@ -38,17 +47,17 @@ function archive_deploy() {
 }
 
 function pre_deploy() {
-	if [ -f /home/application/.default_procfile ]
+	if [ -f ${APP_DIR}/.default_procfile ]
 	then
-		rm /home/application/.default_procfile /home/application/current/Procfile
+		rm ${APP_DIR}/.default_procfile ${CURRENT_DIR}/Procfile
 	fi
 }
 
 function post_deploy() {
-	if [ ! -f /home/application/current/Procfile ] && [ -f ${SOURCE_DIR}/utils/Procfile ]
+	if [ ! -f ${CURRENT_DIR}/Procfile ] && [ -f ${SOURCE_DIR}/utils/Procfile ]
 	then
-		cp ${SOURCE_DIR}/utils/Procfile /home/application/current/Procfile
-		touch /home/application/.default_procfile
+		cp ${SOURCE_DIR}/utils/Procfile ${CURRENT_DIR}/Procfile
+		touch ${APP_DIR}/.default_procfile
 	fi
 }
 

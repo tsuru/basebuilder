@@ -1,10 +1,14 @@
 #!/bin/bash -e
 
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
 
-wget -O - http://prdownloads.sourceforge.net/sbcl/sbcl-1.2.6-x86-64-linux-binary.tar.bz2 2> /dev/null | bzip2 -cd | tar xvf -
-cd sbcl-1.2.6-x86-64-linux
+wget -O - http://downloads.sourceforge.net/project/sbcl/sbcl/1.2.9/sbcl-1.2.9-x86-64-linux-binary.tar.bz2 2> /dev/null | bzip2 -cd | tar xvf -
+cd sbcl-1.2.9-x86-64-linux
 sudo sh ./install.sh
 cd
-rm -rf ./sbcl-1.2.6-x86-64-linux
+rm -rf ./sbcl-1.2.9-x86-64-linux

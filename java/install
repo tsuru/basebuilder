@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
 
@@ -12,9 +16,9 @@ apt-get update
 apt-get install -y software-properties-common
 add-apt-repository -y ppa:webupd8team/java
 apt-get update
-apt-get install -y oracle-java8-installer
-apt-get install -y oracle-java7-installer
-apt-get install -y tomcat7 maven
+apt-get install -y --force-yes oracle-java8-installer
+apt-get install -y --force-yes oracle-java7-installer
+apt-get install -y --force-yes tomcat7 maven
 
 echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config
 
@@ -23,5 +27,5 @@ ln -s /home/application/current /var/lib/tomcat7/webapps
 mkdir -p /usr/share/tomcat7/common/classes /usr/share/tomcat7/server/classes /usr/share/tomcat7/shared/classes
 chown -R ${USER}:${USER} /etc/tomcat7 /var/lib/tomcat7 /var/cache/tomcat7 /var/log/tomcat7 /usr/share/tomcat7
 sed -i 's/8080/8888/' /etc/tomcat7/server.xml
-sed -i 's;\[ -f /home/application/apprc \] && source /home/application/apprc;#JAVA_HOME#;' /home/ubuntu/.bashrc
-echo '[ -f /home/application/apprc ] && source /home/application/apprc' >> /home/ubuntu/.bashrc
+sed -i 's;\[ -f /home/application/apprc \] && source /home/application/apprc;#JAVA_HOME#;' /home/ubuntu/.profile
+echo '[ -f /home/application/apprc ] && source /home/application/apprc' >> /home/ubuntu/.profile
