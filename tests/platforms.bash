@@ -156,7 +156,7 @@ case $1 in
 	pre_receive_swift)
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.swift"
         hook_name="pre-receive"
-        envs=('AUTH_PARAMS="${SWIFT_AUTH_PARAMS}"' 'CONTAINER_NAME=${SWIFT_CONTAINER_NAME}' 'CDN_URL=${SWIFT_CDN_URL}')
+        envs=("AUTH_PARAMS=\"${SWIFT_AUTH_PARAMS}\"" "CONTAINER_NAME=${SWIFT_CONTAINER_NAME}" "CDN_URL=${SWIFT_CDN_URL}")
         install_swift
 		;;
 	pre_receive_s3)
