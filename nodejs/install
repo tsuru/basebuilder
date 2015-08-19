@@ -9,6 +9,6 @@ cd /etc/nvm && git checkout `git describe --abbrev=0 --tags`
 
 cat >> /home/ubuntu/.profile <<EOF
 if [ -e /home/ubuntu/.nvm_bin ]; then
-	export PATH="/home/ubuntu/.nvm_bin:$PATH"
+	export PATH="~/.nvm_bin:$PATH"
 fi
 EOF
