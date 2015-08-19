@@ -25,12 +25,11 @@ nvm install ${NODE_VERSION}
 
 rm -f ~/.nvm_bin
 ln -s $NVM_BIN ~/.nvm_bin
-if [  -e  /usr/bin/node ]; then
-	sudo ln -s $NVM_BIN/node /usr/bin/node
-fi
-if [ ! -e  /usr/bin/npm ]; then
-	sudo ln -s $NVM_BIN/node /usr/bin/npm
-fi
+
+rm -f /usr/bin/node
+sudo ln -s $NVM_BIN/node /usr/bin/node
+rm -f /usr/bin/npm
+sudo ln -s $NVM_BIN/node /usr/bin/npm
 
 if [ -f ${CURRENT_DIR}/package.json ]; then
 	if [ -d ${CURRENT_DIR}/node_modules ]; then rm -rf ${CURRENT_DIR}/node_modules ; fi
