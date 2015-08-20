@@ -26,9 +26,9 @@ nvm install ${NODE_VERSION}
 rm -f ~/.nvm_bin
 ln -s $NVM_BIN ~/.nvm_bin
 
-rm -f /usr/bin/node
+sudo rm -f /usr/bin/node
 sudo ln -s $NVM_BIN/node /usr/bin/node
-rm -f /usr/bin/npm
+sudo rm -f /usr/bin/npm
 sudo ln -s $NVM_BIN/node /usr/bin/npm
 
 if [ -f ${CURRENT_DIR}/package.json ]; then
