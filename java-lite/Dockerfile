@@ -15,6 +15,6 @@ run	wget http://github.com/actionjack/basebuilder/tarball/master -O basebuilder.
 run	mkdir /var/lib/tsuru
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	rm basebuilder.tar.gz
-run	cp /var/lib/tsuru/java/deploy /var/lib/tsuru
-run	cp /var/lib/tsuru/java/start /var/lib/tsuru
-run	/var/lib/tsuru/java/install
+run	cp /var/lib/tsuru/java-lite/deploy /var/lib/tsuru
+run	cp /var/lib/tsuru/java-lite/start /var/lib/tsuru
+run	/var/lib/tsuru/java-lite/install
