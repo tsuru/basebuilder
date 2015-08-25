@@ -1,0 +1,20 @@
+#!/bin/bash -e
+
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+SOURCE_DIR=/var/lib/tsuru
+$SOURCE_DIR/base/install
+
+source $SOURCE_DIR/config
+
+apt-get update
+apt-get install -y --force-yes openjdk-7-jdk
+apt-get install -y --force-yes maven
+
+
+echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config
+
+sed -i 's;\[ -f /home/application/apprc \] && source /home/application/apprc;#JAVA_HOME#;' /home/ubuntu/.profile
+echo '[ -f /home/application/apprc ] && source /home/application/apprc' >> /home/ubuntu/.profile
