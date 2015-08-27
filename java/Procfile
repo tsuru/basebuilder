@@ -1,1 +1,1 @@
-tomcat7: /var/lib/tsuru/java/start-tomcat
+web: /var/lib/tsuru/java/start-tomcat
