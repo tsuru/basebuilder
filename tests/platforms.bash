@@ -86,13 +86,13 @@ function clean_tsuru_now() {
 }
 
 function install_swift {
-    sudo apt-get install python-pip python-dev libxml2-dev libxslt-dev libz-dev -y
-    sudo pip install python-swiftclient python-keystoneclient
+	sudo apt-get install python-pip python-dev libxml2-dev libxslt-dev libz-dev -y
+	sudo pip install python-swiftclient python-keystoneclient
 }
 
 function install_s3cmd() {
-    sudo apt-get install s3cmd python-magic -y
-    cat > /tmp/s3cfg <<END
+	sudo apt-get install s3cmd python-magic -y
+	cat > /tmp/s3cfg <<END
 [default]
 access_key = ${AWS_ACCESS_KEY}
 bucket_location = US
@@ -138,7 +138,7 @@ website_endpoint = http://%(bucket)s.s3-website-%(location)s.amazonaws.com/
 website_error =
 website_index = index.html
 END
-    sudo mv /tmp/s3cfg ~git/.s3cfg
+	sudo mv /tmp/s3cfg ~git/.s3cfg
 }
 
 export DEBIAN_FRONTEND=noninteractive
@@ -150,32 +150,32 @@ export DOCKER_HOST="tcp://127.0.0.1:4243"
 
 case $1 in
 	post_receive)
-        hook_url="https://raw.github.com/tsuru/tsuru/master/misc/git-hooks/post-receive"
-        hook_name="post-receive"
+	hook_url="https://raw.github.com/tsuru/tsuru/master/misc/git-hooks/post-receive"
+		hook_name="post-receive"
 		;;
 	pre_receive_swift)
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.swift"
-        hook_name="pre-receive"
-        envs=("AUTH_PARAMS=\"${SWIFT_AUTH_PARAMS}\"" "CONTAINER_NAME=${SWIFT_CONTAINER_NAME}" "CDN_URL=${SWIFT_CDN_URL}")
-        install_swift
+		hook_name="pre-receive"
+		envs=("AUTH_PARAMS=\"${SWIFT_AUTH_PARAMS}\"" "CONTAINER_NAME=${SWIFT_CONTAINER_NAME}" "CDN_URL=${SWIFT_CDN_URL}")
+		install_swift
 		;;
 	pre_receive_s3)
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.s3cmd"
-        hook_name="pre-receive"
-        envs=("BUCKET_NAME=$S3_BUCKET_NAME")
-        install_s3cmd
+		hook_name="pre-receive"
+		envs=("BUCKET_NAME=$S3_BUCKET_NAME")
+		install_s3cmd
 		;;
 esac
 
 if [[ "$1" != "pre_receive_archive" ]]; then
-    echo "Configuring gandalf mode..."
-    hook_dir=/home/git/bare-template/hooks
-    sudo rm -rf $hook_dir
-    sudo mkdir -p $hook_dir
-    sudo curl -sSL ${hook_url} -o ${hook_dir}/${hook_name}
-    sudo chmod +x ${hook_dir}/${hook_name}
-    echo export ${envs[@]} | sudo tee -a ~git/.bash_profile
-    echo "Done configuring gandalf mode!"
+	echo "Configuring gandalf mode..."
+	hook_dir=/home/git/bare-template/hooks
+	sudo rm -rf $hook_dir
+	sudo mkdir -p $hook_dir
+	sudo curl -sSL ${hook_url} -o ${hook_dir}/${hook_name}
+	sudo chmod +x ${hook_dir}/${hook_name}
+	echo export ${envs[@]} | sudo tee -a ~git/.bash_profile
+	echo "Done configuring gandalf mode!"
 fi
 
 set +e
