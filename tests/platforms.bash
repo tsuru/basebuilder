@@ -81,8 +81,11 @@ function clone_basebuilder() {
 
 function clean_tsuru_now() {
 	tsuru app-remove -ya tsuru-dashboard 2>/dev/null
-	mongo tsurudb --eval 'db.platforms.remove({_id: "python"})'
-	docker rmi -f tsuru/python 2>/dev/null
+	tsuru-admin platform-remove -y python 2>/dev/null
+}
+
+function tsuru_login {
+	yes $2 | tsuru login $1
 }
 
 function install_swift {
@@ -177,6 +180,8 @@ if [[ "$1" != "pre_receive_archive" ]]; then
 	echo export ${envs[@]} | sudo tee -a ~git/.bash_profile
 	echo "Done configuring gandalf mode!"
 fi
+
+tsuru_login admin@example.com admin123
 
 set +e
 clean_tsuru_now
