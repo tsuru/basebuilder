@@ -1,7 +1,0 @@
-Package: *
-Pin: release n=utopic*
-Pin-Priority: 990
-
-Package: *php5*
-Pin: release n=utopic*
-Pin-Priority: 1000
