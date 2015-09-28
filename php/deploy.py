@@ -71,7 +71,7 @@ class Manager(object):
 
         if not os.path.isfile(Procfile_path) or procfile_contents:
             with open(Procfile_path, 'w') as f:
-                f.write('web: /bin/bash -c "sudo %s' % self.frontend.get_startup_cmd())
+                f.write('web: /bin/bash -lc "sudo -E %s' % self.frontend.get_startup_cmd())
                 if self.interpretor is not None:
                     f.write(' && %s' % self.interpretor.get_startup_cmd())
                 f.write(' "\n')
