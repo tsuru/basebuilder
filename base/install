@@ -18,6 +18,7 @@ cat >> /home/ubuntu/.profile <<EOF
 [ -f /home/application/apprc ] && source /home/application/apprc
 EOF
 
+add-apt-repository -y ppa:tsuru/ppa
 apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get install curl git openssh-server libzmq-dev g++ wget libyaml-dev -y
 apt-get install deploy-agent -y --force-yes
