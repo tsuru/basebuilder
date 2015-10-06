@@ -19,11 +19,8 @@ cat >> /home/ubuntu/.profile <<EOF
 EOF
 
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get install curl git openssh-server python-virtualenv python-pip libzmq-dev g++ python-dev wget libyaml-dev -y
-
-virtualenv ${VENV_DIR}
-${VENV_DIR}/bin/pip install circus==0.11.1 tsuru-circus tsuru-unit-agent
-pip install tsuru-unit-agent
+DEBIAN_FRONTEND=noninteractive apt-get install curl git openssh-server libzmq-dev g++ wget libyaml-dev -y
+apt-get install deploy-agent -y --force-yes
 
 sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' /etc/pam.d/sshd
 mkdir /var/run/sshd
