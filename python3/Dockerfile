@@ -10,7 +10,7 @@ from	ubuntu:14.04
 run     locale-gen en_US.UTF-8
 env     LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 run	apt-get update
-run	apt-get install software-properties-common curl wget -y
+run	apt-get install curl wget -y
 run	wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
 run	mkdir /var/lib/tsuru
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1

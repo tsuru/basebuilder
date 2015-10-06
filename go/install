@@ -9,8 +9,6 @@ $SOURCE_DIR/base/install
 
 source ${SOURCE_DIR}/config
 
-apt-get update
-apt-get install -y software-properties-common
 apt-add-repository ppa:tsuru/golang -y
 apt-get update
 apt-get install curl bzr mercurial git bzr golang -qqy --force-yes
