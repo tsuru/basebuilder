@@ -9,8 +9,8 @@
 from    ubuntu:14.04
 run     locale-gen en_US.UTF-8
 env     LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
-run     echo 'deb http://archive.ubuntu.com/ubuntu/ utopic main restricted universe multiverse' >> /etc/apt/sources.list
-run     echo 'deb http://archive.ubuntu.com/ubuntu/ utopic-security main restricted universe multiverse' >> /etc/apt/sources.list
+run     echo 'deb http://archive.ubuntu.com/ubuntu/ vivid main restricted universe multiverse' >> /etc/apt/sources.list
+run     echo 'deb http://archive.ubuntu.com/ubuntu/ vivid-security main restricted universe multiverse' >> /etc/apt/sources.list
 run	echo 'APT::Default-Release "trusty";' >> /etc/apt/apt.conf.d/01ubuntu
 run	apt-get update
 run	apt-get install wget -y --force-yes
