@@ -16,5 +16,4 @@ run	mkdir /var/lib/tsuru
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	rm basebuilder.tar.gz
 run	cp /var/lib/tsuru/java-7-openjdk/deploy /var/lib/tsuru
-run	cp /var/lib/tsuru/java-7-openjdk/start /var/lib/tsuru
 run	/var/lib/tsuru/java-7-openjdk/install

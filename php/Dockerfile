@@ -19,6 +19,5 @@ run	wget --no-check-certificate https://github.com/tsuru/basebuilder/tarball/mas
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	rm basebuilder.tar.gz
 run	cp /var/lib/tsuru/php/deploy /var/lib/tsuru
-run	cp /var/lib/tsuru/php/start /var/lib/tsuru
 run	cp /var/lib/tsuru/php/interpretor/fpm5/php5_apt_preferences /etc/apt/preferences.d/php5
 run	/var/lib/tsuru/php/install
