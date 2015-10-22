@@ -8,9 +8,8 @@ SOURCE_DIR=/var/lib/tsuru
 $SOURCE_DIR/base/install
 
 # Erlang
-wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
- && dpkg -i erlang-solutions_1.0_all.deb
+wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && dpkg -i erlang-solutions_1.0_all.deb
 
 # Elixir
 apt-get update
-apt-get install elixir
+apt-get install -y elixir
