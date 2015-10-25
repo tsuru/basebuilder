@@ -10,6 +10,6 @@ source ${SOURCE_DIR}/config
 
 # Dependencies
 if [ -f ${CURRENT_DIR}/mix.exs ]; then
-    pushd $CURRENT_DIR && mix deps.get && mix deps.compile
+    pushd $CURRENT_DIR && mix deps.get && mix deps.compile && mix local.rebar
     popd
 fi
