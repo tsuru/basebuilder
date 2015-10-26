@@ -9,7 +9,9 @@ source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
 
 GO_VERSION=$(test -f /tmp/app_envs && source /tmp/app_envs && echo $GO_VERSION)
-gimme ${GO_VERSION:-1.5}
+GO_VERSION=${GO_VERSION:-1.5}
+echo "Installing Go ${GO_VERSION}..."
+eval "$(gimme ${GO_VERSION})"
 
 pushd ${CURRENT_DIR} > /dev/null 2>&1
 
