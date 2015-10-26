@@ -12,5 +12,3 @@ source $SOURCE_DIR/config
 apt-get update
 apt-get install -y --force-yes openjdk-7-jdk
 apt-get install -y --force-yes maven
-
-echo '#JAVA_HOME#' >> /home/ubuntu/.profile
