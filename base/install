@@ -25,4 +25,6 @@ apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get install curl git wget -y
 apt-get install deploy-agent -y --force-yes
 
+mkdir -p ${SOURCE_DIR}/utils
+
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
