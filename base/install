@@ -28,7 +28,3 @@ apt-get install deploy-agent -y --force-yes
 sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' /etc/pam.d/sshd
 mkdir /var/run/sshd
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
-
-mkdir -p /etc/circus /var/log/circus
-cp ${SOURCE_DIR}/utils/circus.ini /etc/circus/circus.ini
-chown -R ${USER}:${USER} /etc/circus /var/log/circus
