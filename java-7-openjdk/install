@@ -16,5 +16,4 @@ apt-get install -y --force-yes maven
 
 echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config
 
-sed -i 's;\[ -f /home/application/apprc \] && source /home/application/apprc;#JAVA_HOME#;' /home/ubuntu/.profile
-echo '[ -f /home/application/apprc ] && source /home/application/apprc' >> /home/ubuntu/.profile
+echo '#JAVA_HOME#' >> /home/ubuntu/.profile
