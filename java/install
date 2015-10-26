@@ -18,8 +18,6 @@ apt-get install -y --force-yes oracle-java8-installer
 apt-get install -y --force-yes oracle-java7-installer
 apt-get install -y --force-yes tomcat7 maven
 
-echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config
-
 rm -rf /var/lib/tomcat7/webapps
 ln -s /home/application/current /var/lib/tomcat7/webapps
 mkdir -p /usr/share/tomcat7/common/classes /usr/share/tomcat7/server/classes /usr/share/tomcat7/shared/classes

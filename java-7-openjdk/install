@@ -13,7 +13,4 @@ apt-get update
 apt-get install -y --force-yes openjdk-7-jdk
 apt-get install -y --force-yes maven
 
-
-echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config
-
 echo '#JAVA_HOME#' >> /home/ubuntu/.profile
