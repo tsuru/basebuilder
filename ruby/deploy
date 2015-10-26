@@ -26,7 +26,7 @@ fi
 TSURU_RUBY_VERSION=${RUBY_VERSION-2.2}
 
 case $TSURU_RUBY_VERSION in
-    1.9.1|1.9.3)
+    1.9)
         ruby_to_use=1.9.1
         ;;
     2.0|2.1|2.2)
