@@ -25,6 +25,4 @@ apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get install curl git wget -y
 apt-get install deploy-agent -y --force-yes
 
-sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' /etc/pam.d/sshd
-mkdir /var/run/sshd
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
