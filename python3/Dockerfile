@@ -22,4 +22,5 @@ run	apt-get update
 run	apt-get install python3.4 python3.4-dev -y --force-yes
 run	rm -f /usr/bin/python3
 run	ln -s /usr/bin/python3.4 /usr/bin/python3
+run	ln -s /usr/bin/python3.4 /usr/bin/python
 run	curl -sL https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python3
