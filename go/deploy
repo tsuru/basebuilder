@@ -13,7 +13,7 @@ GO_VERSION=${GO_VERSION:-1.5}
 echo "Installing Go ${GO_VERSION}..."
 eval "$(gimme ${GO_VERSION})"
 
-pushd ${CURRENT_DIR} > /dev/null 2>&1
+pushd ${CURRENT_DIR} >/dev/null 2>&1
 
 # do not fail if the application is not go gettable
 set +e
@@ -25,4 +25,4 @@ then
 	go build -o tsuru-app
 fi
 
-popd
+popd >/dev/null 2>&1
