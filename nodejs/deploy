@@ -8,15 +8,13 @@ SOURCE_DIR=/var/lib/tsuru
 source ${SOURCE_DIR}/base/deploy
 source ${SOURCE_DIR}/config
 
-
 NODE_VERSION=stable
 
 if [ -f ${CURRENT_DIR}/.node-version ]; then
-	NODE_VERSION=$(cat ${CURRENT_DIR}/.node-version)
+    NODE_VERSION=$(cat ${CURRENT_DIR}/.node-version)
 fi
 
-export NVM_BIN=/home/ubuntu/.nvm_bin
-export NVM_DIR=/home/ubuntu/.nvm
+export NVM_DIR=${HOME}/.nvm
 [ ! -e ${NVM_DIR} ] && mkdir -p ${NVM_DIR}
 
 . /etc/nvm/nvm.sh
@@ -26,13 +24,18 @@ nvm install ${NODE_VERSION}
 rm -f ~/.nvm_bin
 ln -s $NVM_BIN ~/.nvm_bin
 
-sudo rm -f /usr/bin/node
-sudo ln -s $NVM_BIN/node /usr/bin/node
-sudo rm -f /usr/bin/npm
-sudo ln -s $NVM_BIN/node /usr/bin/npm
+KEEP_NODE_MODULES=$(test -f /tmp/app_envs && source /tmp/app_envs && echo $KEEP_NODE_MODULES)
+
+if [ -d ${HOME}/.node_modules ] && [ -n "${KEEP_NODE_MODULES}" ]; then
+	rm -rf ${CURRENT_DIR}/node_modules
+	cp -R ${HOME}/.node_modules ${CURRENT_DIR}/node_modules
+	rm -rf ${HOME}/.node_modules
+fi
 
 if [ -f ${CURRENT_DIR}/package.json ]; then
-	if [ -d ${CURRENT_DIR}/node_modules ]; then rm -rf ${CURRENT_DIR}/node_modules ; fi
-		pushd $CURRENT_DIR && npm install --production
-		popd
+	pushd $CURRENT_DIR && npm install --production
+	popd
+	if [ -n "${KEEP_NODE_MODULES}" ]; then
+		cp -R ${CURRENT_DIR}/node_modules ${HOME}/.node_modules
 	fi
+fi

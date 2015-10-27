@@ -68,10 +68,18 @@ class Interpretor(object):
 
         with open(target, 'w') as f:
             for (k, v) in self.application.get('env', {}).items():
-                f.write('env[%s] = %s\n' % (k, v))
+                if v:
+                    f.write('env[%s] = %s\n' % (k, v))
 
     def get_startup_cmd(self):
         return '/usr/sbin/php5-fpm --fpm-config /etc/php5/fpm/php-fpm.conf'
+
+    def get_packages_extensions(self):
+        packages = []
+        if 'extensions' in self.configuration:
+            for extension in self.configuration.get('extensions'):
+                packages.append(extension.join(['', self.phpversion]))
+        return packages
 
 class FPM54(Interpretor):
     def __init__(self, configuration, application):
@@ -84,12 +92,10 @@ class FPM54(Interpretor):
         self.phpversion = subprocess.check_output('apt-cache madison php5|grep 5.4|awk \'{print "="$3}\'', shell=True)
 
     def get_packages(self):
-        packages = ['php5-common'.join(['', self.phpversion]), 'php5-fpm'.join(['', self.phpversion])]
-        if 'extensions' in self.configuration:
-            for extension in self.configuration.get('extensions'):
-                packages.append(extension.join(['', self.phpversion]))
-
+        packages = ['php5-cli', 'php5-common'.join(['', self.phpversion]), 'php5-fpm'.join(['', self.phpversion])]
         return packages
+
+
 
     def post_install(self):
         # Remove autostart
@@ -97,17 +103,14 @@ class FPM54(Interpretor):
 
 class FPM55(Interpretor):
     def __init__(self, configuration, application):
+        self.phpversion = ''
         super(FPM55, self).__init__(configuration, application)
 
     def pre_install(self):
         os.system('apt-get update')
 
     def get_packages(self):
-        packages = ['php5-fpm']
-        if 'extensions' in self.configuration:
-            for extension in self.configuration.get('extensions'):
-                packages.append(extension.join(['', self.phpversion]))
-
+        packages = ['php5-cli', 'php5-fpm']
         return packages
 
     def post_install(self):
@@ -116,6 +119,7 @@ class FPM55(Interpretor):
 
 class HHVM(Interpretor):
     def __init__(self, configuration, application):
+        self.phpversion = ''
         super(HHVM, self).__init__(configuration, application)
 
     def configure(self, frontend):
@@ -172,6 +176,9 @@ class HHVM(Interpretor):
     def get_packages(self):
         return ['hhvm']
 
+    def get_packages_extensions(self):
+        return []
+
     def post_install(self):
         # Set up HHVM fastcgi and remove autostart
         os.system('/usr/share/hhvm/install_fastcgi.sh')
@@ -181,7 +188,7 @@ class HHVM(Interpretor):
         pass
 
     def get_startup_cmd(self):
-        return '/usr/bin/hhvm --config /etc/hhvm/php.ini --config /etc/hhvm/server.ini --user %s --mode server -vPidFile=/var/run/hhvm/pid' % self.application.get('user')
+        return '/usr/bin/hhvm --config /etc/hhvm/php.ini --config /etc/hhvm/server.ini --user %s --mode daemon -vPidFile=/var/run/hhvm/pid' % self.application.get('user')
 
 interpretors = {
     'fpm54': FPM54,

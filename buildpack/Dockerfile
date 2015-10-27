@@ -10,6 +10,5 @@ run     mkdir /var/lib/tsuru
 run     tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	rm basebuilder.tar.gz
 run     cp /var/lib/tsuru/buildpack/deploy /var/lib/tsuru
-run     cp /var/lib/tsuru/buildpack/start /var/lib/tsuru
 run     /var/lib/tsuru/buildpack/install
 run     chmod +x /var/lib/tsuru/deploy

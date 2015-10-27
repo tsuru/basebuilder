@@ -29,7 +29,7 @@ def parse_env(configuration):
 
 
 def parse_apprc():
-    path = "/home/application/apprc"
+    path = "/tmp/app_envs"
     environments = {}
     if os.path.exists(path):
         with open(path) as file:

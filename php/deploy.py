@@ -5,6 +5,7 @@
 import os
 import yaml
 import sys
+import re
 from utils import parse_env
 
 from interpretor import interpretors
@@ -20,13 +21,13 @@ class InstallationException(Exception):
 
 
 class Manager(object):
+
     def __init__(self, configuration, application):
         self.configuration = configuration
         self.application = application
 
         self.frontend = self.create_frontend()
         self.interpretor = self.create_interpretor()
-
 
     def install(self):
         # Calling pre-install hooks
@@ -35,13 +36,23 @@ class Manager(object):
             self.interpretor.pre_install()
 
         packages = self.frontend.get_packages()
-
+        packages_php_extensions = []
         if self.interpretor is not None:
             packages += self.interpretor.get_packages()
+            packages_php_extensions = self.interpretor.get_packages_extensions()
 
         print('Installing system packages...')
         if os.system("apt-get install -y --force-yes %s" % (' '.join(packages))) != 0:
             raise InstallationException('An error appeared while installing needed packages')
+
+        if packages_php_extensions:
+            print('Installing php extensions..')
+            if os.system("apt-get install -y --force-yes %s" % (' '.join(packages_php_extensions))) != 0:
+                raise InstallationException('An error appeared while installing needed packages')
+            for package in packages_php_extensions:
+                module_name = package.split("php5-")[1]
+                if os.system("php5enmod %s" % module_name) != 0:
+                    raise InstallationException('Could not enable %s php module' % module_name)
 
         # Calling post-install hooks
         self.frontend.post_install()
@@ -50,13 +61,22 @@ class Manager(object):
 
         # If there's no Procfile, create it
         Procfile_path = os.path.join(self.application.get('directory'), 'Procfile')
-        if not os.path.isfile(Procfile_path):
-            f = open(Procfile_path, 'w')
-            f.write('frontend: %s\n' % self.frontend.get_startup_cmd())
-            if self.interpretor is not None:
-                f.write('interpretor: %s\n' % self.interpretor.get_startup_cmd())
+        procfile_contents = None
+        if os.path.isfile(Procfile_path):
+            with open(Procfile_path, 'r') as f:
+                web_match = re.search(r"^web:", f.read(), flags=re.MULTILINE)
+                if web_match is None:
+                    f.seek(0)
+                    procfile_contents = f.read()
 
-            f.close()
+        if not os.path.isfile(Procfile_path) or procfile_contents:
+            with open(Procfile_path, 'w') as f:
+                f.write('web: /bin/bash -lc "sudo -E %s' % self.frontend.get_startup_cmd())
+                if self.interpretor is not None:
+                    f.write(' && %s' % self.interpretor.get_startup_cmd())
+                f.write(' "\n')
+                if procfile_contents:
+                    f.write(procfile_contents)
 
         if self.configuration.get('composer', True):
             self.install_composer()

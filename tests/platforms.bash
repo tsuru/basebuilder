@@ -81,18 +81,21 @@ function clone_basebuilder() {
 
 function clean_tsuru_now() {
 	tsuru app-remove -ya tsuru-dashboard 2>/dev/null
-	mongo tsurudb --eval 'db.platforms.remove({_id: "python"})'
-	docker rmi -f tsuru/python 2>/dev/null
+	tsuru-admin platform-remove -y python 2>/dev/null
+}
+
+function tsuru_login {
+	yes $2 | tsuru login $1
 }
 
 function install_swift {
-    sudo apt-get install python-pip python-dev libxml2-dev libxslt-dev libz-dev -y
-    sudo pip install python-swiftclient python-keystoneclient
+	sudo apt-get install python-pip python-dev libxml2-dev libxslt-dev libz-dev -y
+	sudo pip install python-swiftclient==2.5.0 python-keystoneclient
 }
 
 function install_s3cmd() {
-    sudo apt-get install s3cmd python-magic -y
-    cat > /tmp/s3cfg <<END
+	sudo apt-get install s3cmd python-magic -y
+	cat > /tmp/s3cfg <<END
 [default]
 access_key = ${AWS_ACCESS_KEY}
 bucket_location = US
@@ -138,7 +141,7 @@ website_endpoint = http://%(bucket)s.s3-website-%(location)s.amazonaws.com/
 website_error =
 website_index = index.html
 END
-    sudo mv /tmp/s3cfg ~git/.s3cfg
+	sudo mv /tmp/s3cfg ~git/.s3cfg
 }
 
 export DEBIAN_FRONTEND=noninteractive
@@ -150,33 +153,35 @@ export DOCKER_HOST="tcp://127.0.0.1:4243"
 
 case $1 in
 	post_receive)
-        hook_url="https://raw.github.com/tsuru/tsuru/master/misc/git-hooks/post-receive"
-        hook_name="post-receive"
+	hook_url="https://raw.github.com/tsuru/tsuru/master/misc/git-hooks/post-receive"
+		hook_name="post-receive"
 		;;
 	pre_receive_swift)
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.swift"
-        hook_name="pre-receive"
-        envs=('AUTH_PARAMS="${SWIFT_AUTH_PARAMS}"' 'CONTAINER_NAME=${SWIFT_CONTAINER_NAME}' 'CDN_URL=${SWIFT_CDN_URL}')
-        install_swift
+		hook_name="pre-receive"
+		envs=("AUTH_PARAMS=\"${SWIFT_AUTH_PARAMS}\"" "CONTAINER_NAME=${SWIFT_CONTAINER_NAME}" "CDN_URL=${SWIFT_CDN_URL}")
+		install_swift
 		;;
 	pre_receive_s3)
 		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.s3cmd"
-        hook_name="pre-receive"
-        envs=("BUCKET_NAME=$S3_BUCKET_NAME")
-        install_s3cmd
+		hook_name="pre-receive"
+		envs=("BUCKET_NAME=$S3_BUCKET_NAME")
+		install_s3cmd
 		;;
 esac
 
 if [[ "$1" != "pre_receive_archive" ]]; then
-    echo "Configuring gandalf mode..."
-    hook_dir=/home/git/bare-template/hooks
-    sudo rm -rf $hook_dir
-    sudo mkdir -p $hook_dir
-    sudo curl -sSL ${hook_url} -o ${hook_dir}/${hook_name}
-    sudo chmod +x ${hook_dir}/${hook_name}
-    echo export ${envs[@]} | sudo tee -a ~git/.bash_profile
-    echo "Done configuring gandalf mode!"
+	echo "Configuring gandalf mode..."
+	hook_dir=/home/git/bare-template/hooks
+	sudo rm -rf $hook_dir
+	sudo mkdir -p $hook_dir
+	sudo curl -sSL ${hook_url} -o ${hook_dir}/${hook_name}
+	sudo chmod +x ${hook_dir}/${hook_name}
+	echo export ${envs[@]} | sudo tee -a ~git/.bash_profile
+	echo "Done configuring gandalf mode!"
 fi
+
+tsuru_login admin@example.com admin123
 
 set +e
 clean_tsuru_now
@@ -185,7 +190,7 @@ set -e
 clone_basebuilder /tmp/basebuilder
 echo -e "Host localhost\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
-platforms="java nodejs php python python3 ruby static cordova play iojs go"
+platforms="java nodejs php python python3 ruby static cordova play go"
 
 for platform in $platforms
 do

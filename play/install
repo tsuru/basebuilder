@@ -8,7 +8,7 @@ ACTIVATOR_VERSION="1.3.2"
 
 /var/lib/tsuru/base/install
 
-apt-get install unzip software-properties-common -y
+apt-get install unzip -y
 
 echo "Downloading activator..."
 

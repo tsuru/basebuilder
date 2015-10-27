@@ -14,21 +14,13 @@ useradd -m ${USER} -s /bin/bash
 chown ${USER}:${USER} /home/application
 echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-cat >> /home/ubuntu/.profile <<EOF
-[ -f /home/application/apprc ] && source /home/application/apprc
-EOF
-
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get install curl git openssh-server python-virtualenv python-pip libzmq-dev g++ python-dev wget libyaml-dev -y
+apt-get install -y software-properties-common
+add-apt-repository -y ppa:tsuru/ppa
+apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get install curl git wget -y
+apt-get install deploy-agent -y --force-yes
 
-virtualenv ${VENV_DIR}
-${VENV_DIR}/bin/pip install circus==0.11.1 tsuru-circus tsuru-unit-agent
-pip install tsuru-unit-agent
+mkdir -p ${SOURCE_DIR}/utils
 
-sed -ri 's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' /etc/pam.d/sshd
-mkdir /var/run/sshd
 echo "export DEBIAN_FRONTEND=noninteractive" >> /etc/profile
-
-mkdir -p /etc/circus /var/log/circus
-cp ${SOURCE_DIR}/utils/circus.ini /etc/circus/circus.ini
-chown -R ${USER}:${USER} /etc/circus /var/log/circus

@@ -10,11 +10,8 @@ SOURCE_DIR=/var/lib/tsuru
 ${SOURCE_DIR}/base/install
 source ${SOURCE_DIR}/config
 
+apt-get install python-virtualenv python-pip python-dev -y --force-yes
 virtualenv $APP_VENV
 echo "export PATH=${APP_VENV}/bin:\${PATH}" | tee -a ${HOME}/.profile /etc/profile
 echo "Defaults secure_path=\"${APP_VENV}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"" > /etc/sudoers.d/venv
-echo "PermitUserEnvironment yes" | tee -a /etc/ssh/sshd_config
-mkdir -p /home/${USER}/.ssh
-chmod 700 /home/${USER}/.ssh
-echo "PATH=${APP_VENV}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" | tee -a /home/${USER}/.ssh/environment
-chown -R ${USER}:${USER} /home/${USER}/.ssh ${APP_VENV}
+chown -R ${USER}:${USER} ${APP_VENV}

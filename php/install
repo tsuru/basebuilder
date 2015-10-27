@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+SOURCE_DIR=/var/lib/tsuru
+${SOURCE_DIR}/base/install
+source ${SOURCE_DIR}/config
+
+apt-get install python python-yaml -y --force-yes
