@@ -14,7 +14,7 @@ if [ -f ${CURRENT_DIR}/.node-version ]; then
     NODE_VERSION=$(cat ${CURRENT_DIR}/.node-version)
 fi
 
-export NVM_DIR=/home/ubuntu/.nvm
+export NVM_DIR=${HOME}/.nvm
 [ ! -e ${NVM_DIR} ] && mkdir -p ${NVM_DIR}
 
 . /etc/nvm/nvm.sh

@@ -6,8 +6,8 @@
 
 APP_DIR=/home/application
 CURRENT_DIR=${APP_DIR}/current
-HOME=/home/ubuntu
 USER=ubuntu
+HOME=/home/${USER}
 
 function echo_debug() {
 	if [ ! -z "${TSURU_DEBUG}" ]; then

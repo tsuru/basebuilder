@@ -4,11 +4,14 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+SOURCE_DIR=/var/lib/tsuru
+source ${SOURCE_DIR}/config
+
 git clone https://github.com/creationix/nvm.git /etc/nvm
 cd /etc/nvm && git checkout `git describe --abbrev=0 --tags`
 
-cat >> /home/ubuntu/.profile <<EOF
-if [ -e /home/ubuntu/.nvm_bin ]; then
-	export PATH="/home/ubuntu/.nvm_bin:$PATH"
+cat >> ${HOME}/.profile <<EOF
+if [ -e ${HOME}/.nvm_bin ]; then
+	export PATH="${HOME}/.nvm_bin:$PATH"
 fi
 EOF
