@@ -1,7 +1,8 @@
 defmodule App do
   use Application
-
-  def start(_type, args) do
+  @moduledoc "Entry point module"
+  
+  def start(_type, _args) do
     run && App.Supervisor.start_link
   end
 
@@ -10,6 +11,7 @@ defmodule App do
     dispatch = :cowboy_router.compile([{:_, routes}])
     opts = [port: :os.getenv("PORT") || 5000]
     env = [dispatch: dispatch]
+
     {:ok, _pid} = :cowboy.start_http(:http, 100, opts, [env: env])
   end
 end
