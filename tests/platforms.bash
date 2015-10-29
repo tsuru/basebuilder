@@ -88,11 +88,6 @@ function tsuru_login {
 	yes $2 | tsuru login $1
 }
 
-function install_swift {
-	sudo apt-get install python-pip python-dev libxml2-dev libxslt-dev libz-dev -y
-	sudo pip install python-swiftclient==2.5.0 python-keystoneclient
-}
-
 function install_s3cmd() {
 	sudo apt-get install s3cmd python-magic -y
 	cat > /tmp/s3cfg <<END
