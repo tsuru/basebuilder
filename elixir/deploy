@@ -1,0 +1,19 @@
+#!/bin/bash -el
+
+# Copyright 2015 basebuilder authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+SOURCE_DIR=/var/lib/tsuru
+source ${SOURCE_DIR}/base/deploy
+source ${SOURCE_DIR}/config
+
+# Dependencies
+if [ -f ${CURRENT_DIR}/mix.exs ]; then
+    pushd $CURRENT_DIR
+    yes | mix local.rebar
+    yes | mix local.hex
+    mix deps.get
+    mix deps.compile
+    popd
+fi
