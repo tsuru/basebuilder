@@ -43,7 +43,12 @@ function test_platform() {
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} commit -m "add files"
 
 	tsuru app-create ${app_name} ${platform} -o theonepool
+
+	echo "Running deploy with git push..."
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} push git@localhost:${app_name}.git master
+
+	echo "Running deploy with app-deploy..."
+	pushd ${app_dir}; tsuru app-deploy -a ${app_name} .; popd
 
 	host=`tsuru app-info -a ${app_name} | grep Address | awk '{print $2}'`
 
