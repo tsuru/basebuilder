@@ -5,7 +5,7 @@
 from    progrium/buildstep
 run     apt-get update
 run     apt-get install wget sudo -y --force-yes
-run     wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
+run     wget https://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz
 run     mkdir /var/lib/tsuru
 run     tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	rm basebuilder.tar.gz
