@@ -17,6 +17,7 @@ echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 apt-get update
 apt-get install -y software-properties-common
 add-apt-repository -y ppa:tsuru/ppa
+apt-get update
 apt-get install git deploy-agent -y --force-yes
 
 mkdir -p ${SOURCE_DIR}/utils
