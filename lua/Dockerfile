@@ -4,7 +4,7 @@
 
 from ubuntu-debootstrap:14.04
 run locale-gen en_US.UTF-8
-env LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+env LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive
 run apt-get update
 run apt-get install nginx -u
 run apt-get install make wget sudo -y --force-yes

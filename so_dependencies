@@ -5,7 +5,6 @@
 # license that can be found in the LICENSE file.
 
 function so_dependencies() {
-    export DEBIAN_FRONTEND=noninteractive
     if [ -f ${CURRENT_DIR}/repositories.apt ]; then
         set +e
         sudo -E apt-get install software-properties-common -y --force-yes

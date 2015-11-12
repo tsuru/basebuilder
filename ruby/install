@@ -11,7 +11,7 @@ add-apt-repository ppa:brightbox/ruby-ng -y
 
 apt-get update
 
-DEBIAN_FRONTEND=noninteractive apt-get install -qqy ruby1.9.3 ruby1.9.1-dev ruby2.0 ruby2.0-dev ruby2.1 ruby2.1-dev ruby2.2 ruby2.2-dev
+apt-get install -qqy ruby1.9.3 ruby1.9.1-dev ruby2.0 ruby2.0-dev ruby2.1 ruby2.1-dev ruby2.2 ruby2.2-dev
 
 # Fix ruby2.0 update-alternatives
 update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 181
