@@ -27,7 +27,7 @@ function add_repository() {
 	else
 		repository=$1
 	fi
-	filename=$(echo $repository | shasum | awk '{print $1}')
+	filename=$(echo $repository | sha1sum | awk '{print $1}')
 	filename="tsuru_${filename}"
 	echo "$repository" | sudo -E tee >/dev/null 2>&1 /etc/apt/sources.list.d/${filename}
 }
