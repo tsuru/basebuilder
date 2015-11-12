@@ -169,7 +169,7 @@ class HHVM(Interpretor):
 
     def pre_install(self):
         # Add GPG key and source list
-        os.system('wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add -')
+        os.system('curl -L http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add -')
         os.system('echo deb http://dl.hhvm.com/ubuntu trusty main | tee /etc/apt/sources.list.d/hhvm.list')
         os.system('apt-get update')
 

@@ -12,9 +12,9 @@ env	LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 DEBIAN_FRONTEND=nonint
 run     echo 'deb http://archive.ubuntu.com/ubuntu/ vivid main restricted universe multiverse' >> /etc/apt/sources.list
 run     echo 'deb http://archive.ubuntu.com/ubuntu/ vivid-security main restricted universe multiverse' >> /etc/apt/sources.list
 run     echo 'APT::Default-Release "trusty";' >> /etc/apt/apt.conf.d/01ubuntu
-run	apt-get update && apt-get install wget sudo -y --force-yes
+run	apt-get update && apt-get install curl sudo -y --force-yes
 run	mkdir /var/lib/tsuru
-run	wget https://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz
+run	curl -Lo basebuilder.tar.gz https://github.com/tsuru/basebuilder/tarball/master
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	rm basebuilder.tar.gz
 run	cp /var/lib/tsuru/php/deploy /var/lib/tsuru

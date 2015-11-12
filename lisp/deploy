@@ -19,7 +19,7 @@ if [ -d "${HOME}/quicklisp" ]; then
   sbcl --non-interactive --eval "(ql:update-all-dists :prompt nil)" --eval "(ql:update-client :prompt nil)"
 else
   echo "Downloading quicklisp...."
-  wget http://beta.quicklisp.org/quicklisp.lisp
+  curl -LO http://beta.quicklisp.org/quicklisp.lisp
 
   echo "Installing quicklisp...."
   sbcl --non-interactive --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(setf ql-util::*do-not-prompt* t)' --eval '(ql:add-to-init-file)'
