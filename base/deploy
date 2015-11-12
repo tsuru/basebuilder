@@ -41,7 +41,7 @@ function archive_deploy() {
 		sudo rm -rf $CURRENT_DIR
 	fi
 	mkdir -p $CURRENT_DIR
-	wget -qO /tmp/archive.tar.gz $1
+	curl -sSfNL $1 -o /tmp/archive.tar.gz
 	tar -C $CURRENT_DIR -xzf /tmp/archive.tar.gz
 	rm /tmp/archive.tar.gz
 }
