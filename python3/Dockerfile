@@ -15,11 +15,4 @@ run	mkdir /var/lib/tsuru
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1
 run	rm basebuilder.tar.gz
 run	cp /var/lib/tsuru/python3/deploy /var/lib/tsuru
-run	/var/lib/tsuru/base/install
-run	add-apt-repository ppa:fkrull/deadsnakes -y
-run	apt-get update
-run	apt-get install python3.5 python3.5-dev -y --force-yes
-run	rm -f /usr/bin/python3
-run	ln -s /usr/bin/python3.5 /usr/bin/python3
-run	ln -s /usr/bin/python3.5 /usr/bin/python
-run	curl -sL https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python3
+run	/var/lib/tsuru/python3/install

@@ -6,16 +6,9 @@
 
 function so_dependencies() {
     if [ -f ${CURRENT_DIR}/repositories.apt ]; then
-        set +e
-        sudo -E apt-get install software-properties-common -y --force-yes
-        status=$?
-        set -e
-        if [ ${status} != 0 ]; then
-            sudo apt-get update
-            sudo -E apt-get install software-properties-common -y --force-yes
-        fi
+        source /var/lib/tsuru/config
         for repo in `cat ${CURRENT_DIR}/repositories.apt`; do
-            sudo -E add-apt-repository -y ${repo}
+            add_repository ${repo}
         done
     fi
     if [ -f ${CURRENT_DIR}/requirements.apt ]; then

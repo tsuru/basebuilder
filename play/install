@@ -7,6 +7,7 @@
 ACTIVATOR_VERSION="1.3.2"
 
 /var/lib/tsuru/base/install
+source /var/lib/tsuru/config
 
 apt-get install unzip -y
 
@@ -20,6 +21,6 @@ mv activator-${ACTIVATOR_VERSION} /var/lib/activator
 chown -R ubuntu:ubuntu /var/lib/activator
 
 echo "Installing openjdk 1.8.0..."
-add-apt-repository -y ppa:openjdk-r/ppa
+add_repository ppa:openjdk-r/ppa
 apt-get update
 apt-get install -y openjdk-8-jdk
