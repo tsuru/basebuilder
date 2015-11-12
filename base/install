@@ -18,7 +18,7 @@ apt-get update
 apt-get install -y software-properties-common
 add-apt-repository -y ppa:tsuru/ppa
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get install curl git wget -y
+apt-get install git wget -y
 apt-get install deploy-agent -y --force-yes
 
 mkdir -p ${SOURCE_DIR}/utils

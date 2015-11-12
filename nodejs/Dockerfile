@@ -9,7 +9,7 @@
 from	ubuntu-debootstrap:14.04
 run     locale-gen en_US.UTF-8
 env     LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive
-run	apt-get update && apt-get install wget curl apt-transport-https sudo -y --force-yes
+run	apt-get update && apt-get install wget apt-transport-https sudo -y --force-yes
 run	wget http://github.com/tsuru/basebuilder/tarball/master -O basebuilder.tar.gz --no-check-certificate
 run	mkdir /var/lib/tsuru
 run	tar -xvf basebuilder.tar.gz -C /var/lib/tsuru --strip 1

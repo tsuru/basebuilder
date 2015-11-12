@@ -9,9 +9,9 @@ $SOURCE_DIR/base/install
 
 source ${SOURCE_DIR}/config
 
-curl -sL https://raw.githubusercontent.com/travis-ci/gimme/master/gimme -o /usr/bin/gimme
+wget -qO /usr/bin/gimme https://raw.githubusercontent.com/travis-ci/gimme/master/gimme
 chmod +x /usr/bin/gimme
-apt-get install curl bzr mercurial git bzr -qqy --force-yes
+apt-get install bzr mercurial git bzr -qqy --force-yes
 cp ${SOURCE_DIR}/go/Procfile ${SOURCE_DIR}/utils/Procfile
 echo "GOPATH=${APP_DIR}" >> ${HOME}/.profile
 echo 'PATH=$GOPATH:$PATH' >> ${HOME}/.profile
