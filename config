@@ -8,6 +8,7 @@ APP_DIR=/home/application
 CURRENT_DIR=${APP_DIR}/current
 USER=ubuntu
 HOME=/home/${USER}
+UBUNTU_RELEASE=$(test -f /etc/lsb-release && source /etc/lsb-release && echo $DISTRIB_CODENAME || echo trusty)
 
 function get_ppa_key() {
 	user=$(echo $1 | awk -F / '{print $1}')
@@ -21,7 +22,7 @@ function add_repository() {
 	ppa=$(echo $1 | grep "^ppa:\(.*\)$")
 	if [ "${ppa}" = "${1}" ]; then
 		ppa=$(echo $1 | awk -F : '{print $2}')
-		repository="deb http://ppa.launchpad.net/${ppa}/ubuntu $(lsb_release -cs) main"
+		repository="deb http://ppa.launchpad.net/${ppa}/ubuntu ${UBUNTU_RELEASE} main"
 		get_ppa_key $ppa
 	else
 		repository=$1
