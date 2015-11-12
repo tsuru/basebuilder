@@ -13,13 +13,13 @@ function get_ppa_key() {
 	user=$(echo $1 | awk -F / '{print $1}')
 	repo=$(echo $1 | awk -F / '{print $2}')
 	api_url="https://launchpad.net/~${user}/+archive/ubuntu/${repo}"
-	fingerprint=$(curl $api_url | jq -r ".signing_key_fingerprint")
+	fingerprint=$(curl "${api_url}" | jq -r ".signing_key_fingerprint")
 	sudo -E apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv ${fingerprint}
 }
 
 function add_repository() {
 	ppa=$(echo $1 | grep "^ppa:\(.*\)$")
-	if [ "${ppa"} = "${1}" ]; then
+	if [ "${ppa}" = "${1}" ]; then
 		ppa=$(echo $1 | awk -F : '{print $2}')
 		repository="deb http://ppa.launchpad.net/${ppa}/ubuntu $(lsb_release -cs) main"
 		get_ppa_key $ppa
