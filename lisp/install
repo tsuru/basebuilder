@@ -10,7 +10,7 @@ $SOURCE_DIR/base/install
 apt-get update
 apt-get install git bzip2 make -y
 curl -L http://downloads.sourceforge.net/project/sbcl/sbcl/1.2.9/sbcl-1.2.9-x86-64-linux-binary.tar.bz2 2> /dev/null | bzip2 -cd | tar xvf -
-cd sbcl-1.2.9-x86-64-linux
+pushd sbcl-1.2.9-x86-64-linux >/dev/null
 sh install.sh
-cd -
+popd >/dev/null
 rm -rf ./sbcl-1.2.9-x86-64-linux
