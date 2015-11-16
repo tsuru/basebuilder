@@ -189,7 +189,7 @@ set -e
 clone_basebuilder /tmp/basebuilder
 echo -e "Host localhost\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
-platforms="static java nodejs php python python3 ruby cordova play go elixir"
+platforms="static java nodejs php python python3 ruby cordova play go elixir buildpack"
 
 for platform in $platforms
 do
