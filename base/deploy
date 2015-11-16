@@ -15,26 +15,6 @@ then
 	exit 1
 fi
 
-function git_deploy() {
-	if [ ! -d $CURRENT_DIR/.git ]
-	then
-		rm -rf $CURRENT_DIR
-	fi
-	if [ -d $CURRENT_DIR ]
-	then
-		cd $CURRENT_DIR
-		git reset --hard
-		git fetch origin
-		cd -
-	else
-		git clone $1 $CURRENT_DIR
-	fi
-	cd $CURRENT_DIR
-	git submodule update --init --recursive
-	git checkout $2 >/dev/null 2>&1
-	cd -
-}
-
 function archive_deploy() {
 	if [ -d $CURRENT_DIR ]
 	then
@@ -67,17 +47,13 @@ source ${SOURCE_DIR}/so_dependencies
 
 pre_deploy
 case $1 in
-	"git")
-		git_deploy $2 $3
-		shift; shift; shift
-		;;
 	"archive")
 		archive_deploy $2
-		shift; shift;
+		shift; shift
 		;;
 	*) # backward compatibility, when type is not specified
-		git_deploy $1 $2
-		shift; shift
+		echo "FATAL: this deployment method is no longer supported"
+		exit 1
 		;;
 esac
 post_deploy
