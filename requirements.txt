@@ -1,3 +1,0 @@
-PyYAML==3.10
-pytest==2.4.2
-mock==1.0.1
