@@ -35,11 +35,6 @@ Vagrant.configure("2") do |config|
     override.vm.box = "parallels/ubuntu-14.04"
   end
 
-  config.vm.define :post_receive, autostart: false do |post_receive|
-    post_receive.vm.network :private_network, ip: "192.168.50.40"
-    post_receive.vm.provision :shell, path: "run.bash", args: "post_receive"
-  end
-
   config.vm.define :pre_receive_archive, autostart: false do |pre_receive_archive|
     pre_receive_archive.vm.network :private_network, ip: "192.168.50.41"
     pre_receive_archive.vm.provision :shell, path: "run.bash", args: "pre_receive_archive"
