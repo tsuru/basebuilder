@@ -14,7 +14,7 @@ function add_platform() {
 	echo "adding platform $platform..."
 	output_file="/tmp/platform-update-${platform}"
 	set +e
-	tsuru-admin platform-add $platform -d https://raw.githubusercontent.com/tsuru/basebuilder/master/${platform}/Dockerfile | tee $output_file
+	tsuru-admin platform-add $platform | tee $output_file
 	result=$?
 	set -e
 	if [[ $result != 0 ]]; then
