@@ -42,7 +42,7 @@ function test_platform() {
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} add ${app_dir}/*
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} commit -m "add files"
 
-	tsuru app-create ${app_name} ${platform} -o theonepool
+	tsuru app-create ${app_name} ${platform} -o theonepool -t admin
 
 	echo "Running deploy with git push..."
 	git --git-dir=${app_dir}/.git --work-tree=${app_dir} push git@localhost:${app_name}.git master
