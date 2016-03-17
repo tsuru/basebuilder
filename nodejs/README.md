@@ -19,4 +19,18 @@ version you want to run it. To define node version you have three ways:
 
 This file should be in the root of deploy files.
 
-You can also send your node_modules by setting enviroment variable ``KEEP_NODE_MODULES``
+    $ ls
+    Procfile     app.js       hook.js      package.json
+
+We use npm to install your dependencies, so you have to list it in
+``package.json`` file.
+
+    $ cat package.json
+    ...    
+    "dependencies": {
+        "express": "3.x"
+    }
+    ...
+
+You can also cache your node_modules by setting enviroment variable
+``KEEP_NODE_MODULES=true``.
