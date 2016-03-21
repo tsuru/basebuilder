@@ -1,4 +1,4 @@
-# static platform
+# Static platform
 
 The static platform provides a nginx setup that serves anything that is in the
 application directory. A simple application with just an index.html file can be

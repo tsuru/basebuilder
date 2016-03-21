@@ -1,19 +1,19 @@
 # Python platform
 
-The Python platform uses python 2.7.x.
+The Python platform uses Python 2.7.x.
 
-##Code deployment
+## Code deployment
 
 If you just run a ``git push``  or ``tsuru app-deploy`` of your code, tsuru will try
 to download all of your depencies using ``requirements.txt`` or ``setup script``.
 You can customize this behavior, see the next section for more details.
 
-##Code deployment with dependencies
+## Code deployment with dependencies
 
 There are two ways to list the applications dependencies: ``requirements.txt`` or ``setup.py``. 
-The priority order is: requirements -> setup. The file should be in the root of deploy files
+The priority order is: requirements -> setup. The file should be in the root of deploy files.
 
-###requirements.txt
+### Using requirements.txt
 
 You can define a file called ``requirements.txt`` that list all pip dependencies of your application,
 each line represents one dependency, here's an example:
@@ -22,7 +22,7 @@ each line represents one dependency, here's an example:
 	Flask==0.10.1
 	gunicorn==19.3.0
 
-###Using setup script
+### Using setup script
 
 You can also define the setup script to list your depencies, here's an example:
 
