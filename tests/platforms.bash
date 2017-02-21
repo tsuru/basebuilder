@@ -93,92 +93,12 @@ function tsuru_login {
 	yes $2 | tsuru login $1
 }
 
-function install_s3cmd() {
-	sudo apt-get install s3cmd python-magic -y
-	cat > /tmp/s3cfg <<END
-[default]
-access_key = ${AWS_ACCESS_KEY}
-bucket_location = US
-cloudfront_host = cloudfront.amazonaws.com
-default_mime_type = binary/octet-stream
-delete_removed = False
-dry_run = False
-enable_multipart = True
-encoding = ANSI_X3.4-1968
-encrypt = False
-follow_symlinks = False
-force = False
-get_continue = False
-gpg_command = /usr/bin/gpg
-gpg_decrypt = %(gpg_command)s -d --verbose --no-use-agent --batch --yes --passphrase-fd %(passphrase_fd)s -o %(output_file)s %(input_file)s
-gpg_encrypt = %(gpg_command)s -c --verbose --no-use-agent --batch --yes --passphrase-fd %(passphrase_fd)s -o %(output_file)s %(input_file)s
-gpg_passphrase =
-guess_mime_type = True
-host_base = s3.amazonaws.com
-host_bucket = %(bucket)s.s3.amazonaws.com
-human_readable_sizes = False
-invalidate_on_cf = False
-list_md5 = False
-log_target_prefix =
-mime_type =
-multipart_chunk_size_mb = 15
-preserve_attrs = True
-progress_meter = True
-proxy_host =
-proxy_port = 0
-recursive = False
-recv_chunk = 4096
-reduced_redundancy = False
-secret_key = ${AWS_SECRET_KEY}
-send_chunk = 4096
-simpledb_host = sdb.amazonaws.com
-skip_existing = False
-socket_timeout = 300
-urlencoding_mode = normal
-use_https = True
-verbosity = WARNING
-website_endpoint = http://%(bucket)s.s3-website-%(location)s.amazonaws.com/
-website_error =
-website_index = index.html
-END
-	sudo mv /tmp/s3cfg ~git/.s3cfg
-}
-
 export DEBIAN_FRONTEND=noninteractive
 sudo -E apt-get install curl -qqy
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 export DOCKER_HOST="tcp://127.0.0.1:4243"
-
-case $1 in
-	post_receive)
-	hook_url="https://raw.github.com/tsuru/tsuru/master/misc/git-hooks/post-receive"
-		hook_name="post-receive"
-		;;
-	pre_receive_swift)
-		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.swift"
-		hook_name="pre-receive"
-		envs=("AUTH_PARAMS=\"${SWIFT_AUTH_PARAMS}\"" "CONTAINER_NAME=${SWIFT_CONTAINER_NAME}" "CDN_URL=${SWIFT_CDN_URL}")
-		;;
-	pre_receive_s3)
-		hook_url="https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.s3cmd"
-		hook_name="pre-receive"
-		envs=("BUCKET_NAME=$S3_BUCKET_NAME")
-		install_s3cmd
-		;;
-esac
-
-if [[ "$1" != "pre_receive_archive" ]]; then
-	echo "Configuring gandalf mode..."
-	hook_dir=/home/git/bare-template/hooks
-	sudo rm -rf $hook_dir
-	sudo mkdir -p $hook_dir
-	sudo curl -sSL ${hook_url} -o ${hook_dir}/${hook_name}
-	sudo chmod +x ${hook_dir}/${hook_name}
-	echo export ${envs[@]} | sudo tee -a ~git/.bash_profile
-	echo "Done configuring gandalf mode!"
-fi
 
 tsuru_login admin@example.com admin123
 
