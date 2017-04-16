@@ -1,0 +1,24 @@
+NameVirtualHost *:8888
+Listen 8888
+
+<VirtualHost *:8888>
+	ServerAdmin webmaster@tsuru
+
+	DocumentRoot /home/application/current
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+		Require all denied
+	</Directory>
+	<Directory /home/application/current/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		Allow from all
+		Require all granted
+	</Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	LogLevel warn
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
